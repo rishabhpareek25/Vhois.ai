@@ -1,7 +1,0 @@
-# SPA routing for React Router (Amplify Hosting)
-applications:
-  - appRoot: /
-    customRules:
-      - source: '/<*>'
-        target: '/index.html'
-        status: '200'

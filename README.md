@@ -28,7 +28,7 @@ Data is stored in SQLite: `data/waitlist.db`
 
 ## Deploy to AWS Amplify (frontend)
 
-Connect GitHub repo in Amplify; `amplify.yml` builds `dist/`. Add SPA rewrite via `customHttp.yml` or console.
+Connect GitHub repo in Amplify; `amplify.yml` builds `dist/`. SPA routing uses `public/_redirects` (or add a rewrite in Amplify Console → Hosting → Rewrites and redirects).
 
 ## Waitlist API on production
 
