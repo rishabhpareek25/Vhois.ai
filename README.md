@@ -34,4 +34,4 @@ Connect GitHub repo in Amplify; `amplify.yml` builds `dist/`. SPA routing uses `
 
 Amplify does not run the Express server. Deploy Lambda + DynamoDB:
 
-See **[docs/DEPLOY_API.md](docs/DEPLOY_API.md)** — then set `VITE_API_BASE_URL` in Amplify environment variables and redeploy.
+See **[docs/DEPLOY_API.md](docs/DEPLOY_API.md)** — deploy API via GitHub Actions, set `WAITLIST_API_URL` in Amplify, redeploy.

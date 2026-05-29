@@ -23,11 +23,15 @@ export type WaitlistEntry = {
   created_at: string;
 };
 
-/** Empty locally (Vite proxy). Set in Amplify: VITE_API_BASE_URL = API Gateway URL */
+/**
+ * Production: set WAITLIST_API_URL in Amplify (proxy via _redirects) and/or
+ * VITE_API_BASE_URL (direct API Gateway). Local dev: leave unset (Vite proxy).
+ */
 const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, "") ?? "";
 
 function apiUrl(path: string) {
-  return `${API_BASE}${path}`;
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return `${API_BASE}${normalized}`;
 }
 
 async function parseApiResponse(res: Response) {
@@ -35,7 +39,7 @@ async function parseApiResponse(res: Response) {
   const contentType = res.headers.get("content-type") ?? "";
   if (!contentType.includes("application/json")) {
     throw new Error(
-      "Waitlist API is not reachable. Deploy the backend (see docs/DEPLOY_API.md) and set VITE_API_BASE_URL in Amplify."
+      "Waitlist API is not configured. Deploy the API and set WAITLIST_API_URL in Amplify (see docs/DEPLOY_API.md)."
     );
   }
   try {
@@ -45,8 +49,23 @@ async function parseApiResponse(res: Response) {
   }
 }
 
+async function apiFetch(path: string, init?: RequestInit) {
+  const res = await fetch(apiUrl(path), {
+    ...init,
+    redirect: "manual",
+  });
+
+  if (res.status === 301 || res.status === 302 || res.status === 307 || res.status === 308) {
+    throw new Error(
+      "API request was redirected. Set WAITLIST_API_URL in Amplify to your API Gateway URL and redeploy."
+    );
+  }
+
+  return res;
+}
+
 export async function submitWaitlist(payload: WaitlistPayload) {
-  const res = await fetch(apiUrl("/api/waitlist"), {
+  const res = await apiFetch("/api/waitlist", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -57,7 +76,7 @@ export async function submitWaitlist(payload: WaitlistPayload) {
 }
 
 export async function fetchWaitlistEntries(adminKey: string) {
-  const res = await fetch(apiUrl("/api/waitlist"), {
+  const res = await apiFetch("/api/waitlist", {
     headers: { "x-admin-key": adminKey },
   });
   const data = await parseApiResponse(res);
@@ -66,7 +85,7 @@ export async function fetchWaitlistEntries(adminKey: string) {
 }
 
 export async function fetchWaitlistStats(adminKey: string) {
-  const res = await fetch(apiUrl("/api/waitlist/stats"), {
+  const res = await apiFetch("/api/waitlist/stats", {
     headers: { "x-admin-key": adminKey },
   });
   const data = await parseApiResponse(res);
