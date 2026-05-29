@@ -12,5 +12,5 @@ capabilities = "CAPABILITY_IAM"
 confirm_changeset = false
 resolve_s3 = true
 s3_prefix = "vhois-waitlist"
-region = "us-east-1"
+region = "ap-south-1"
 parameter_overrides = "AdminSecret=\"vhois-admin-dev\""

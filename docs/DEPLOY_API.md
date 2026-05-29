@@ -16,7 +16,7 @@ Amplify only serves the React app. The waitlist API runs on **Lambda + DynamoDB*
 1. GitHub repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
    - `AWS_ACCESS_KEY_ID`
    - `AWS_SECRET_ACCESS_KEY`
-   - `AWS_REGION` = `us-east-1` (**must match** `infra/samconfig.toml` — stack deploys in `us-east-1`)
+   - `AWS_REGION` = `ap-south-1` (**must match** `infra/samconfig.toml` — Mumbai region)
    - `WAITLIST_ADMIN_SECRET` = strong password for `/admin/waitlist`
 
 2. **IAM permissions for `github-vhois-deploy`** (required for `sam deploy`):
@@ -31,7 +31,7 @@ Amplify only serves the React app. The waitlist API runs on **Lambda + DynamoDB*
 3. **Actions** tab → **Deploy Waitlist API** → **Run workflow**
 
 3. When finished, open the job summary and copy **ApiBaseUrl**, e.g.  
-   `https://abc123.execute-api.us-east-1.amazonaws.com`
+   `https://abc123.execute-api.ap-south-1.amazonaws.com`
 
 ### Option B — AWS CloudShell (browser, no local install)
 
@@ -57,7 +57,7 @@ Copy **ApiBaseUrl** from outputs.
 
 | Variable | Value |
 |----------|--------|
-| `WAITLIST_API_URL` | `https://xxxx.execute-api.us-east-1.amazonaws.com` (no trailing `/`) |
+| `WAITLIST_API_URL` | `https://xxxx.execute-api.ap-south-1.amazonaws.com` (no trailing `/`) |
 
 3. **Deployments** → **Redeploy this version** (required — builds `_redirects` API proxy)
 

@@ -25,7 +25,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           # Must match infra/samconfig.toml region (stack deploy target)
-          aws-region: us-east-1
+          aws-region: ap-south-1
 
       - name: Setup SAM CLI
         uses: aws-actions/setup-sam@v2
@@ -47,7 +47,7 @@ jobs:
         id: api
         working-directory: infra
         env:
-          DEPLOY_REGION: us-east-1
+          DEPLOY_REGION: ap-south-1
         run: |
           URL=$(aws cloudformation describe-stacks \
             --stack-name vhois-waitlist \
