@@ -29,7 +29,7 @@ export default function WaitlistAdmin() {
       sessionStorage.setItem(ADMIN_KEY_STORAGE, adminKey);
       setKey(adminKey);
     } catch {
-      setError("Invalid admin key or API offline. Run: npm run dev:all");
+      setError("Invalid admin key or API unreachable. Use WAITLIST_ADMIN_SECRET from GitHub secrets.");
       setAuthed(false);
     } finally {
       setLoading(false);

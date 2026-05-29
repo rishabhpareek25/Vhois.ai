@@ -1,13 +1,24 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
+/** /admin/waitlist/ → /admin/waitlist so PageRouter matches on Amplify trailing-slash URLs */
+export function normalizePathname(path: string) {
+  if (path.length > 1 && path.endsWith("/")) {
+    return path.slice(0, -1);
+  }
+  return path;
+}
+
 /**
  * Keeps pathname in sync with the browser URL even when router context
  * fails to trigger a re-render (popstate + pushState/replaceState).
  */
 export function usePathname() {
   const location = useLocation();
-  const readPath = useCallback(() => window.location.pathname, []);
+  const readPath = useCallback(
+    () => normalizePathname(window.location.pathname),
+    []
+  );
   const [pathname, setPathname] = useState(readPath);
 
   useEffect(() => {
