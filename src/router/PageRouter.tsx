@@ -10,6 +10,7 @@ import Contact from "../pages/Contact";
 import Waitlist from "../pages/Waitlist";
 import WaitlistAdmin from "../pages/WaitlistAdmin";
 import ComingSoon from "../pages/ComingSoon";
+import ForbiddenProductVault from "../pages/ForbiddenProductVault";
 
 export default function PageRouter() {
   const pathname = usePathname();
@@ -35,6 +36,8 @@ export default function PageRouter() {
       return <Waitlist />;
     case "/coming-soon":
       return <ComingSoon />;
+    case "/the-forbidden-archive":
+      return <ForbiddenProductVault />;
     case "/admin/waitlist":
       return <WaitlistAdmin />;
     default:

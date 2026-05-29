@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Activity, Github, Linkedin, Twitter, Send } from "lucide-react";
+import { Activity, Instagram, Linkedin, Send } from "lucide-react";
 
 const footerLinks = {
   Product: [
@@ -87,15 +87,23 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="flex gap-4 mt-6">
               {[
-                { icon: Twitter, href: "https://twitter.com" },
-                { icon: Github, href: "https://github.com" },
-                { icon: Linkedin, href: "https://linkedin.com" },
-              ].map(({ icon: Icon, href }, index) => (
+                {
+                  icon: Linkedin,
+                  href: "https://www.linkedin.com/company/vhois-ai/",
+                  label: "LinkedIn",
+                },
+                {
+                  icon: Instagram,
+                  href: "https://www.instagram.com/vhoisai/?hl=en",
+                  label: "Instagram",
+                },
+              ].map(({ icon: Icon, href, label }) => (
                 <motion.a
-                  key={index}
+                  key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={label}
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   className="p-2 glass rounded-lg text-void-600 hover:text-platinum transition-colors"
                 >

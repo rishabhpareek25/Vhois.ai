@@ -3,7 +3,6 @@ import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Mic, BarChart3, Shield, Globe, Cpu, ArrowRight, Play } from "lucide-react";
 import Button from "../components/ui/Button";
-import ComingSoonLink from "../components/ComingSoonLink";
 import Card from "../components/ui/Card";
 import HorizontalSpectrumVisualizer from "../components/HorizontalSpectrumVisualizer";
 
@@ -156,12 +155,12 @@ export default function Home() {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
-            <ComingSoonLink feature="Documentation">
+            <Link to="/the-forbidden-archive">
               <Button variant="outline" size="lg" asSpan>
                 <Play className="w-5 h-5 mr-2" />
-                View Documentation
+                Unseal Product Intel
               </Button>
-            </ComingSoonLink>
+            </Link>
           </motion.div>
 
           {/* NEW: Horizontal Spectrum Visualizer - CRAZIEST ELEMENT */}
