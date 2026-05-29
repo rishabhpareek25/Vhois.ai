@@ -25,3 +25,13 @@ npm run dev:all
 **Admin key (dev):** `vhois-admin-dev` (set in `.env` as `ADMIN_SECRET`)
 
 Data is stored in SQLite: `data/waitlist.db`
+
+## Deploy to AWS Amplify (frontend)
+
+Connect GitHub repo in Amplify; `amplify.yml` builds `dist/`. Add SPA rewrite via `customHttp.yml` or console.
+
+## Waitlist API on production
+
+Amplify does not run the Express server. Deploy Lambda + DynamoDB:
+
+See **[docs/DEPLOY_API.md](docs/DEPLOY_API.md)** — then set `VITE_API_BASE_URL` in Amplify environment variables and redeploy.

@@ -15,6 +15,7 @@ const corsOptions = {
     const allowed =
       /^https?:\/\/localhost(:\d+)?$/.test(origin) ||
       /^https:\/\/[\w-]+\.ngrok-free\.dev$/.test(origin) ||
+      /^https:\/\/[\w.-]+\.amplifyapp\.com$/.test(origin) ||
       origin === "https://plunging-backing-margarita.ngrok-free.dev";
     callback(null, allowed);
   },

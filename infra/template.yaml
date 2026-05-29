@@ -1,0 +1,89 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Vhois.ai waitlist API (Lambda + DynamoDB + HTTP API)
+
+Parameters:
+  AdminSecret:
+    Type: String
+    NoEcho: true
+    Default: vhois-admin-dev
+    Description: Admin key for /api/waitlist dashboard routes
+
+Globals:
+  Function:
+    Timeout: 15
+    Runtime: nodejs20.x
+    MemorySize: 256
+
+Resources:
+  WaitlistTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "${AWS::StackName}-waitlist"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+
+  WaitlistHttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: $default
+      CorsConfiguration:
+        AllowOrigins:
+          - "*"
+        AllowHeaders:
+          - Content-Type
+          - x-admin-key
+        AllowMethods:
+          - GET
+          - POST
+          - OPTIONS
+
+  WaitlistFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../lambda/waitlist/
+      Handler: index.handler
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref WaitlistTable
+          ADMIN_SECRET: !Ref AdminSecret
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref WaitlistTable
+      Events:
+        Health:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WaitlistHttpApi
+            Path: /api/health
+            Method: GET
+        PostWaitlist:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WaitlistHttpApi
+            Path: /api/waitlist
+            Method: POST
+        GetWaitlist:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WaitlistHttpApi
+            Path: /api/waitlist
+            Method: GET
+        GetWaitlistStats:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WaitlistHttpApi
+            Path: /api/waitlist/stats
+            Method: GET
+
+Outputs:
+  ApiBaseUrl:
+    Description: Set as VITE_API_BASE_URL in Amplify (no trailing slash)
+    Value: !Sub "https://${WaitlistHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+  WaitlistTableName:
+    Value: !Ref WaitlistTable
