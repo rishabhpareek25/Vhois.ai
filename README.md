@@ -3,7 +3,7 @@
 ## Run Locally (Frontend only)
 
 ```bash
-npm install
+npm install          # installs frontend + server deps (postinstall)
 npm run dev
 ```
 
