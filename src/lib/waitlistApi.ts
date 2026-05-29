@@ -24,8 +24,8 @@ export type WaitlistEntry = {
 };
 
 /**
- * Production: set WAITLIST_API_URL in Amplify (proxy via _redirects) and/or
- * VITE_API_BASE_URL (direct API Gateway). Local dev: leave unset (Vite proxy).
+ * Production: Amplify build sets VITE_API_BASE_URL from WAITLIST_API_URL (.env.production).
+ * Calls API Gateway directly (avoids Amplify 301 on /api proxy). Local: unset → Vite proxy.
  */
 const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, "") ?? "";
 

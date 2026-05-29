@@ -59,12 +59,9 @@ Copy **ApiBaseUrl** from outputs.
 |----------|--------|
 | `WAITLIST_API_URL` | `https://xxxx.execute-api.ap-south-1.amazonaws.com` (no trailing `/`) |
 
-3. **Deployments** → **Redeploy this version** (required — builds `_redirects` API proxy)
+3. **Deployments** → **Redeploy this version** (required)
 
-`amplify.yml` will generate:
-
-- `/api/<*>` → your API (200 rewrite, no 301)
-- `/*` → `index.html` (SPA)
+The build sets `VITE_API_BASE_URL` so the browser calls API Gateway **directly** (fixes POST `/api/waitlist` → 301 on Amplify).
 
 ---
 

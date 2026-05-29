@@ -8,12 +8,12 @@ frontend:
           API_URL="${WAITLIST_API_URL:-$VITE_API_BASE_URL}"
           API_URL="${API_URL%/}"
           if [ -n "$API_URL" ]; then
-            printf '/api/<*>\t%s/api/<*>\t200\n/*\t/index.html\t200\n' "$API_URL" > public/_redirects
-            echo "Waitlist API proxy → $API_URL"
+            echo "VITE_API_BASE_URL=$API_URL" > .env.production
+            echo "Waitlist API (direct): $API_URL"
           else
-            printf '/*\t/index.html\t200\n' > public/_redirects
-            echo "WARNING: Set WAITLIST_API_URL in Amplify env vars after deploying the API (docs/DEPLOY_API.md)"
+            echo "WARNING: Set WAITLIST_API_URL in Amplify env vars (docs/DEPLOY_API.md)"
           fi
+          printf '/*\t/index.html\t200\n' > public/_redirects
     build:
       commands:
         - npm run build
