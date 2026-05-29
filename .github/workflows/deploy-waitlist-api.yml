@@ -24,7 +24,8 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
+          # Must match infra/samconfig.toml region (stack deploy target)
+          aws-region: us-east-1
 
       - name: Setup SAM CLI
         uses: aws-actions/setup-sam@v2
@@ -45,11 +46,18 @@ jobs:
       - name: Output API URL
         id: api
         working-directory: infra
+        env:
+          DEPLOY_REGION: us-east-1
         run: |
           URL=$(aws cloudformation describe-stacks \
             --stack-name vhois-waitlist \
+            --region "$DEPLOY_REGION" \
             --query "Stacks[0].Outputs[?OutputKey=='ApiBaseUrl'].OutputValue" \
             --output text)
+          if [ -z "$URL" ] || [ "$URL" = "None" ]; then
+            echo "Could not read stack output; check region $DEPLOY_REGION"
+            exit 1
+          fi
           echo "api_url=$URL" >> "$GITHUB_OUTPUT"
           echo "## Waitlist API deployed" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"

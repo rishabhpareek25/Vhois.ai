@@ -16,7 +16,7 @@ Amplify only serves the React app. The waitlist API runs on **Lambda + DynamoDB*
 1. GitHub repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
    - `AWS_ACCESS_KEY_ID`
    - `AWS_SECRET_ACCESS_KEY`
-   - `AWS_REGION` = `us-east-1` (or your Amplify region)
+   - `AWS_REGION` = `us-east-1` (**must match** `infra/samconfig.toml` — stack deploys in `us-east-1`)
    - `WAITLIST_ADMIN_SECRET` = strong password for `/admin/waitlist`
 
 2. **IAM permissions for `github-vhois-deploy`** (required for `sam deploy`):
