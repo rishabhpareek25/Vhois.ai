@@ -1,0 +1,273 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS Variables - Monochromatic Theme */
+:root {
+  /* Black spectrum */
+  --color-void: #000000;
+  --color-void-50: #0a0a0a;
+  --color-void-100: #1a1a1a;
+  --color-void-200: #2a2a2a;
+  --color-void-300: #3a3a3a;
+  --color-void-400: #4a4a4a;
+  --color-void-500: #5a5a5a;
+  --color-void-600: #6a6a6a;
+  --color-void-700: #7a7a7a;
+  --color-void-800: #8a8a8a;
+  --color-void-900: #9a9a9a;
+
+  /* Grey spectrum */
+  --color-smoke: #5f5f5f;
+  --color-smoke-light: #8a8a8a;
+  --color-smoke-dark: #2a2a2a;
+  --color-ash: #d4d4d4;
+  --color-ash-light: #e5e5e5;
+  --color-ash-dark: #b8b8b8;
+  --color-silver: #c0c0c0;
+  --color-silver-light: #d1d1d1;
+  --color-silver-dark: #a0a0a0;
+
+  /* White */
+  --color-platinum: #ffffff;
+
+  /* Fonts */
+  --font-mono: 'Space Mono', monospace;
+  --font-sans: 'Inter', sans-serif;
+  --font-code: 'Fira Code', monospace;
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-void);
+  color: var(--color-ash);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar - Sleek Dark Theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-void-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-void-400);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-void-600);
+}
+
+/* Glass morphism utilities - Grey Theme */
+@layer utilities {
+  .glass {
+    background: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-dark {
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .glass-light {
+    background: rgba(42, 42, 42, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Text gradient - Subtle greyscale */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-ash-light), var(--color-white));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-dim {
+    background: linear-gradient(135deg, var(--color-void-700), var(--color-void-900));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Subtle glow effects */
+  .glow-white {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));
+  }
+
+  .glow-subtle {
+    filter: drop-shadow(0 0 12px rgba(160, 160, 160, 0.2));
+  }
+
+  /* Border glow */
+  .border-glow {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05), inset 0 0 10px rgba(255, 255, 255, 0.02);
+  }
+
+  .border-glow-active {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), inset 0 0 15px rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Grid background animation - Subtle */
+.animated-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: grid-shift 25s linear infinite;
+}
+
+@keyframes grid-shift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 60px 60px;
+  }
+}
+
+/* Scanline effect - Subtle white */
+.scanline::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+  animation: scan 4s linear infinite;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Noise overlay - Very subtle */
+.noise::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.015;
+}
+
+/* Gradient border animation - Greyscale */
+.gradient-border {
+  position: relative;
+  background: var(--color-void-100);
+  border-radius: 12px;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(135deg,
+    var(--color-void-300),
+    var(--color-void-600),
+    var(--color-void-300)
+  );
+  background-size: 200% 200%;
+  border-radius: 13px;
+  z-index: -1;
+  animation: gradient-shift 4s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+/* Audio waveform bars */
+.waveform-bar {
+  animation: wave 1.2s ease-in-out infinite;
+}
+
+/* Custom selection color */
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
+}
+
+/* Focus outline - White */
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Morphing blob */
+.morphing-blob {
+  animation: morph 8s ease-in-out infinite;
+}
+
+/* Pulse wave effect */
+.pulse-wave {
+  animation: pulse-wave 2s ease-in-out infinite;
+}
+
+/* Speaker indicator */
+.speaker-indicator {
+  animation: speaker-pulse 3s ease-in-out infinite;
+}
