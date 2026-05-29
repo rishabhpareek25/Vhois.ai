@@ -19,7 +19,16 @@ Amplify only serves the React app. The waitlist API runs on **Lambda + DynamoDB*
    - `AWS_REGION` = `us-east-1` (or your Amplify region)
    - `WAITLIST_ADMIN_SECRET` = strong password for `/admin/waitlist`
 
-2. **Actions** tab → **Deploy Waitlist API** → **Run workflow**
+2. **IAM permissions for `github-vhois-deploy`** (required for `sam deploy`):
+
+   **Easy:** IAM → Users → your user → **Add permissions** → attach **`AdministratorAccess`**.
+
+   **Or minimal:** IAM → **Policies** → **Create policy** → **JSON** → paste contents of  
+   [`infra/iam-github-deploy-policy.json`](../infra/iam-github-deploy-policy.json) → name it `VhoisSamDeploy` → attach to `github-vhois-deploy`.
+
+   If deploy fails with `cloudformation:CreateChangeSet` **AccessDenied**, the user is missing this step.
+
+3. **Actions** tab → **Deploy Waitlist API** → **Run workflow**
 
 3. When finished, open the job summary and copy **ApiBaseUrl**, e.g.  
    `https://abc123.execute-api.us-east-1.amazonaws.com`
