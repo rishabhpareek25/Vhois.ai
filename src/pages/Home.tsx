@@ -1,11 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Mic, BarChart3, Shield, Globe, Cpu, ArrowRight, Play, Eye, Headphones } from "lucide-react";
+import { Mic, BarChart3, Shield, Globe, Cpu, ArrowRight, Eye } from "lucide-react";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import HorizontalSpectrumVisualizer from "../components/HorizontalSpectrumVisualizer";
 import AgentSurveillanceShowcase from "../components/home/AgentSurveillanceShowcase";
+import HeroActionDock from "../components/home/HeroActionDock";
 
 // Animated counter component
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
@@ -151,32 +152,7 @@ export default function Home() {
             of technology.
           </motion.p>
 
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Link to="/waitlist">
-              <Button variant="primary" size="lg">
-                Join Waitlist
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
-            <Link to="/call-center-qa">
-              <Button variant="outline" size="lg" asSpan className="border-red-500/30 hover:border-red-400/50 hover:shadow-[0_0_24px_rgba(239,68,68,0.15)]">
-                <Headphones className="w-5 h-5 mr-2" />
-                Agent Surveillance
-              </Button>
-            </Link>
-            <Link to="/the-forbidden-archive">
-              <Button variant="ghost" size="lg" asSpan>
-                <Play className="w-5 h-5 mr-2" />
-                Unseal Product Intel
-              </Button>
-            </Link>
-          </motion.div>
+          <HeroActionDock />
 
           {/* NEW: Horizontal Spectrum Visualizer - CRAZIEST ELEMENT */}
           <motion.div
