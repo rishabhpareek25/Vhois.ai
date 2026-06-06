@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
@@ -11,6 +12,7 @@ import {
   AlertTriangle,
   Sparkles,
   Lock,
+  Orbit,
 } from "lucide-react";
 import CallWaveCanvas from "./CallWaveCanvas";
 import ModulesArmedPanel from "./ModulesArmedPanel";
@@ -231,8 +233,32 @@ export default function CCValidationExperience() {
               </div>
             ))}
           </div>
-          <p className="text-sm text-ash/60 font-mono">
-            Vhois.ai — 100% call audit intelligence for Indian contact centers
+          <Link to="/" className="inline-block mt-8 group">
+            <motion.div
+              animate={{
+                boxShadow: [
+                  "0 0 0px rgba(255,255,255,0)",
+                  "0 0 40px rgba(255,255,255,0.2)",
+                  "0 0 0px rgba(255,255,255,0)",
+                ],
+              }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+              className="relative overflow-hidden rounded-full border-2 border-platinum/40 bg-gradient-to-r from-void-100 via-platinum/10 to-void-100 px-8 py-4"
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
+                animate={{ x: ["-120%", "220%"] }}
+                transition={{ duration: 2.8, repeat: Infinity, ease: "linear" }}
+              />
+              <span className="relative flex items-center gap-3 font-mono font-bold text-platinum text-sm sm:text-base">
+                <Orbit className="w-5 h-5 animate-spin" style={{ animationDuration: "4s" }} />
+                Escape the Black Box → Vhois Home
+                <Sparkles className="w-4 h-4 text-ash group-hover:text-platinum transition-colors" />
+              </span>
+            </motion.div>
+          </Link>
+          <p className="text-[10px] text-ash/50 font-mono mt-4">
+            You survived the audit. The homepage has more chaos.
           </p>
         </motion.div>
       </div>

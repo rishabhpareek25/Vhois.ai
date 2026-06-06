@@ -52,7 +52,7 @@ export default function HeroActionDock() {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className="w-full max-w-3xl mx-auto"
+      className="w-full max-w-5xl mx-auto"
     >
       <div className="relative rounded-2xl border border-white/10 bg-void-50/50 backdrop-blur-md p-1.5 sm:p-2 overflow-hidden">
         <motion.div
@@ -65,12 +65,12 @@ export default function HeroActionDock() {
           transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
         />
 
-        <div className="relative flex flex-col sm:flex-row gap-1.5 sm:gap-2">
+        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-1.5 sm:gap-2">
           {ACTIONS.map((action, i) => {
             const Icon = action.icon;
             const End = i === 2 ? Play : i === 1 ? FlaskConical : ArrowRight;
             return (
-              <Link key={action.to} to={action.to} className="flex-1 min-w-0 group">
+              <Link key={action.to} to={action.to} className="group">
                 <motion.div
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
@@ -90,18 +90,18 @@ export default function HeroActionDock() {
                   >
                     <Icon className={`w-3.5 h-3.5 ${action.iconColor}`} />
                   </div>
-                  <div className="flex-1 min-w-0 text-left leading-tight">
+                  <div className="flex-1 text-left leading-tight">
                     <span className="text-[8px] font-mono uppercase tracking-widest text-ash/55 block">
                       {action.tag}
                     </span>
-                    <span className="font-mono font-bold text-xs sm:text-sm text-platinum block truncate">
+                    <span className="font-mono font-bold text-xs sm:text-sm text-platinum block whitespace-normal">
                       {action.label}
                     </span>
-                    <span className="text-[9px] font-mono text-ash/45 hidden sm:block truncate">
+                    <span className="text-[9px] font-mono text-ash/45 block">
                       {action.sub}
                     </span>
                   </div>
-                  <End className="w-3 h-3 text-ash/40 group-hover:text-platinum shrink-0 transition-colors" />
+                  <End className="w-3 h-3 text-ash/40 group-hover:text-platinum shrink-0 transition-colors hidden sm:block" />
                 </motion.div>
               </Link>
             );
