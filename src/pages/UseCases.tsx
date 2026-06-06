@@ -1,11 +1,22 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Phone, Heart, Video, Building2, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Phone, Heart, Video, Building2, ArrowRight, CheckCircle2, Headphones } from "lucide-react";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import ComingSoonLink from "../components/ComingSoonLink";
 
 const useCases = [
+  {
+    id: "callcenter",
+    icon: Headphones,
+    title: "Agent Surveillance",
+    challenge: "QA teams review <5% of calls — bad agents and missed sales slip through",
+    solution: "Vhois.ai audits 100% of calls in Hindi, Hinglish & regional languages automatically",
+    results: ["100% call coverage", "Misbehavior detection", "Missed revenue alerts", "Compliance flags"],
+    gradient: "from-red-500 to-orange-500",
+    liveLink: "/call-center-qa",
+  },
   {
     id: "support",
     icon: Phone,
@@ -49,7 +60,7 @@ const useCases = [
 ];
 
 export default function UseCases() {
-  const [activeTab, setActiveTab] = useState("support");
+  const [activeTab, setActiveTab] = useState("callcenter");
 
   const activeCase = useCases.find((uc) => uc.id === activeTab);
 
@@ -131,12 +142,21 @@ export default function UseCases() {
                   </div>
 
                   <div className="mt-8">
-                    <ComingSoonLink feature="Case Study">
-                      <Button variant="primary" asSpan>
-                        View Full Case Study
-                        <ArrowRight className="w-5 h-5 ml-2" />
-                      </Button>
-                    </ComingSoonLink>
+                    {"liveLink" in activeCase && activeCase.liveLink ? (
+                      <Link to={activeCase.liveLink}>
+                        <Button variant="primary" asSpan>
+                          Run Validation Scan
+                          <ArrowRight className="w-5 h-5 ml-2" />
+                        </Button>
+                      </Link>
+                    ) : (
+                      <ComingSoonLink feature="Case Study">
+                        <Button variant="primary" asSpan>
+                          View Full Case Study
+                          <ArrowRight className="w-5 h-5 ml-2" />
+                        </Button>
+                      </ComingSoonLink>
+                    )}
                   </div>
                 </div>
 
@@ -173,29 +193,44 @@ export default function UseCases() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              "Call Centers",
-              "Podcast Transcription",
-              "Voice Assistants",
-              "Meeting Notes",
-              "Accessibility Tools",
-              "Content Creation",
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.5 }}
-                whileHover={{ scale: 1.02 }}
-              >
-                <Card glowColor="purple" className="cursor-pointer hover-lift">
-                  <h3 className="font-mono font-bold text-xl mb-2">{item}</h3>
+              { title: "Call Centers", link: "/call-center-qa", live: true },
+              { title: "Podcast Transcription", link: null, live: false },
+              { title: "Voice Assistants", link: null, live: false },
+              { title: "Meeting Notes", link: null, live: false },
+              { title: "Accessibility Tools", link: null, live: false },
+              { title: "Content Creation", link: null, live: false },
+            ].map((item, index) => {
+              const card = (
+                <Card
+                  glowColor={item.live ? "white" : "purple"}
+                  className={`cursor-pointer hover-lift ${item.live ? "border-red-500/20" : ""}`}
+                >
+                  {item.live && (
+                    <span className="text-[9px] font-mono font-bold uppercase text-red-300 mb-2 inline-block">
+                      ● Live
+                    </span>
+                  )}
+                  <h3 className="font-mono font-bold text-xl mb-2">{item.title}</h3>
                   <p className="text-mist text-sm">
-                    Learn how Vhois.ai powers {item.toLowerCase()} workflows
+                    {item.live
+                      ? "100% call audit for Indian contact centers"
+                      : `Learn how Vhois.ai powers ${item.title.toLowerCase()} workflows`}
                   </p>
                 </Card>
-              </motion.div>
-            ))}
+              );
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05, duration: 0.5 }}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  {item.link ? <Link to={item.link}>{card}</Link> : card}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

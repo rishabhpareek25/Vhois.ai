@@ -13,6 +13,7 @@ import {
   Lock,
 } from "lucide-react";
 import CallWaveCanvas from "./CallWaveCanvas";
+import ModulesArmedPanel from "./ModulesArmedPanel";
 import WaitlistParticleField from "../waitlist/WaitlistParticleField";
 import {
   CC_QUESTIONS,
@@ -63,7 +64,7 @@ export default function CCValidationExperience() {
 
   const manualCoverage = useMemo(() => coverageFromQ6(answers.q6 as string), [answers.q6]);
   const auditCoverage = Math.min(100, manualCoverage + progress * 0.55);
-  const intensity = progress / 100;
+  const intensity = step < 0 ? 0.65 : progress / 100;
   const flagged = currentQ?.id === "q8" || currentQ?.id === "q10" || currentQ?.id === "q11";
 
   useEffect(() => {
@@ -293,25 +294,7 @@ export default function CCValidationExperience() {
           <div className="h-36">
             <CallWaveCanvas intensity={intensity} flagged={flagged} />
           </div>
-          <div className="glass rounded-xl p-4 border border-white/5 space-y-3 text-xs font-mono">
-            <p className="text-ash/50 uppercase tracking-widest">Modules armed</p>
-            {[
-              "Misbehavior detection",
-              "Agreement tracking",
-              "Compliance scripts",
-              "Missed follow-ups",
-              "Objection mining",
-            ].map((m, i) => (
-              <div key={m} className="flex items-center gap-2">
-                <div
-                  className={`w-1.5 h-1.5 rounded-full ${
-                    progress > i * 18 ? "bg-platinum shadow-glow-white" : "bg-void-400"
-                  }`}
-                />
-                <span className={progress > i * 18 ? "text-ash" : "text-ash/30"}>{m}</span>
-              </div>
-            ))}
-          </div>
+          <ModulesArmedPanel progress={progress} introMode={step < 0} />
         </div>
 
         {/* Main stage */}

@@ -1,10 +1,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Mic, BarChart3, Shield, Globe, Cpu, ArrowRight, Play } from "lucide-react";
+import { Mic, BarChart3, Shield, Globe, Cpu, ArrowRight, Play, Eye, Headphones } from "lucide-react";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import HorizontalSpectrumVisualizer from "../components/HorizontalSpectrumVisualizer";
+import AgentSurveillanceShowcase from "../components/home/AgentSurveillanceShowcase";
 
 // Animated counter component
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
@@ -74,6 +75,14 @@ export default function Home() {
   ];
 
   const features = [
+    {
+      icon: Eye,
+      title: "Agent Surveillance",
+      description: "100% call audit for Indian contact centers — misbehavior, compliance, missed revenue",
+      specs: "Hindi · Hinglish · 11+ languages | Live alerts | Pilot ready",
+      priority: true,
+      link: "/call-center-qa",
+    },
     {
       icon: Mic,
       title: "Voice API",
@@ -155,8 +164,14 @@ export default function Home() {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
+            <Link to="/call-center-qa">
+              <Button variant="outline" size="lg" asSpan className="border-red-500/30 hover:border-red-400/50 hover:shadow-[0_0_24px_rgba(239,68,68,0.15)]">
+                <Headphones className="w-5 h-5 mr-2" />
+                Agent Surveillance
+              </Button>
+            </Link>
             <Link to="/the-forbidden-archive">
-              <Button variant="outline" size="lg" asSpan>
+              <Button variant="ghost" size="lg" asSpan>
                 <Play className="w-5 h-5 mr-2" />
                 Unseal Product Intel
               </Button>
@@ -227,6 +242,8 @@ export default function Home() {
         </div>
       </section>
 
+      <AgentSurveillanceShowcase />
+
       {/* Vision Section */}
       <section className="relative py-24 px-6">
         <div className="max-w-7xl mx-auto">
@@ -288,27 +305,65 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.6 }}
-              >
-                <Card glowColor="white" className="h-full relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-platinum opacity-5 rounded-full blur-3xl group-hover:opacity-10 transition-opacity" />
+            {features.map((feature, index) => {
+              const isPriority = "priority" in feature && feature.priority;
+              const inner = (
+                <Card
+                  glowColor="white"
+                  className={`h-full relative overflow-hidden group ${
+                    isPriority
+                      ? "border-red-500/25 shadow-[0_0_40px_rgba(239,68,68,0.08)] hover:shadow-[0_0_50px_rgba(239,68,68,0.14)]"
+                      : ""
+                  }`}
+                >
+                  {isPriority && (
+                    <div className="absolute top-3 right-3 text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-red-500/15 border border-red-500/30 text-red-300">
+                      Live
+                    </div>
+                  )}
+                  <div
+                    className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl group-hover:opacity-10 transition-opacity ${
+                      isPriority ? "bg-red-500 opacity-10" : "bg-platinum opacity-5"
+                    }`}
+                  />
                   <div className="relative z-10">
-                    <div className="p-3 rounded-lg bg-void-100 inline-block mb-4">
-                      <feature.icon className="w-8 h-8 text-platinum" />
+                    <div
+                      className={`p-3 rounded-lg inline-block mb-4 ${
+                        isPriority ? "bg-red-500/10 border border-red-500/20" : "bg-void-100"
+                      }`}
+                    >
+                      <feature.icon className={`w-8 h-8 ${isPriority ? "text-red-300" : "text-platinum"}`} />
                     </div>
                     <h3 className="font-mono font-bold text-xl mb-2 text-platinum">{feature.title}</h3>
                     <p className="text-void-600 mb-4">{feature.description}</p>
                     <div className="text-xs text-void-700 font-mono">{feature.specs}</div>
+                    {isPriority && "link" in feature && (
+                      <p className="mt-4 text-xs font-mono text-platinum flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Run validation scan <ArrowRight className="w-3 h-3" />
+                      </p>
+                    )}
                   </div>
                 </Card>
-              </motion.div>
-            ))}
+              );
+              return (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05, duration: 0.6 }}
+                  className={isPriority ? "md:col-span-2 lg:col-span-1" : ""}
+                >
+                  {"link" in feature && feature.link ? (
+                    <Link to={feature.link} className="block h-full">
+                      {inner}
+                    </Link>
+                  ) : (
+                    inner
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
