@@ -117,7 +117,7 @@ export default function AgentSurveillanceShowcase() {
                 className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.8)]"
               />
               <span className="font-mono text-xs text-platinum font-bold tracking-wider">
-                BLACK BOX · CALL CENTER QA
+                VHois QA Pulse · Call Center Intelligence
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-4 sm:gap-8 font-mono text-xs">

@@ -27,7 +27,7 @@ import { useWaitlistAudio } from "../../hooks/useWaitlistAudio";
 import { submitCCValidation, type CCValidationPayload } from "../../lib/ccValidationApi";
 
 const BOOT_LINES = [
-  "VHois BLACK BOX v2.0 — QA INTELLIGENCE",
+  "VHois QA PULSE v2.0 — CALL CENTER INTELLIGENCE",
   "Loading Hindi / Hinglish / regional acoustic models...",
   "Simulating 100% call audit pipeline...",
   "Agent misbehavior classifiers: ARMED",
@@ -252,7 +252,7 @@ export default function CCValidationExperience() {
               />
               <span className="relative flex items-center gap-3 font-mono font-bold text-platinum text-sm sm:text-base">
                 <Orbit className="w-5 h-5 animate-spin" style={{ animationDuration: "4s" }} />
-                Escape the Black Box → Vhois Home
+                Exit QA Pulse → Vhois Home
                 <Sparkles className="w-4 h-4 text-ash group-hover:text-platinum transition-colors" />
               </span>
             </motion.div>
@@ -277,7 +277,7 @@ export default function CCValidationExperience() {
               <Headphones className="w-4 h-4 text-platinum" />
             </div>
             <div>
-              <p className="text-xs font-mono text-ash/60">VHois BLACK BOX</p>
+              <p className="text-xs font-mono text-ash/60">VHois QA Pulse</p>
               <p className="text-sm font-semibold text-platinum">Contact Center QA Intelligence</p>
             </div>
           </div>

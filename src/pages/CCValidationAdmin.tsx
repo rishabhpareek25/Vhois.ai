@@ -112,7 +112,7 @@ export default function CCValidationAdmin() {
           <div className="flex items-center gap-3">
             <Headphones className="w-10 h-10 text-platinum" />
             <div>
-              <h1 className="font-mono font-bold text-3xl text-platinum">BLACK BOX Admin</h1>
+              <h1 className="font-mono font-bold text-3xl text-platinum">QA Pulse Admin</h1>
               <p className="text-void-600 text-sm">Call center QA validation submissions</p>
             </div>
           </div>
