@@ -206,8 +206,8 @@ export default function UseCases() {
                   className={`cursor-pointer hover-lift ${item.live ? "border-red-500/20" : ""}`}
                 >
                   {item.live && (
-                    <span className="text-[9px] font-mono font-bold uppercase text-red-300 mb-2 inline-block">
-                      ● Live
+                    <span className="text-[9px] font-mono font-bold uppercase text-red-300/90 mb-2 inline-block">
+                      ● PMF Pilot
                     </span>
                   )}
                   <h3 className="font-mono font-bold text-xl mb-2">{item.title}</h3>

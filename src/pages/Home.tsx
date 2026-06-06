@@ -80,7 +80,7 @@ export default function Home() {
       icon: Eye,
       title: "Agent Surveillance",
       description: "100% call audit for Indian contact centers — misbehavior, compliance, missed revenue",
-      specs: "Hindi · Hinglish · 11+ languages | Live alerts | Pilot ready",
+      specs: "Hindi · Hinglish · 11+ languages | PMF validation | 2-min scan",
       priority: true,
       link: "/call-center-qa",
     },
@@ -294,7 +294,7 @@ export default function Home() {
                 >
                   {isPriority && (
                     <div className="absolute top-3 right-3 text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-red-500/15 border border-red-500/30 text-red-300">
-                      Live
+                      VALIDATE
                     </div>
                   )}
                   <div

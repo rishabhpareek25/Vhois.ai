@@ -85,7 +85,7 @@ export default function AgentSurveillanceShowcase() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-500/30 bg-red-500/10 text-red-300 text-xs font-mono mb-6"
           >
             <Eye className="w-3.5 h-3.5" />
-            PRIORITY USE CASE · LIVE NOW
+            PMF VALIDATION · PILOT STAGE
           </motion.div>
           <h2 className="font-mono font-bold text-4xl md:text-6xl lg:text-7xl mb-4 leading-tight">
             <span className="text-gradient">Agent</span>{" "}

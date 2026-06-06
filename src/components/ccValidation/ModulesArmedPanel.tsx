@@ -58,7 +58,7 @@ export default function ModulesArmedPanel({
           transition={{ duration: 2, repeat: Infinity }}
           className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-platinum text-void font-bold"
         >
-          {armedCount}/{MODULES.length} LIVE
+          {armedCount}/{MODULES.length} ARMED
         </motion.span>
       </div>
 
