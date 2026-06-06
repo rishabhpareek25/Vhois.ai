@@ -8,6 +8,7 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 
 const TABLE = process.env.TABLE_NAME;
+const CC_TABLE = process.env.CC_VALIDATION_TABLE_NAME;
 const ADMIN_SECRET = process.env.ADMIN_SECRET || "vhois-admin-dev";
 const COUNTER_KEY = "__counter__";
 
@@ -153,6 +154,73 @@ async function handleGetEntries(adminKey) {
   return json(200, { entries });
 }
 
+async function handleCCValidationPost(body) {
+  const {
+    name,
+    company,
+    role,
+    phone,
+    email,
+    city,
+    answers,
+    pilotReadinessScore,
+    auditCoveragePct,
+  } = body || {};
+
+  if (
+    !name?.trim() ||
+    !company?.trim() ||
+    !role?.trim() ||
+    !phone?.trim() ||
+    !email?.includes("@") ||
+    !city?.trim() ||
+    !answers ||
+    typeof answers !== "object"
+  ) {
+    return json(400, { error: "Missing required fields" });
+  }
+
+  const id = `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+
+  await ddb.send(
+    new PutCommand({
+      TableName: CC_TABLE,
+      Item: {
+        submission_id: id,
+        name: name.trim(),
+        company: company.trim(),
+        role: role.trim(),
+        phone: phone.trim(),
+        email: email.toLowerCase().trim(),
+        city: city.trim(),
+        answers: JSON.stringify(answers),
+        pilot_readiness_score: pilotReadinessScore ?? 0,
+        audit_coverage_pct: auditCoveragePct ?? 0,
+        created_at: new Date().toISOString(),
+      },
+    })
+  );
+
+  return json(201, { id, message: "Validation packet sealed" });
+}
+
+async function handleGetCCValidations(adminKey) {
+  if (adminKey !== ADMIN_SECRET) {
+    return json(401, { error: "Unauthorized" });
+  }
+
+  const res = await ddb.send(new ScanCommand({ TableName: CC_TABLE }));
+  const entries = (res.Items || [])
+    .map((row) => ({
+      ...row,
+      answers:
+        typeof row.answers === "string" ? JSON.parse(row.answers) : row.answers,
+    }))
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+  return json(200, { entries });
+}
+
 async function handleGetStats(adminKey) {
   if (adminKey !== ADMIN_SECRET) {
     return json(401, { error: "Unauthorized" });
@@ -193,6 +261,10 @@ export async function handler(event) {
         return handleGetEntries(adminKey);
       case "GET /api/waitlist/stats":
         return handleGetStats(adminKey);
+      case "POST /api/cc-validation":
+        return handleCCValidationPost(body);
+      case "GET /api/cc-validation":
+        return handleGetCCValidations(adminKey);
       default:
         return json(404, { error: "Not found" });
     }

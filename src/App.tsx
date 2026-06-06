@@ -44,9 +44,12 @@ function ScrollToTop() {
   );
 }
 
+const IMMERSIVE_ROUTES = new Set(["/call-center-qa", "/waitlist", "/the-forbidden-archive"]);
+
 function AppContent() {
   const location = useLocation();
   const pathname = usePathname();
+  const immersive = IMMERSIVE_ROUTES.has(pathname);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -54,11 +57,11 @@ function AppContent() {
 
   return (
     <>
-      <Navigation />
+      {!immersive && <Navigation />}
       <main key={pathname}>
         <PageRouter />
       </main>
-      <Footer />
+      {!immersive && <Footer />}
       <ScrollToTop />
     </>
   );

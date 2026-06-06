@@ -29,6 +29,23 @@ db.exec(`
   );
 
   CREATE INDEX IF NOT EXISTS idx_waitlist_created ON waitlist_entries(created_at DESC);
+
+  CREATE TABLE IF NOT EXISTS cc_validation_entries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    company TEXT NOT NULL,
+    role TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    email TEXT NOT NULL,
+    city TEXT NOT NULL,
+    answers TEXT NOT NULL,
+    pilot_readiness_score INTEGER NOT NULL,
+    audit_coverage_pct INTEGER NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_cc_validation_created ON cc_validation_entries(created_at DESC);
+  CREATE INDEX IF NOT EXISTS idx_cc_validation_email ON cc_validation_entries(email);
 `);
 
 export function insertEntry(entry) {
@@ -64,6 +81,29 @@ export function getEntryByEmail(email) {
   const row = db.prepare(`SELECT * FROM waitlist_entries WHERE email = ?`).get(email);
   if (!row) return null;
   return { ...row, capabilities: JSON.parse(row.capabilities) };
+}
+
+export function insertCCValidation(entry) {
+  const stmt = db.prepare(`
+    INSERT INTO cc_validation_entries (
+      name, company, role, phone, email, city, answers,
+      pilot_readiness_score, audit_coverage_pct
+    ) VALUES (
+      @name, @company, @role, @phone, @email, @city, @answers,
+      @pilot_readiness_score, @audit_coverage_pct
+    )
+  `);
+  return stmt.run(entry);
+}
+
+export function getAllCCValidations() {
+  return db
+    .prepare(`SELECT * FROM cc_validation_entries ORDER BY created_at DESC`)
+    .all()
+    .map((row) => ({
+      ...row,
+      answers: JSON.parse(row.answers),
+    }));
 }
 
 export default db;

@@ -11,6 +11,8 @@ import Waitlist from "../pages/Waitlist";
 import WaitlistAdmin from "../pages/WaitlistAdmin";
 import ComingSoon from "../pages/ComingSoon";
 import ForbiddenProductVault from "../pages/ForbiddenProductVault";
+import CallCenterQAValidation from "../pages/CallCenterQAValidation";
+import CCValidationAdmin from "../pages/CCValidationAdmin";
 
 export default function PageRouter() {
   const pathname = usePathname();
@@ -40,6 +42,10 @@ export default function PageRouter() {
       return <ForbiddenProductVault />;
     case "/admin/waitlist":
       return <WaitlistAdmin />;
+    case "/call-center-qa":
+      return <CallCenterQAValidation />;
+    case "/admin/cc-validation":
+      return <CCValidationAdmin />;
     default:
       return <Home />;
   }

@@ -28,6 +28,18 @@ Resources:
         - AttributeName: email
           KeyType: HASH
 
+  CCValidationTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "${AWS::StackName}-cc-validation"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: submission_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: submission_id
+          KeyType: HASH
+
   WaitlistHttpApi:
     Type: AWS::Serverless::HttpApi
     Properties:
@@ -51,10 +63,13 @@ Resources:
       Environment:
         Variables:
           TABLE_NAME: !Ref WaitlistTable
+          CC_VALIDATION_TABLE_NAME: !Ref CCValidationTable
           ADMIN_SECRET: !Ref AdminSecret
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref WaitlistTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref CCValidationTable
       Events:
         Health:
           Type: HttpApi
@@ -80,6 +95,18 @@ Resources:
             ApiId: !Ref WaitlistHttpApi
             Path: /api/waitlist/stats
             Method: GET
+        PostCCValidation:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WaitlistHttpApi
+            Path: /api/cc-validation
+            Method: POST
+        GetCCValidation:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WaitlistHttpApi
+            Path: /api/cc-validation
+            Method: GET
 
 Outputs:
   ApiBaseUrl:
@@ -87,3 +114,6 @@ Outputs:
     Value: !Sub "https://${WaitlistHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
   WaitlistTableName:
     Value: !Ref WaitlistTable
+  CCValidationTableName:
+    Description: DynamoDB table for /call-center-qa validation submissions
+    Value: !Ref CCValidationTable

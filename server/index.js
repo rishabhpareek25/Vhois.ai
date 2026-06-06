@@ -1,7 +1,14 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { insertEntry, getAllEntries, getStats, getEntryByEmail } from "./db.js";
+import {
+  insertEntry,
+  getAllEntries,
+  getStats,
+  getEntryByEmail,
+  insertCCValidation,
+  getAllCCValidations,
+} from "./db.js";
 
 dotenv.config();
 
@@ -90,6 +97,59 @@ app.get("/api/waitlist", requireAdmin, (_req, res) => {
 
 app.get("/api/waitlist/stats", requireAdmin, (_req, res) => {
   res.json(getStats());
+});
+
+app.post("/api/cc-validation", (req, res) => {
+  try {
+    const {
+      name,
+      company,
+      role,
+      phone,
+      email,
+      city,
+      answers,
+      pilotReadinessScore,
+      auditCoveragePct,
+    } = req.body;
+
+    if (
+      !name?.trim() ||
+      !company?.trim() ||
+      !role?.trim() ||
+      !phone?.trim() ||
+      !email?.includes("@") ||
+      !city?.trim() ||
+      !answers ||
+      typeof answers !== "object"
+    ) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const result = insertCCValidation({
+      name: name.trim(),
+      company: company.trim(),
+      role: role.trim(),
+      phone: phone.trim(),
+      email: email.toLowerCase().trim(),
+      city: city.trim(),
+      answers: JSON.stringify(answers),
+      pilot_readiness_score: pilotReadinessScore ?? 0,
+      audit_coverage_pct: auditCoveragePct ?? 0,
+    });
+
+    res.status(201).json({
+      id: String(result.lastInsertRowid),
+      message: "Validation packet sealed",
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+app.get("/api/cc-validation", requireAdmin, (_req, res) => {
+  res.json({ entries: getAllCCValidations() });
 });
 
 app.listen(PORT, () => {

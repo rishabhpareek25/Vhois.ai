@@ -59,11 +59,31 @@ jobs:
             exit 1
           fi
           echo "api_url=$URL" >> "$GITHUB_OUTPUT"
-          echo "## Waitlist API deployed" >> "$GITHUB_STEP_SUMMARY"
+          CC_TABLE=$(aws cloudformation describe-stacks \
+            --stack-name vhois-waitlist \
+            --region "$DEPLOY_REGION" \
+            --query "Stacks[0].Outputs[?OutputKey=='CCValidationTableName'].OutputValue" \
+            --output text)
+          echo "## API deployed (waitlist + CC validation)" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "**ApiBaseUrl:** \`$URL\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "**CCValidationTable:** \`${CC_TABLE:-pending}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Endpoints:** \`POST /api/waitlist\` · \`POST /api/cc-validation\` · \`GET /api/health\`" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "### Amplify (required)" >> "$GITHUB_STEP_SUMMARY"
           echo "1. Amplify Console → your app → **Environment variables**" >> "$GITHUB_STEP_SUMMARY"
           echo "2. Add \`WAITLIST_API_URL\` = \`$URL\` (no trailing slash)" >> "$GITHUB_STEP_SUMMARY"
           echo "3. **Redeploy** the Amplify app" >> "$GITHUB_STEP_SUMMARY"
+      - name: Verify API routes
+        env:
+          API_URL: ${{ steps.api.outputs.api_url }}
+        run: |
+          curl -sf "$API_URL/api/health"
+          echo ""
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST "$API_URL/api/cc-validation" \
+            -H "Content-Type: application/json" \
+            -d '{}')
+          echo "cc-validation route: HTTP $CODE"
+          test "$CODE" = "400" || test "$CODE" = "201"
