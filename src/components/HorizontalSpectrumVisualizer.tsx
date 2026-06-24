@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 
 export default function HorizontalSpectrumVisualizer() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [canvasHeight, setCanvasHeight] = useState(200);
   const [liveMetrics, setLiveMetrics] = useState({
     confidence: 97.8,
     overlap: 12.4,
@@ -17,7 +19,7 @@ export default function HorizontalSpectrumVisualizer() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const height = 280;
+    const height = canvasHeight;
     const bars = 180;
     let time = 0;
     let frameId = 0;
@@ -30,7 +32,7 @@ export default function HorizontalSpectrumVisualizer() {
 
     const setCanvasWidth = () => {
       const parent = canvas.parentElement;
-      const width = parent?.clientWidth ?? window.innerWidth - 48;
+      const width = parent?.clientWidth ?? window.innerWidth;
       canvas.width = width;
       canvas.height = height;
     };
@@ -218,6 +220,18 @@ export default function HorizontalSpectrumVisualizer() {
       cancelAnimationFrame(frameId);
       window.removeEventListener("resize", handleResize);
     };
+  }, [canvasHeight]);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      const w = window.innerWidth;
+      if (w < 640) setCanvasHeight(160);
+      else if (w < 1024) setCanvasHeight(200);
+      else setCanvasHeight(260);
+    };
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
   useEffect(() => {
@@ -239,44 +253,38 @@ export default function HorizontalSpectrumVisualizer() {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.8, duration: 0.8 }}
-      className="w-full"
+      className="w-full min-w-0"
     >
-      <div className="relative px-6">
-        {/* Label */}
-        <div className="mb-4 flex items-center justify-between">
-          <div>
-            <h3 className="text-sm font-mono text-platinum opacity-70">AUDIO SPECTRUM</h3>
-            <p className="text-xs text-void-600">Real-time voice frequency and speaker diarization</p>
+      <div className="page-bleed min-w-0">
+        <div className="mb-3 sm:mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div className="min-w-0">
+            <h3 className="text-xs sm:text-sm font-mono text-platinum opacity-70">AUDIO SPECTRUM</h3>
+            <p className="text-[11px] sm:text-xs text-void-600 mt-0.5 leading-snug">
+              Real-time voice frequency and speaker diarization
+            </p>
           </div>
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="w-8 h-8 rounded-full border border-platinum/30 flex items-center justify-center"
-          >
-            <div className="w-2 h-2 bg-platinum rounded-full" />
-          </motion.div>
         </div>
 
-        <div className="mb-3 flex flex-wrap items-center gap-2">
+        <div className="mb-3 flex flex-wrap items-center gap-1.5 sm:gap-2">
           {["speaker_labels=true", "overlap_detection=on", "confidence=enabled", "tracks=4"].map((item) => (
             <span
               key={item}
-              className="text-[10px] font-mono px-2 py-1 rounded-md border border-void-300 text-void-600"
+              className="text-[9px] sm:text-[10px] font-mono px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md border border-void-300 text-void-600 whitespace-nowrap"
             >
               {item}
             </span>
           ))}
         </div>
 
-        {/* Canvas container with border */}
         <motion.div
-          whileHover={{ scale: 1.01 }}
-          className="relative border border-void-300 rounded-xl overflow-hidden backdrop-blur-sm"
+          ref={containerRef}
+          whileHover={{ scale: 1.005 }}
+          className="relative border border-void-300 rounded-lg sm:rounded-xl overflow-hidden backdrop-blur-sm min-w-0"
         >
           <canvas
             ref={canvasRef}
-            className="w-full"
-            style={{ height: "280px" }}
+            className="w-full block"
+            style={{ height: `${canvasHeight}px` }}
           />
 
           {/* Animated grid overlay */}
@@ -300,29 +308,34 @@ export default function HorizontalSpectrumVisualizer() {
           />
         </motion.div>
 
-        {/* Stats below */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4"
+          className="mt-4 sm:mt-6 grid grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4 min-w-0"
         >
-          <div className="glass rounded-lg p-4 text-center">
-            <div className="text-xs text-void-600 font-mono mb-2">DIARIZATION CONF</div>
-            <div className="text-xl font-bold text-platinum">{liveMetrics.confidence.toFixed(1)}%</div>
-          </div>
-          <div className="glass rounded-lg p-4 text-center">
-            <div className="text-xs text-void-600 font-mono mb-2">OVERLAP RATIO</div>
-            <div className="text-xl font-bold text-platinum">{liveMetrics.overlap.toFixed(1)}%</div>
-          </div>
-          <div className="glass rounded-lg p-4 text-center">
-            <div className="text-xs text-void-600 font-mono mb-2">ACTIVE SPEAKER</div>
-            <div className="text-xl font-bold text-platinum">{liveMetrics.activeSpeaker.replace("_", " ")}</div>
-          </div>
-          <div className="glass rounded-lg p-4 text-center">
-            <div className="text-xs text-void-600 font-mono mb-2">TURN DURATION</div>
-            <div className="text-xl font-bold text-platinum">{liveMetrics.turnDuration.toFixed(1)}s</div>
-          </div>
+          {(
+            [
+              { label: "DIARIZATION CONF", short: "DIAR CONF", value: `${liveMetrics.confidence.toFixed(1)}%` },
+              { label: "OVERLAP RATIO", short: "OVERLAP", value: `${liveMetrics.overlap.toFixed(1)}%` },
+              {
+                label: "ACTIVE SPEAKER",
+                short: "SPEAKER",
+                value: liveMetrics.activeSpeaker.replace("_", " "),
+              },
+              { label: "TURN DURATION", short: "TURN", value: `${liveMetrics.turnDuration.toFixed(1)}s` },
+            ] as const
+          ).map((metric) => (
+            <div key={metric.label} className="glass rounded-lg p-3 sm:p-4 text-center min-w-0">
+              <div className="text-[9px] sm:text-xs text-void-600 font-mono mb-1 sm:mb-2 leading-tight">
+                <span className="sm:hidden">{metric.short}</span>
+                <span className="hidden sm:inline">{metric.label}</span>
+              </div>
+              <div className="text-base sm:text-lg md:text-xl font-bold text-platinum truncate">
+                {metric.value}
+              </div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </motion.div>

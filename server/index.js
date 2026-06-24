@@ -8,6 +8,8 @@ import {
   getEntryByEmail,
   insertCCValidation,
   getAllCCValidations,
+  insertContactInquiry,
+  getAllContactInquiries,
 } from "./db.js";
 
 dotenv.config();
@@ -23,6 +25,8 @@ const corsOptions = {
       /^https?:\/\/localhost(:\d+)?$/.test(origin) ||
       /^https:\/\/[\w-]+\.ngrok-free\.dev$/.test(origin) ||
       /^https:\/\/[\w.-]+\.amplifyapp\.com$/.test(origin) ||
+      origin === "https://vhoisai.in" ||
+      origin === "https://www.vhoisai.in" ||
       origin === "https://plunging-backing-margarita.ngrok-free.dev";
     callback(null, allowed);
   },
@@ -150,6 +154,38 @@ app.post("/api/cc-validation", (req, res) => {
 
 app.get("/api/cc-validation", requireAdmin, (_req, res) => {
   res.json({ entries: getAllCCValidations() });
+});
+
+app.post("/api/contact", (req, res) => {
+  try {
+    const { name, company, email, phone, role, useCase, message } = req.body;
+
+    if (!name?.trim() || !email?.includes("@") || !useCase?.trim() || !message?.trim()) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const result = insertContactInquiry({
+      name: name.trim(),
+      company: company?.trim() || null,
+      email: email.toLowerCase().trim(),
+      phone: phone?.trim() || null,
+      role: role?.trim() || null,
+      use_case: useCase.trim(),
+      message: message.trim(),
+    });
+
+    res.status(201).json({
+      id: result.lastInsertRowid,
+      message: "Message received",
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+app.get("/api/contact", requireAdmin, (_req, res) => {
+  res.json({ entries: getAllContactInquiries() });
 });
 
 app.listen(PORT, () => {

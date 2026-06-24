@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Server, Cloud, Lock, Code2, Database } from "lucide-react";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
-import ComingSoonLink from "../components/ComingSoonLink";
+import { usePageMeta } from "../hooks/usePageMeta";
+import { COMPANY } from "../data/company";
 
 const architectureLayers = [
   {
@@ -26,9 +28,14 @@ const architectureLayers = [
 ];
 
 export default function Technology() {
+  usePageMeta(
+    "Technology",
+    `${COMPANY.name} engineering — AWS-native speech pipelines built for reliability and scale.`
+  );
+
   return (
-    <div className="min-h-screen pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-6">
+    <div className="min-h-screen pt-28 sm:pt-32 pb-20">
+      <div className="page-bleed">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -175,9 +182,9 @@ export default function Technology() {
               </p>
 
               <div className="grid grid-cols-2 gap-4">
-                {["SOC 2 Type II", "HIPAA", "GDPR", "ISO 27001"].map((cert, i) => (
-                  <div key={i} className="glass px-4 py-3 rounded-lg text-center font-mono text-sm">
-                    {cert}
+                {["Encryption at rest & in transit", "Access controls", "Audit logging", "India data handling"].map((item) => (
+                  <div key={item} className="glass px-4 py-3 rounded-lg text-center font-mono text-sm text-void-600">
+                    {item}
                   </div>
                 ))}
               </div>
@@ -209,14 +216,14 @@ export default function Technology() {
         <div className="text-center">
           <h2 className="font-mono font-bold text-3xl mb-6">Explore the API</h2>
           <p className="text-mist mb-8 max-w-xl mx-auto">
-            Try our API with interactive documentation and code samples in multiple languages
+            API documentation is available during pilot onboarding
           </p>
-          <ComingSoonLink feature="API Documentation">
-            <Button variant="primary" size="lg" asSpan>
+          <Link to="/developers">
+            <Button variant="primary" size="lg">
               <Code2 className="w-5 h-5 mr-2" />
-              View API Documentation
+              Developer platform
             </Button>
-          </ComingSoonLink>
+          </Link>
         </div>
       </div>
     </div>

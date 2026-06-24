@@ -107,6 +107,12 @@ Resources:
             ApiId: !Ref WaitlistHttpApi
             Path: /api/cc-validation
             Method: GET
+        PostContact:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WaitlistHttpApi
+            Path: /api/contact
+            Method: POST
 
 Outputs:
   ApiBaseUrl:

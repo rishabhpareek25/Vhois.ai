@@ -46,6 +46,21 @@ db.exec(`
 
   CREATE INDEX IF NOT EXISTS idx_cc_validation_created ON cc_validation_entries(created_at DESC);
   CREATE INDEX IF NOT EXISTS idx_cc_validation_email ON cc_validation_entries(email);
+
+  CREATE TABLE IF NOT EXISTS contact_inquiries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    company TEXT,
+    email TEXT NOT NULL,
+    phone TEXT,
+    role TEXT,
+    use_case TEXT NOT NULL,
+    message TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_contact_created ON contact_inquiries(created_at DESC);
+  CREATE INDEX IF NOT EXISTS idx_contact_email ON contact_inquiries(email);
 `);
 
 export function insertEntry(entry) {
@@ -104,6 +119,20 @@ export function getAllCCValidations() {
       ...row,
       answers: JSON.parse(row.answers),
     }));
+}
+
+export function insertContactInquiry(entry) {
+  const stmt = db.prepare(`
+    INSERT INTO contact_inquiries (name, company, email, phone, role, use_case, message)
+    VALUES (@name, @company, @email, @phone, @role, @use_case, @message)
+  `);
+  return stmt.run(entry);
+}
+
+export function getAllContactInquiries() {
+  return db
+    .prepare(`SELECT * FROM contact_inquiries ORDER BY created_at DESC`)
+    .all();
 }
 
 export default db;

@@ -1,3 +1,5 @@
+import { apiFetch, parseApiResponse } from "./apiClient";
+
 export type WaitlistPayload = {
   name: string;
   email: string;
@@ -22,47 +24,6 @@ export type WaitlistEntry = {
   queue_position: number;
   created_at: string;
 };
-
-/**
- * Production: Amplify build sets VITE_API_BASE_URL from WAITLIST_API_URL (.env.production).
- * Calls API Gateway directly (avoids Amplify 301 on /api proxy). Local: unset → Vite proxy.
- */
-const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, "") ?? "";
-
-function apiUrl(path: string) {
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `${API_BASE}${normalized}`;
-}
-
-async function parseApiResponse(res: Response) {
-  const text = await res.text();
-  const contentType = res.headers.get("content-type") ?? "";
-  if (!contentType.includes("application/json")) {
-    throw new Error(
-      "Waitlist API is not configured. Deploy the API and set WAITLIST_API_URL in Amplify (see docs/DEPLOY_API.md)."
-    );
-  }
-  try {
-    return JSON.parse(text) as Record<string, unknown>;
-  } catch {
-    throw new Error("Invalid response from waitlist API.");
-  }
-}
-
-async function apiFetch(path: string, init?: RequestInit) {
-  const res = await fetch(apiUrl(path), {
-    ...init,
-    redirect: "manual",
-  });
-
-  if (res.status === 301 || res.status === 302 || res.status === 307 || res.status === 308) {
-    throw new Error(
-      "API request was redirected. Set WAITLIST_API_URL in Amplify to your API Gateway URL and redeploy."
-    );
-  }
-
-  return res;
-}
 
 export async function submitWaitlist(payload: WaitlistPayload) {
   const res = await apiFetch("/api/waitlist", {

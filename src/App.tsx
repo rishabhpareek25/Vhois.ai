@@ -44,7 +44,12 @@ function ScrollToTop() {
   );
 }
 
-const IMMERSIVE_ROUTES = new Set(["/call-center-qa", "/waitlist", "/the-forbidden-archive"]);
+const IMMERSIVE_ROUTES = new Set([
+  "/call-center-qa",
+  "/agent-intelligence",
+  "/waitlist",
+  "/the-forbidden-archive",
+]);
 
 function AppContent() {
   const location = useLocation();
@@ -52,8 +57,19 @@ function AppContent() {
   const immersive = IMMERSIVE_ROUTES.has(pathname);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname, location.pathname]);
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, location.pathname, location.hash]);
+
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.replace("#", "");
+    const t = window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 150);
+    return () => window.clearTimeout(t);
+  }, [location.pathname, location.hash]);
 
   return (
     <>

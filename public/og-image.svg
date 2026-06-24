@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#050506"/>
+  <rect x="80" y="80" width="1040" height="470" rx="24" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+  <text x="120" y="220" fill="#f0f0f2" font-family="system-ui,sans-serif" font-size="56" font-weight="600">Vhois AI</text>
+  <text x="120" y="290" fill="#8a8a94" font-family="system-ui,sans-serif" font-size="28">Conversation intelligence infrastructure</text>
+  <text x="120" y="360" fill="#6b6b75" font-family="monospace" font-size="22">vhoisai.in · info@vhoisai.in</text>
+  <path d="M120 420 L200 340 L280 400 L360 300 L440 380 L520 360 L600 400" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-linecap="round"/>
+</svg>

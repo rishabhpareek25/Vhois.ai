@@ -1,269 +1,367 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Mail, Phone, Clock, Send, CheckCircle, Copy, Globe } from "lucide-react";
-import Card from "../components/ui/Card";
+import {
+  Send,
+  CheckCircle,
+  Linkedin,
+  Instagram,
+  Rocket,
+  Plug,
+  Handshake,
+  MessageCircle,
+} from "lucide-react";
+import { Link } from "react-router-dom";
 import Button from "../components/ui/Button";
+import PageHero from "../components/layout/PageHero";
+import WaitlistParticleField from "../components/waitlist/WaitlistParticleField";
+import { usePageMeta } from "../hooks/usePageMeta";
+import { SOCIAL_LINKS } from "../data/company";
+import CompanyLegalBlock from "../components/layout/CompanyLegalBlock";
+import { submitContact } from "../lib/contactApi";
 
-const offices = [
+const USE_CASES = [
+  "Call Center / Agent Audit",
+  "AI Calling Company",
+  "Enterprise Meetings",
+  "Legal / Courtroom",
+  "Government / Public Meetings",
+  "Partnership",
+  "Other",
+] as const;
+
+const INQUIRY_CARDS = [
   {
-    city: "San Francisco",
-    country: "USA",
-    address: "548 Market St, Suite 500",
-    timezone: "PST (UTC-8)",
-    phone: "+1 (415) 555-0123",
+    icon: Rocket,
+    title: "Free pilot",
+    description: "Evaluate conversation intelligence on your real audio — calls, meetings, or workflows.",
+    cta: "Mention pilot in your message",
   },
   {
-    city: "London",
-    country: "UK",
-    address: "100 Liverpool Street",
-    timezone: "GMT (UTC+0)",
-    phone: "+44 20 7946 0958",
+    icon: Plug,
+    title: "Integration discussion",
+    description: "API, webhooks, CRM, dialer, or internal stack — let's map how Vhois fits.",
+    cta: "Select your use case below",
   },
   {
-    city: "Singapore",
-    country: "Singapore",
-    address: "1 Raffles Place, Tower 2",
-    timezone: "SGT (UTC+8)",
-    phone: "+65 6789 0123",
+    icon: Handshake,
+    title: "Partnership",
+    description: "Technology, channel, or go-to-market collaboration across speech intelligence.",
+    cta: "Choose Partnership in use case",
+  },
+  {
+    icon: MessageCircle,
+    title: "General inquiry",
+    description: "Product questions, media, or anything else — we'll route it to the right person.",
+    cta: "Send us a message",
   },
 ];
 
+const inputClass =
+  "w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.08] text-platinum placeholder:text-void-700 focus:outline-none focus:border-white/25 transition-colors text-sm";
+
 export default function Contact() {
+  usePageMeta(
+    "Contact",
+    "Talk to Vhois AI about call intelligence, meeting intelligence, pilots, integrations, and partnerships."
+  );
+
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     company: "",
-    subject: "",
+    email: "",
+    phone: "",
+    role: "",
+    useCase: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
-  const [copied, setCopied] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-  };
-
-  const handleCopy = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(id);
-    setTimeout(() => setCopied(null), 2000);
+    setSubmitting(true);
+    setError(null);
+    try {
+      await submitContact({
+        name: formData.name,
+        company: formData.company,
+        email: formData.email,
+        phone: formData.phone,
+        role: formData.role,
+        useCase: formData.useCase,
+        message: formData.message,
+      });
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to send message");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h1 className="font-mono font-bold text-5xl md:text-7xl mb-6">
-            Let's <span className="text-gradient">Connect</span>
-          </h1>
-          <p className="text-xl text-mist max-w-3xl mx-auto">
-            Questions? We're here to help. Reach out and we'll get back to you within 24 hours.
-          </p>
-        </motion.div>
+    <div className="relative min-h-screen pt-28 sm:pt-32 pb-20 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none opacity-60">
+        <WaitlistParticleField intensity={0.35} />
+      </div>
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(255,255,255,0.06),transparent)]" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
+      <div className="relative page-bleed">
+        <PageHero
+          eyebrow="Contact"
+          title={
+            <>
+              Let&apos;s talk about the conversations
+              <br />
+              <span className="text-void-600">your business is missing.</span>
+            </>
+          }
+          description="Pilots, integrations, partnerships, or a first conversation about speech intelligence — tell us what you're building and we'll respond thoughtfully."
+        />
+
+        {/* Inquiry cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-14 sm:mb-16">
+          {INQUIRY_CARDS.map((card, i) => (
+            <motion.div
+              key={card.title}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              className="rounded-xl border border-white/[0.08] bg-void-50/40 backdrop-blur-sm p-5 hover:border-white/15 transition-colors"
+            >
+              <card.icon className="w-5 h-5 text-platinum mb-3" strokeWidth={1.5} />
+              <h3 className="font-semibold text-platinum text-sm mb-2">{card.title}</h3>
+              <p className="text-xs text-void-600 leading-relaxed mb-3">{card.description}</p>
+              <p className="text-[10px] font-mono text-void-700 uppercase tracking-wider">
+                {card.cta}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12">
+          {/* Form */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.15 }}
+            className="lg:col-span-3 rounded-2xl border border-white/[0.1] bg-void-50/50 backdrop-blur-md p-6 sm:p-8"
           >
-            <Card glowColor="cyan" className="h-full">
-              {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center justify-center min-h-[500px] text-center"
-                >
-                  <CheckCircle className="w-16 h-16 text-neon-green mb-6" />
-                  <h2 className="font-mono font-bold text-3xl mb-4">Message Sent!</h2>
-                  <p className="text-mist mb-8">
-                    Thank you for reaching out. We'll get back to you within 24 hours.
-                  </p>
-                  <Button variant="primary" onClick={() => setSubmitted(false)}>
-                    Send Another Message
-                  </Button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-mono mb-2">Name *</label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 glass rounded-lg focus:outline-none focus:border-neon-cyan transition-colors"
-                        placeholder="Your name"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-mono mb-2">Email *</label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 glass rounded-lg focus:outline-none focus:border-neon-cyan transition-colors"
-                        placeholder="you@company.com"
-                      />
-                    </div>
-                  </div>
-
+            {submitted ? (
+              <div className="flex flex-col items-center justify-center min-h-[420px] text-center py-8">
+                <CheckCircle className="w-14 h-14 text-platinum mb-5" strokeWidth={1.5} />
+                <h2 className="font-sans font-semibold text-2xl text-platinum mb-3">
+                  Message received
+                </h2>
+                <p className="text-void-600 max-w-md mb-8 leading-relaxed">
+                  Thank you for reaching out. We review every inquiry and will get back to you as
+                  soon as we can.
+                </p>
+                <Button variant="outline" onClick={() => setSubmitted(false)}>
+                  Send another message
+                </Button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-mono mb-2">Company</label>
+                    <label htmlFor="contact-name" className="block text-xs font-mono text-void-600 mb-2">
+                      Name *
+                    </label>
                     <input
+                      id="contact-name"
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className={inputClass}
+                      placeholder="Your name"
+                      autoComplete="name"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-company" className="block text-xs font-mono text-void-600 mb-2">
+                      Company
+                    </label>
+                    <input
+                      id="contact-company"
                       type="text"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full px-4 py-3 glass rounded-lg focus:outline-none focus:border-neon-cyan transition-colors"
-                      placeholder="Your company"
+                      className={inputClass}
+                      placeholder="Company name"
+                      autoComplete="organization"
                     />
                   </div>
+                </div>
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-mono mb-2">Subject *</label>
+                    <label htmlFor="contact-email" className="block text-xs font-mono text-void-600 mb-2">
+                      Email *
+                    </label>
                     <input
-                      type="text"
+                      id="contact-email"
+                      type="email"
                       required
-                      value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full px-4 py-3 glass rounded-lg focus:outline-none focus:border-neon-cyan transition-colors"
-                      placeholder="How can we help?"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className={inputClass}
+                      placeholder="you@company.com"
+                      autoComplete="email"
                     />
                   </div>
-
                   <div>
-                    <label className="block text-sm font-mono mb-2">Message *</label>
-                    <textarea
-                      required
-                      rows={5}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 glass rounded-lg focus:outline-none focus:border-neon-cyan transition-colors resize-none"
-                      placeholder="Tell us more about your project..."
+                    <label htmlFor="contact-phone" className="block text-xs font-mono text-void-600 mb-2">
+                      Phone
+                    </label>
+                    <input
+                      id="contact-phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className={inputClass}
+                      placeholder="+91 ..."
+                      autoComplete="tel"
                     />
-                    <div className="text-xs text-mist mt-1">
-                      {formData.message.length} / 1000 characters
-                    </div>
                   </div>
+                </div>
 
-                  <Button variant="primary" size="lg" className="w-full">
-                    <Send className="w-5 h-5 mr-2" />
-                    Send Message
-                  </Button>
-                </form>
-              )}
-            </Card>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="contact-role" className="block text-xs font-mono text-void-600 mb-2">
+                      Role
+                    </label>
+                    <input
+                      id="contact-role"
+                      type="text"
+                      value={formData.role}
+                      onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                      className={inputClass}
+                      placeholder="e.g. Head of Operations"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-usecase" className="block text-xs font-mono text-void-600 mb-2">
+                      Use case *
+                    </label>
+                    <select
+                      id="contact-usecase"
+                      required
+                      value={formData.useCase}
+                      onChange={(e) => setFormData({ ...formData, useCase: e.target.value })}
+                      className={`${inputClass} appearance-none cursor-pointer`}
+                    >
+                      <option value="" disabled className="bg-void text-void-600">
+                        Select use case
+                      </option>
+                      {USE_CASES.map((uc) => (
+                        <option key={uc} value={uc} className="bg-void text-platinum">
+                          {uc}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="contact-message" className="block text-xs font-mono text-void-600 mb-2">
+                    Message *
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    required
+                    rows={5}
+                    maxLength={2000}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className={`${inputClass} resize-none`}
+                    placeholder="Tell us about your conversations, volume, languages, and what success looks like..."
+                  />
+                  <p className="text-[10px] font-mono text-void-700 mt-1.5">
+                    {formData.message.length} / 2000
+                  </p>
+                </div>
+
+                <Button variant="primary" size="lg" className="w-full sm:w-auto" disabled={submitting} loading={submitting}>
+                  <Send className="w-4 h-4 mr-2" />
+                  Send Message
+                </Button>
+                {error && (
+                  <p className="text-sm text-red-400/90 font-mono mt-2" role="alert">
+                    {error}
+                  </p>
+                )}
+              </form>
+            )}
           </motion.div>
 
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
+          {/* Sidebar */}
+          <motion.aside
+            initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-            className="space-y-8"
+            transition={{ delay: 0.25 }}
+            className="lg:col-span-2 space-y-6"
           >
-            {/* Quick Contact */}
-            <div className="space-y-4">
-              {[
-                {
-                  icon: Mail,
-                  label: "Email",
-                  value: "hello@vhois.ai",
-                  action: "mailto:hello@vhois.ai",
-                  id: "email",
-                },
-                {
-                  icon: Phone,
-                  label: "Phone",
-                  value: "+1 (415) 555-0123",
-                  action: "tel:+14155550123",
-                  id: "phone",
-                },
-                {
-                  icon: Clock,
-                  label: "Support Hours",
-                  value: "24/7 Available",
-                  id: "hours",
-                },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="glass rounded-lg p-4 flex items-center gap-4 hover:border-neon-cyan transition-colors group"
-                >
-                  <div className="p-3 rounded-lg bg-void-100">
-                    <item.icon className="w-6 h-6 text-neon-cyan" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-xs text-mist font-mono">{item.label}</div>
-                    <div className="font-mono font-bold">{item.value}</div>
-                  </div>
-                  {item.action && (
-                    <a
-                      href={item.action}
-                      className="text-neon-cyan hover:text-neon-purple transition-colors"
-                    >
-                      {item.id !== "hours" && (
-                        <button
-                          onClick={() => handleCopy(item.value, item.id)}
-                          className="p-2 rounded-lg hover:bg-void-100 transition-colors"
-                        >
-                          {copied === item.id ? (
-                            <CheckCircle className="w-5 h-5 text-neon-green" />
-                          ) : (
-                            <Copy className="w-5 h-5" />
-                          )}
-                        </button>
-                      )}
-                    </a>
-                  )}
-                </div>
-              ))}
-            </div>
+            <CompanyLegalBlock className="mb-6" compact />
 
-            {/* Office Locations */}
-            <div>
-              <h3 className="font-mono font-bold text-xl mb-6">Our Offices</h3>
-              <div className="space-y-4">
-                {offices.map((office, index) => (
-                  <div
-                    key={index}
-                    className="glass rounded-lg p-4 hover:border-neon-cyan transition-colors"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="p-3 rounded-lg bg-void-100">
-                        <Globe className="w-6 h-6 text-neon-purple" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-mono font-bold text-lg mb-1">
-                          {office.city}, {office.country}
-                        </div>
-                        <div className="text-sm text-mist space-y-1">
-                          <div>{office.address}</div>
-                          <div>{office.timezone}</div>
-                          <a
-                            href={`tel:${office.phone}`}
-                            className="text-neon-cyan hover:text-neon-purple transition-colors"
-                          >
-                            {office.phone}
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            <div className="rounded-2xl border border-white/[0.08] p-6 bg-white/[0.02]">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-void-600 mb-4">
+                Follow Vhois AI
+              </p>
+              <div className="flex gap-3">
+                <a
+                  href={SOCIAL_LINKS.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Vhois AI on LinkedIn"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/[0.08] text-void-600 hover:text-platinum hover:border-white/20 transition-colors text-sm"
+                >
+                  <Linkedin className="w-4 h-4" />
+                  LinkedIn
+                </a>
+                <a
+                  href={SOCIAL_LINKS.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Vhois AI on Instagram"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/[0.08] text-void-600 hover:text-platinum hover:border-white/20 transition-colors text-sm"
+                >
+                  <Instagram className="w-4 h-4" />
+                  Instagram
+                </a>
               </div>
             </div>
-          </motion.div>
+
+            <div className="rounded-2xl border border-white/[0.08] p-6 bg-gradient-to-br from-white/[0.04] to-transparent">
+              <h3 className="font-semibold text-platinum mb-2">Explore first</h3>
+              <p className="text-sm text-void-600 mb-4 leading-relaxed">
+                Not ready to talk? Learn how we turn speech into structured intelligence.
+              </p>
+              <div className="flex flex-col gap-2">
+                <Link
+                  to="/about"
+                  className="text-sm text-platinum hover:underline"
+                >
+                  About Vhois AI →
+                </Link>
+                <Link
+                  to="/agent-intelligence"
+                  className="text-sm text-platinum hover:underline"
+                >
+                  Agent intelligence →
+                </Link>
+                <Link
+                  to="/team"
+                  className="text-sm text-platinum hover:underline"
+                >
+                  Meet the founders →
+                </Link>
+              </div>
+            </div>
+          </motion.aside>
         </div>
       </div>
     </div>

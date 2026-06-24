@@ -1,112 +1,96 @@
-import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, FlaskConical, Headphones, Play, Radio, Skull } from "lucide-react";
+import { ArrowUpRight, Headphones, Layers, Radio } from "lucide-react";
 
-const ACTIONS = [
+const PATHS = [
   {
     to: "/waitlist",
     icon: Radio,
-    code: "01",
-    label: "Join Waitlist",
-    tag: "SIGNAL",
-    sub: "Early access",
-    glow: "rgba(255,255,255,0.2)",
-    border: "border-white/20 hover:border-white/50",
-    bg: "from-white/10 to-transparent",
-    iconBg: "bg-white/10 border-white/25",
-    iconColor: "text-platinum",
+    eyebrow: "Early access",
+    title: "Join the waitlist",
+    description: "Get API access and product updates as we ship.",
+    accent: "from-white/[0.08] via-transparent to-transparent",
+    ring: "group-hover:ring-white/25",
+    iconWrap: "bg-white/[0.06] text-platinum",
   },
   {
-    to: "/call-center-qa",
+    to: "/agent-intelligence",
     icon: Headphones,
-    code: "02",
-    label: "Agent Surveillance",
-    tag: "VALIDATE",
-    sub: "2-min PMF scan",
-    glow: "rgba(239,68,68,0.3)",
-    border: "border-red-500/30 hover:border-red-400/60",
-    bg: "from-red-500/12 to-transparent",
-    iconBg: "bg-red-500/15 border-red-400/35",
-    iconColor: "text-red-300",
-    pulse: true,
+    eyebrow: "For contact centers",
+    title: "Agent Intelligence",
+    description: "100% call audit — see the full product story.",
+    accent: "from-red-500/[0.12] via-transparent to-transparent",
+    ring: "group-hover:ring-red-400/30",
+    iconWrap: "bg-red-500/10 text-red-300",
+    featured: true,
   },
   {
     to: "/the-forbidden-archive",
-    icon: Skull,
-    code: "03",
-    label: "Unseal Intel",
-    tag: "VAULT",
-    sub: "Classified dossiers",
-    glow: "rgba(251,191,36,0.22)",
-    border: "border-amber-500/20 hover:border-amber-400/50",
-    bg: "from-amber-500/8 to-transparent",
-    iconBg: "bg-amber-500/12 border-amber-400/25",
-    iconColor: "text-amber-300",
+    icon: Layers,
+    eyebrow: "Product depth",
+    title: "Explore the stack",
+    description: "See what we're building beyond the landing page.",
+    accent: "from-amber-500/[0.08] via-transparent to-transparent",
+    ring: "group-hover:ring-amber-400/25",
+    iconWrap: "bg-amber-500/10 text-amber-200",
   },
 ] as const;
 
 export default function HeroActionDock() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.5 }}
-      className="w-full max-w-5xl mx-auto"
+      transition={{ delay: 0.45, duration: 0.7 }}
+      className="w-full"
     >
-      <div className="relative rounded-2xl border border-white/10 bg-void-50/50 backdrop-blur-md p-1.5 sm:p-2 overflow-hidden">
-        <motion.div
-          className="absolute inset-0 opacity-[0.07] pointer-events-none"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.4) 2px,rgba(255,255,255,0.4) 3px)",
-          }}
-          animate={{ backgroundPositionY: ["0px", "6px"] }}
-          transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
-        />
+      <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.18em] sm:tracking-[0.22em] text-void-600 mb-4 sm:mb-5 px-0.5">
+        Choose your entry point
+      </p>
 
-        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-1.5 sm:gap-2">
-          {ACTIONS.map((action, i) => {
-            const Icon = action.icon;
-            const End = i === 2 ? Play : i === 1 ? FlaskConical : ArrowRight;
-            return (
-              <Link key={action.to} to={action.to} className="group">
-                <motion.div
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`relative flex items-center gap-2.5 px-3 py-2.5 sm:py-3 rounded-xl border bg-gradient-to-br ${action.bg} ${action.border} transition-shadow group-hover:shadow-[0_0_28px_var(--g)]`}
-                  style={{ "--g": action.glow } as CSSProperties}
+      {/* Stack until xl — 3 cols only when there's room */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-px rounded-xl sm:rounded-2xl overflow-hidden border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm">
+        {PATHS.map((path, i) => {
+          const Icon = path.icon;
+          return (
+            <Link key={path.to} to={path.to} className="group block min-w-0">
+              <motion.div
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.55 + i * 0.08 }}
+                className={`relative flex items-center gap-3 sm:gap-4 px-4 sm:px-5 md:px-6 py-4 sm:py-5 md:py-6 bg-gradient-to-br ${path.accent} transition-colors duration-300 hover:bg-white/[0.04] ring-1 ring-transparent ${path.ring}`}
+              >
+                {"featured" in path && path.featured && (
+                  <span className="absolute top-3 right-3 sm:top-4 sm:right-4 text-[8px] sm:text-[9px] font-mono uppercase tracking-widest text-red-300/80">
+                    Pilot open
+                  </span>
+                )}
+
+                <div
+                  className={`shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl flex items-center justify-center ${path.iconWrap} border border-white/[0.06]`}
                 >
-                  {"pulse" in action && action.pulse && (
-                    <motion.span
-                      className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-red-400"
-                      animate={{ opacity: [1, 0.2, 1], scale: [1, 1.4, 1] }}
-                      transition={{ duration: 1.6, repeat: Infinity }}
-                    />
-                  )}
-                  <span className="text-[9px] font-mono text-ash/40 w-4 shrink-0">{action.code}</span>
-                  <div
-                    className={`shrink-0 w-8 h-8 rounded-lg border flex items-center justify-center ${action.iconBg}`}
-                  >
-                    <Icon className={`w-3.5 h-3.5 ${action.iconColor}`} />
-                  </div>
-                  <div className="flex-1 text-left leading-tight">
-                    <span className="text-[8px] font-mono uppercase tracking-widest text-ash/55 block">
-                      {action.tag}
-                    </span>
-                    <span className="font-mono font-bold text-xs sm:text-sm text-platinum block whitespace-normal">
-                      {action.label}
-                    </span>
-                    <span className="text-[9px] font-mono text-ash/45 block">
-                      {action.sub}
-                    </span>
-                  </div>
-                  <End className="w-3 h-3 text-ash/40 group-hover:text-platinum shrink-0 transition-colors hidden sm:block" />
-                </motion.div>
-              </Link>
-            );
-          })}
-        </div>
+                  <Icon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={1.5} />
+                </div>
+
+                <div className="flex-1 min-w-0 pr-8 sm:pr-10">
+                  <p className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-void-600 mb-0.5 sm:mb-1 truncate">
+                    {path.eyebrow}
+                  </p>
+                  <p className="font-sans font-semibold text-sm sm:text-base md:text-lg text-platinum tracking-tight leading-snug">
+                    {path.title}
+                  </p>
+                  <p className="text-xs sm:text-sm text-void-600 mt-0.5 leading-snug line-clamp-2">
+                    {path.description}
+                  </p>
+                </div>
+
+                <div className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 shrink-0 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/10 text-void-600 transition-all duration-300 group-hover:border-white/30 group-hover:text-platinum">
+                  <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={1.5} />
+                </div>
+              </motion.div>
+            </Link>
+          );
+        })}
       </div>
     </motion.div>
   );

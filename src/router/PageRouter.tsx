@@ -13,6 +13,12 @@ import ComingSoon from "../pages/ComingSoon";
 import ForbiddenProductVault from "../pages/ForbiddenProductVault";
 import CallCenterQAValidation from "../pages/CallCenterQAValidation";
 import CCValidationAdmin from "../pages/CCValidationAdmin";
+import AgentIntelligence from "../pages/AgentIntelligence";
+import About from "../pages/About";
+import Team from "../pages/Team";
+import Privacy from "../pages/Privacy";
+import Terms from "../pages/Terms";
+import NotFound from "../pages/NotFound";
 
 export default function PageRouter() {
   const pathname = usePathname();
@@ -34,6 +40,14 @@ export default function PageRouter() {
       return <Blog />;
     case "/contact":
       return <Contact />;
+    case "/about":
+      return <About />;
+    case "/team":
+      return <Team />;
+    case "/privacy":
+      return <Privacy />;
+    case "/terms":
+      return <Terms />;
     case "/waitlist":
       return <Waitlist />;
     case "/coming-soon":
@@ -44,9 +58,11 @@ export default function PageRouter() {
       return <WaitlistAdmin />;
     case "/call-center-qa":
       return <CallCenterQAValidation />;
+    case "/agent-intelligence":
+      return <AgentIntelligence />;
     case "/admin/cc-validation":
       return <CCValidationAdmin />;
     default:
-      return <Home />;
+      return <NotFound />;
   }
 }

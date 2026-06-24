@@ -1,276 +1,158 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   Mic,
   FileText,
   BarChart3,
-  Code,
-  Zap,
   Shield,
   Globe,
   Cpu,
   Layers,
+  ArrowRight,
 } from "lucide-react";
-import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
-import ComingSoonLink from "../components/ComingSoonLink";
+import { usePageMeta } from "../hooks/usePageMeta";
+import { COMPANY } from "../data/company";
 
 const products = [
   {
     icon: Mic,
-    title: "Voice API",
-    description: "Real-time voice processing with <100ms latency",
-    specs: ["Multi-language", "Custom Models", "Webhook Events"],
-    code: `// Real-time transcription
-const response = await vhois.transcribe({
-  audio: audioStream,
-  language: 'en',
-  model: 'neural-v2'
-});`,
-    color: "cyan" as const,
+    title: "Speech ingestion",
+    description: "Ingest calls, meetings, and uploads — built for noisy Indian audio.",
+    specs: ["Multilingual", "Real-world audio", "Batch & streaming"],
   },
   {
     icon: FileText,
-    title: "Transcription Engine",
-    description: "Industry-leading transcription accuracy",
-    specs: ["Accent Detection", "Speaker Diarization", "Timestamps"],
-    code: `// Advanced features
-const result = await vhois.transcribe({
-  audio: file,
-  features: {
-    diarization: true,
-    timestamps: true,
-    sentiment: true
-  }
-});`,
-    color: "purple" as const,
+    title: "Transcription & diarization",
+    description: "Who spoke, when, and what was said — across Hindi, Hinglish, and regional speech.",
+    specs: ["Speaker attribution", "Timestamps", "Searchable transcripts"],
   },
   {
     icon: BarChart3,
-    title: "Analytics Suite",
-    description: "Real-time insights and performance metrics",
-    specs: ["Live Dashboard", "Custom Reports", "Webhooks"],
-    code: `// Analytics query
-const metrics = await vhois.analytics.query({
-  range: '30d',
-  metrics: ['latency', 'volume', 'accuracy']
-});`,
-    color: "green" as const,
+    title: "Conversation intelligence",
+    description: "QA signals, compliance flags, topics, and actionable insights from spoken data.",
+    specs: ["Agent audit", "Compliance signals", "Exportable reports"],
   },
 ];
 
-const integrations = [
-  "AWS",
-  "Google Cloud",
-  "Azure",
-  "Slack",
-  "Twilio",
-  "Zapier",
-  "Webhooks",
-  "REST API",
+const capabilities = [
+  { icon: Globe, value: "Indian", label: "Languages & accents" },
+  { icon: Cpu, value: "AWS", label: "Cloud-native stack" },
+  { icon: Layers, value: "Pilot", label: "Enterprise deployments" },
+  { icon: Shield, value: "Secure", label: "Encryption & access control" },
 ];
 
-const technicalSpecs = [
-  {
-    icon: Zap,
-    value: "99.99%",
-    label: "SLA Uptime",
-    color: "neon-cyan" as const,
-  },
-  {
-    icon: Globe,
-    value: "<100ms",
-    label: "Global Latency",
-    color: "neon-purple" as const,
-  },
-  {
-    icon: Layers,
-    value: "50+",
-    label: "Languages",
-    color: "neon-green" as const,
-  },
-  {
-    icon: Shield,
-    value: "SOC 2",
-    label: "Certified",
-    color: "neon-cyan" as const,
-  },
-  {
-    icon: Cpu,
-    value: "HIPAA",
-    label: "Compliant",
-    color: "neon-purple" as const,
-  },
-  {
-    icon: Code,
-    value: "Custom",
-    label: "Models",
-    color: "neon-green" as const,
-  },
-];
+const integrations = ["AWS", "REST API", "Webhooks", "CRM (roadmap)", "Dialer (roadmap)"];
 
 export default function Platform() {
-  return (
-    <div className="min-h-screen pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
-        >
-          <h1 className="font-mono font-bold text-5xl md:text-7xl mb-6">
-            The Vhois.ai <span className="text-gradient">Ecosystem</span>
-          </h1>
-          <p className="text-xl text-mist max-w-3xl mx-auto">
-            A complete suite of AI-powered voice products, designed for developers and
-            enterprises building the future of communication.
-          </p>
-        </motion.div>
+  usePageMeta(
+    "Platform",
+    `${COMPANY.name} platform — speech ingestion, transcription, and conversation intelligence for enterprise workflows.`
+  );
 
-        {/* Product Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
-          {products.map((product, index) => (
+  return (
+    <div className="min-h-screen pt-28 sm:pt-32 pb-20">
+      <div className="page-bleed">
+        <motion.header
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16 sm:mb-20 max-w-4xl mx-auto"
+        >
+          <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-void-600 mb-4">Platform</p>
+          <h1 className="font-sans font-semibold text-3xl sm:text-5xl md:text-6xl text-platinum tracking-tight mb-5">
+            Conversation intelligence
+            <br />
+            <span className="text-void-600">infrastructure.</span>
+          </h1>
+          <p className="text-void-600 text-lg leading-relaxed">{COMPANY.description}</p>
+        </motion.header>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-20">
+          {products.map((product, i) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
+              key={product.title}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
+              transition={{ delay: i * 0.06 }}
+              className="rounded-2xl border border-white/[0.08] bg-void-50/40 p-7 flex flex-col"
             >
-              <Card glowColor={product.color} className="h-full flex flex-col">
-                <div className="relative z-10 flex-1 flex flex-col">
-                  {/* Icon */}
-                  <div className="p-4 rounded-xl bg-void-100 inline-block mb-6 w-fit">
-                    <product.icon
-                      className={`w-10 h-10 ${
-                        product.color === "cyan"
-                          ? "text-neon-cyan"
-                          : product.color === "purple"
-                          ? "text-neon-purple"
-                          : "text-neon-green"
-                      }`}
-                    />
-                  </div>
-
-                  {/* Title & Description */}
-                  <h3 className="font-mono font-bold text-2xl mb-3">{product.title}</h3>
-                  <p className="text-mist mb-4">{product.description}</p>
-
-                  {/* Specs */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {product.specs.map((spec, i) => (
-                      <span
-                        key={i}
-                        className="text-xs font-mono px-3 py-1 bg-void-100 rounded-full text-mist border border-void-300"
-                      >
-                        {spec}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Code Preview */}
-                  <div className="glass rounded-lg p-4 font-code text-xs mb-6 flex-1">
-                    <pre className="text-neon-cyan overflow-x-auto">
-                      <code>{product.code}</code>
-                    </pre>
-                  </div>
-
-                  {/* CTA */}
-                  <ComingSoonLink feature={product.title}>
-                    <Button
-                      variant={product.color === "cyan" ? "primary" : "neon"}
-                      className="w-full"
-                      asSpan
-                    >
-                      Explore API
-                    </Button>
-                  </ComingSoonLink>
-                </div>
-              </Card>
+              <div className="p-3 rounded-lg bg-white/[0.04] w-fit mb-5">
+                <product.icon className="w-7 h-7 text-platinum" strokeWidth={1.5} />
+              </div>
+              <h3 className="font-semibold text-xl text-platinum mb-2">{product.title}</h3>
+              <p className="text-sm text-void-600 leading-relaxed mb-5 flex-1">{product.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {product.specs.map((spec) => (
+                  <span
+                    key={spec}
+                    className="text-[10px] font-mono px-2.5 py-1 rounded-full border border-white/[0.08] text-void-600"
+                  >
+                    {spec}
+                  </span>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Technical Specs Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+        <motion.section
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-24"
+          className="mb-20"
         >
-          <h2 className="font-mono font-bold text-3xl md:text-4xl text-center mb-12">
-            Enterprise-Grade <span className="text-gradient">Infrastructure</span>
+          <h2 className="font-sans font-semibold text-2xl text-platinum text-center mb-10">
+            Built for production workloads
           </h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {technicalSpecs.map((spec, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.5 }}
-                className="glass rounded-xl p-6 text-center relative overflow-hidden group"
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {capabilities.map((spec) => (
+              <div
+                key={spec.label}
+                className="rounded-xl border border-white/[0.08] p-6 text-center bg-white/[0.02]"
               >
-                <div
-                  className={`absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity`}
-                  style={{
-                    background: `radial-gradient(circle at center, var(--${spec.color}), transparent)`,
-                  }}
-                />
-                <div className="relative z-10">
-                  <spec.icon className={`w-8 h-8 mx-auto mb-3 text-${spec.color}`} />
-                  <div className="font-mono font-bold text-2xl mb-1">{spec.value}</div>
-                  <div className="text-mist text-sm">{spec.label}</div>
-                </div>
-              </motion.div>
+                <spec.icon className="w-6 h-6 text-platinum mx-auto mb-3" strokeWidth={1.5} />
+                <div className="font-mono font-bold text-xl text-platinum mb-1">{spec.value}</div>
+                <div className="text-xs text-void-600">{spec.label}</div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </motion.section>
 
-        {/* Integrations */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+        <motion.section
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-dark rounded-2xl p-12 relative overflow-hidden"
+          className="rounded-2xl border border-white/[0.08] p-8 sm:p-12 text-center mb-16"
         >
-          <div className="absolute inset-0 opacity-30">
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(circle at 30% 50%, rgba(0, 240, 255, 0.1), transparent 60%), radial-gradient(circle at 70% 50%, rgba(180, 0, 255, 0.1), transparent 60%)",
-              }}
-            />
+          <h2 className="font-sans font-semibold text-2xl text-platinum mb-4">Integrations</h2>
+          <p className="text-void-600 mb-8 max-w-xl mx-auto">
+            Deploy on AWS today. CRM, dialer, and webhook integrations scoped per pilot.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3 mb-10">
+            {integrations.map((name) => (
+              <span
+                key={name}
+                className="px-4 py-2 rounded-lg border border-white/[0.08] font-mono text-sm text-void-600"
+              >
+                {name}
+              </span>
+            ))}
           </div>
-
-          <div className="relative z-10 text-center">
-            <h2 className="font-mono font-bold text-3xl md:text-4xl mb-4">
-              Seamless <span className="text-gradient">Integrations</span>
-            </h2>
-            <p className="text-mist mb-8 max-w-xl mx-auto">
-              Connect with your favorite tools and services in minutes
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-4">
-              {integrations.map((integration, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05, duration: 0.5 }}
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  className="glass px-6 py-3 rounded-lg font-mono text-sm hover:border-neon-cyan transition-all cursor-pointer"
-                >
-                  {integration}
-                </motion.div>
-              ))}
-            </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link to="/agent-intelligence">
+              <Button variant="primary" size="md">
+                Agent intelligence
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button variant="outline" size="md">
+                Discuss integration
+              </Button>
+            </Link>
           </div>
-        </motion.div>
+        </motion.section>
       </div>
     </div>
   );

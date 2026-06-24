@@ -1,131 +1,87 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Activity, Instagram, Linkedin, Send } from "lucide-react";
+import { Instagram, Linkedin, Mail } from "lucide-react";
+import { COMPANY, SOCIAL_LINKS } from "../data/company";
+import AudioWaveformLogo from "./AudioWaveformLogo";
 
 const footerLinks = {
   Product: [
-    { name: "Features", path: "/platform" },
+    { name: "Platform", path: "/platform" },
+    { name: "Use Cases", path: "/use-cases" },
+    { name: "Agent Intelligence", path: "/agent-intelligence" },
     { name: "Pricing", path: "/pricing" },
-    { name: "API Reference", path: "/developers" },
-    { name: "Changelog", path: "/blog" },
   ],
   Company: [
-    { name: "About Us", path: "/" },
-    { name: "Blog", path: "/blog" },
-    { name: "Careers", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Team", path: "/team" },
     { name: "Contact", path: "/contact" },
+    { name: "Waitlist", path: "/waitlist" },
   ],
   Resources: [
-    { name: "Documentation", path: "/developers" },
-    { name: "API Status", path: "/" },
-    { name: "Support", path: "/contact" },
-    { name: "Community", path: "/" },
+    { name: "Technology", path: "/technology" },
+    { name: "Developers", path: "/developers" },
+    { name: "Insights", path: "/blog" },
   ],
   Legal: [
-    { name: "Privacy Policy", path: "/" },
-    { name: "Terms of Service", path: "/" },
-    { name: "Cookie Policy", path: "/" },
-    { name: "GDPR", path: "/" },
+    { name: "Privacy", path: "/privacy" },
+    { name: "Terms", path: "/terms" },
   ],
 };
 
 export default function Footer() {
   return (
-    <footer className="relative mt-32 glass-dark overflow-hidden">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(circle at 20% 50%, rgba(100, 100, 100, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(80, 80, 80, 0.1) 0%, transparent 50%)",
-          }}
-        />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
-          {/* Brand Column */}
+    <footer className="relative mt-16 sm:mt-20 border-t border-white/[0.06]">
+      <div className="page-bleed py-12 sm:py-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-8">
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-3 mb-6 group">
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                className="relative w-10 h-10"
-              >
-                <div className="absolute inset-0 bg-void-300 rounded-lg opacity-30 group-hover:opacity-50 transition-opacity" />
-                <Activity className="w-10 h-10 text-platinum relative z-10" />
-              </motion.div>
-              <div className="flex flex-col">
-                <span className="font-mono font-bold text-2xl text-platinum">Vhois.ai</span>
-                <span className="text-xs text-void-600">VOICE INTELLIGENCE</span>
+            <Link to="/" className="inline-flex items-center gap-3 mb-4">
+              <AudioWaveformLogo />
+              <div className="flex flex-col leading-none">
+                <span className="font-mono font-bold text-lg text-platinum">{COMPANY.name}</span>
+                <span className="text-[10px] text-void-600 font-mono mt-1">{COMPANY.domain}</span>
               </div>
             </Link>
-            <p className="text-void-600 text-sm mb-6 max-w-sm">
-              Enterprise-grade AI infrastructure for voice processing. Engineered for the future
-              of technology.
+            <p className="text-void-600 text-sm mb-4 max-w-sm leading-relaxed">
+              {COMPANY.description}
             </p>
-
-            {/* Newsletter */}
-            <div className="glass p-4 rounded-lg">
-              <p className="text-sm font-semibold mb-3 text-platinum">Stay Updated</p>
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-2 bg-void-50 border border-void-300 rounded-lg text-sm focus:outline-none focus:border-void-600 transition-colors text-platinum"
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 py-2 bg-platinum text-void rounded-lg hover:shadow-glow-white transition-all"
-                >
-                  <Send className="w-5 h-5" />
-                </motion.button>
-              </div>
-            </div>
-
-            {/* Social Icons */}
-            <div className="flex gap-4 mt-6">
+            <a
+              href={`mailto:${COMPANY.email}`}
+              className="inline-flex items-center gap-2 text-sm text-void-600 hover:text-platinum transition-colors font-mono"
+            >
+              <Mail className="w-4 h-4" strokeWidth={1.5} />
+              {COMPANY.email}
+            </a>
+            <div className="flex gap-2.5 mt-4">
               {[
-                {
-                  icon: Linkedin,
-                  href: "https://www.linkedin.com/company/vhois-ai/",
-                  label: "LinkedIn",
-                },
-                {
-                  icon: Instagram,
-                  href: "https://www.instagram.com/vhoisai/?hl=en",
-                  label: "Instagram",
-                },
+                { icon: Linkedin, href: SOCIAL_LINKS.linkedin, label: "LinkedIn" },
+                { icon: Instagram, href: SOCIAL_LINKS.instagram, label: "Instagram" },
               ].map(({ icon: Icon, href, label }) => (
-                <motion.a
+                <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  className="p-2 glass rounded-lg text-void-600 hover:text-platinum transition-colors"
+                  className="p-2 rounded-lg border border-white/[0.08] text-void-600 hover:text-platinum hover:border-white/20 transition-colors"
                 >
-                  <Icon className="w-5 h-5" />
-                </motion.a>
+                  <Icon className="w-4 h-4" />
+                </a>
               ))}
             </div>
           </div>
 
-          {/* Link Columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h3 className="font-mono font-bold text-sm mb-4 text-platinum">{category}</h3>
+              <h3 className="font-mono text-[10px] uppercase tracking-widest mb-3 text-void-600">
+                {category}
+              </h3>
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.name}>
                     <Link
                       to={link.path}
-                      className="text-sm text-void-600 hover:text-platinum transition-colors relative group"
+                      className="text-sm text-void-600 hover:text-platinum transition-colors"
                     >
-                      <span>{link.name}</span>
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-platinum group-hover:w-full transition-all duration-300" />
+                      {link.name}
                     </Link>
                   </li>
                 ))}
@@ -134,25 +90,12 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-void-300">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-void-600">
-              © {new Date().getFullYear()} Vhois.ai. All rights reserved.
-            </p>
-            <div className="flex items-center gap-6">
-              <a href="#" className="text-xs text-void-600 hover:text-platinum transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-xs text-void-600 hover:text-platinum transition-colors">
-                Terms of Service
-              </a>
-              <a href="#" className="text-xs text-void-600 hover:text-platinum transition-colors">
-                Cookies
-              </a>
-            </div>
-          </div>
-        </div>
+        <p className="mt-10 pt-6 border-t border-white/[0.06] text-xs text-void-700 text-center sm:text-left">
+          © {new Date().getFullYear()} {COMPANY.legalName} · {COMPANY.jurisdiction} ·{" "}
+          <a href={COMPANY.website} className="hover:text-platinum transition-colors font-mono">
+            {COMPANY.domain}
+          </a>
+        </p>
       </div>
     </footer>
   );

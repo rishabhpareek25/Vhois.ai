@@ -1,32 +1,4 @@
-const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, "") ?? "";
-
-function apiUrl(path: string) {
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `${API_BASE}${normalized}`;
-}
-
-async function parseApiResponse(res: Response) {
-  const text = await res.text();
-  const contentType = res.headers.get("content-type") ?? "";
-  if (!contentType.includes("application/json")) {
-    throw new Error(
-      "Validation API is not configured. Deploy the API and set WAITLIST_API_URL in Amplify."
-    );
-  }
-  try {
-    return JSON.parse(text) as Record<string, unknown>;
-  } catch {
-    throw new Error("Invalid response from validation API.");
-  }
-}
-
-async function apiFetch(path: string, init?: RequestInit) {
-  const res = await fetch(apiUrl(path), { ...init, redirect: "manual" });
-  if ([301, 302, 307, 308].includes(res.status)) {
-    throw new Error("API request was redirected. Check WAITLIST_API_URL in Amplify.");
-  }
-  return res;
-}
+import { apiFetch, parseApiResponse } from "./apiClient";
 
 export type CCValidationPayload = {
   name: string;

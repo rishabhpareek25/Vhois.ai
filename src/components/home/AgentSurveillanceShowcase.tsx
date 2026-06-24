@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Headphones,
   Eye,
   AlertTriangle,
   Shield,
@@ -67,11 +66,11 @@ export default function AgentSurveillanceShowcase() {
   };
 
   return (
-    <section className="relative py-28 px-6 overflow-hidden">
+    <section id="agent-surveillance" className="relative py-16 sm:py-24 md:py-28 overflow-hidden scroll-mt-24">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,60,60,0.06),transparent_60%)] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(255,255,255,0.03),transparent_70%)] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative">
+      <div className="page-bleed relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -263,20 +262,27 @@ export default function AgentSurveillanceShowcase() {
             ))}
           </div>
 
-          <Link to="/call-center-qa">
-            <Button variant="primary" size="lg" className="group relative overflow-hidden">
-              <motion.span
-                className="absolute inset-0 bg-gradient-to-r from-red-500/20 via-white/10 to-red-500/20"
-                animate={{ x: ["-100%", "100%"] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              />
-              <span className="relative flex items-center gap-2">
-                <Zap className="w-5 h-5" />
-                Run Validation Scan — 2 min
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </span>
-            </Button>
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-2">
+            <Link to="/agent-intelligence">
+              <Button variant="primary" size="lg" className="group relative overflow-hidden">
+                <motion.span
+                  className="absolute inset-0 bg-gradient-to-r from-red-500/20 via-white/10 to-red-500/20"
+                  animate={{ x: ["-100%", "100%"] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                />
+                <span className="relative flex items-center gap-2">
+                  <Zap className="w-5 h-5" />
+                  Explore Agent Intelligence
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </Button>
+            </Link>
+            <Link to="/call-center-qa">
+              <Button variant="outline" size="lg">
+                Free call audit — 2 min
+              </Button>
+            </Link>
+          </div>
           <p className="text-[10px] font-mono text-void-700 mt-4">
             For Indian call centers · Pilot-ready · Share with your QA team
           </p>

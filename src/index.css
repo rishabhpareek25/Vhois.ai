@@ -99,7 +99,7 @@ body {
 
   /* Text gradient - Subtle greyscale */
   .text-gradient {
-    background: linear-gradient(135deg, var(--color-ash-light), var(--color-white));
+    background: linear-gradient(135deg, var(--color-ash-light), var(--color-platinum));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -130,6 +130,21 @@ body {
   .border-glow-active {
     border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), inset 0 0 15px rgba(255, 255, 255, 0.05);
+  }
+
+  /* Consistent page gutters — one max-width + fluid padding sitewide */
+  .page-bleed {
+    width: 100%;
+    max-width: 80rem; /* 1280px — aligns nav, hero, sections, footer */
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4.5vw, 2.5rem);
+  }
+
+  .page-bleed-narrow {
+    width: 100%;
+    max-width: 48rem;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4.5vw, 2.5rem);
   }
 }
 
@@ -237,7 +252,7 @@ body {
 /* Custom selection color */
 ::selection {
   background: rgba(255, 255, 255, 0.2);
-  color: var(--color-white);
+  color: var(--color-platinum);
 }
 
 /* Focus outline - White */
@@ -270,4 +285,12 @@ body {
 /* Speaker indicator */
 .speaker-indicator {
   animation: speaker-pulse 3s ease-in-out infinite;
+}
+
+/* Legal document prose */
+.prose-legal ul {
+  margin-top: 0.75rem;
+}
+.prose-legal strong {
+  font-weight: 600;
 }

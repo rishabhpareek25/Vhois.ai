@@ -242,6 +242,37 @@ async function handleGetStats(adminKey) {
   });
 }
 
+async function handleContactPost(body) {
+  const { name, company, email, phone, role, useCase, message } = body || {};
+
+  if (!name?.trim() || !email?.includes("@") || !useCase?.trim() || !message?.trim()) {
+    return json(400, { error: "Missing required fields" });
+  }
+
+  const id = `contact-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+
+  await ddb.send(
+    new PutCommand({
+      TableName: TABLE,
+      Item: {
+        email: id,
+        id,
+        record_type: "contact_inquiry",
+        name: name.trim(),
+        company: company?.trim() || null,
+        contact_email: email.toLowerCase().trim(),
+        phone: phone?.trim() || null,
+        role: role?.trim() || null,
+        use_case: useCase.trim(),
+        message: message.trim(),
+        created_at: new Date().toISOString(),
+      },
+    })
+  );
+
+  return json(201, { id, message: "Message received" });
+}
+
 export async function handler(event) {
   if (event.requestContext?.http?.method === "OPTIONS") {
     return { statusCode: 204, headers: corsHeaders, body: "" };
@@ -265,6 +296,8 @@ export async function handler(event) {
         return handleCCValidationPost(body);
       case "GET /api/cc-validation":
         return handleGetCCValidations(adminKey);
+      case "POST /api/contact":
+        return handleContactPost(body);
       default:
         return json(404, { error: "Not found" });
     }
