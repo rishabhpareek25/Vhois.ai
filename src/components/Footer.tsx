@@ -29,7 +29,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="relative mt-16 sm:mt-20 border-t border-white/[0.06]">
+    <footer className="relative mt-8 sm:mt-10 border-t border-white/[0.06]">
       <div className="page-bleed py-12 sm:py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-8">
           <div className="lg:col-span-2">
@@ -40,14 +40,11 @@ export default function Footer() {
                 <span className="text-[10px] text-void-600 font-mono mt-1">{COMPANY.domain}</span>
               </div>
             </Link>
-            <p className="text-void-600 text-sm mb-4 max-w-sm leading-relaxed">
+            <p className="text-secondary text-sm mb-4 max-w-sm leading-relaxed">
               {COMPANY.description}
             </p>
-            <a
-              href={`mailto:${COMPANY.email}`}
-              className="inline-flex items-center gap-2 text-sm text-void-600 hover:text-platinum transition-colors font-mono"
-            >
-              <Mail className="w-4 h-4" strokeWidth={1.5} />
+            <a href={`mailto:${COMPANY.email}`} className="link-email inline-flex items-center gap-2">
+              <Mail className="w-4 h-4 text-tertiary shrink-0" strokeWidth={1.5} />
               {COMPANY.email}
             </a>
             <div className="flex gap-2.5 mt-4">

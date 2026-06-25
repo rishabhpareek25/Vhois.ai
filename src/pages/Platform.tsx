@@ -18,13 +18,13 @@ const products = [
   {
     icon: Mic,
     title: "Speech ingestion",
-    description: "Ingest calls, meetings, and uploads — built for noisy Indian audio.",
+    description: "Ingest calls, meetings, and uploads, built for noisy Indian audio.",
     specs: ["Multilingual", "Real-world audio", "Batch & streaming"],
   },
   {
     icon: FileText,
     title: "Transcription & diarization",
-    description: "Who spoke, when, and what was said — across Hindi, Hinglish, and regional speech.",
+    description: "Who spoke, when, and what was said, across Hindi, Hinglish, and regional speech.",
     specs: ["Speaker attribution", "Timestamps", "Searchable transcripts"],
   },
   {
@@ -47,7 +47,7 @@ const integrations = ["AWS", "REST API", "Webhooks", "CRM (roadmap)", "Dialer (r
 export default function Platform() {
   usePageMeta(
     "Platform",
-    `${COMPANY.name} platform — speech ingestion, transcription, and conversation intelligence for enterprise workflows.`
+    `${COMPANY.name} platform, speech ingestion, transcription, and conversation intelligence for enterprise workflows.`
   );
 
   return (

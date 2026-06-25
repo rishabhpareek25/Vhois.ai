@@ -5,7 +5,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 import { COMPANY } from "../data/company";
 
 export default function NotFound() {
-  usePageMeta("Page not found", `${COMPANY.name} — the page you requested could not be found.`);
+  usePageMeta("Page not found", `${COMPANY.name}, the page you requested could not be found.`);
 
   return (
     <div className="min-h-screen pt-32 pb-24 flex items-center justify-center page-bleed">

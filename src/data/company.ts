@@ -7,10 +7,10 @@ export const COMPANY = {
   email: "info@vhoisai.in",
   tagline: "Conversation intelligence infrastructure",
   description:
-    "Vhois AI builds conversation intelligence infrastructure for real-world speech — making calls, meetings, and spoken workflows searchable, auditable, and actionable across Indian languages.",
+    "Vhois AI builds conversation intelligence infrastructure for real-world speech, making calls, meetings, and spoken workflows searchable, auditable, and actionable across Indian languages.",
   jurisdiction: "India",
   productSummary:
-    "Speech ingestion, transcription, speaker intelligence, and QA analytics for contact centers, meetings, and enterprise workflows — deployed on AWS.",
+    "Speech ingestion, transcription, speaker intelligence, and QA analytics for contact centers, meetings, and enterprise workflows. Deployed on AWS.",
 } as const;
 
 export const SOCIAL_LINKS = {

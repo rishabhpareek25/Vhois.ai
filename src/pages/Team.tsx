@@ -31,7 +31,7 @@ function FounderAvatar({ name, initials, image }: { name: string; initials: stri
 export default function Team() {
   usePageMeta(
     "Team",
-    "Meet the founders building Vhois AI — conversation intelligence infrastructure for real-world speech."
+    "Meet the founders building Vhois AI, conversation intelligence infrastructure for real-world speech."
   );
 
   return (
@@ -46,7 +46,7 @@ export default function Team() {
               <span className="text-void-600">conversation intelligence.</span>
             </>
           }
-          description="We are a founder-led team obsessed with India's hard speech problem — multilingual, noisy, operationally critical conversations that deserve better than forgotten recordings."
+          description="We are a founder-led team obsessed with India's hard speech problem, multilingual, noisy, operationally critical conversations that deserve better than forgotten recordings."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20 sm:mb-28">
@@ -99,7 +99,7 @@ export default function Team() {
                 <ul className="space-y-3">
                   {founder.journey.map((point) => (
                     <li key={point} className="flex gap-3 text-sm text-void-600 leading-relaxed">
-                      <span className="text-platinum/40 font-mono shrink-0">—</span>
+                      <span className="text-platinum/40 shrink-0">·</span>
                       {point}
                     </li>
                   ))}
@@ -122,7 +122,7 @@ export default function Team() {
             <p>
               India&apos;s real conversations are multilingual, emotional, code-switched, and often
               recorded in imperfect conditions. They happen in customer calls, team standups, field
-              visits, and public forums — and they carry the decisions that move businesses forward.
+              visits, and public forums, and they carry the decisions that move businesses forward.
             </p>
             <p>
               Yet most of this knowledge is trapped in audio files no one has time to review. QA teams
@@ -130,7 +130,7 @@ export default function Team() {
             </p>
             <p>
               Vhois AI exists because these conversations deserve better. We are building the layer
-              that makes them searchable, auditable, and actionable — with the rigor of infrastructure,
+              that makes them searchable, auditable, and actionable, with the rigor of infrastructure,
               not the fragility of a demo.
             </p>
           </div>

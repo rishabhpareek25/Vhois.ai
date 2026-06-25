@@ -12,7 +12,7 @@ const useCases = [
     id: "callcenter",
     icon: Headphones,
     title: "Agent surveillance",
-    challenge: "QA teams review a small fraction of calls — issues and missed revenue slip through",
+    challenge: "QA teams review a small fraction of calls, issues and missed revenue slip through",
     solution: `${COMPANY.name} audits 100% of calls in Hindi, Hinglish & regional languages`,
     results: ["Full call coverage", "Misbehavior detection", "Revenue & compliance signals", "Searchable audit trail"],
     gradient: "from-red-500 to-orange-500",
@@ -79,7 +79,7 @@ export default function UseCases() {
             Built for <span className="text-void-600">real conversations</span>
           </h1>
           <p className="text-lg text-void-600 max-w-3xl mx-auto leading-relaxed">
-            {COMPANY.name} turns spoken operational knowledge into structured intelligence — across
+            {COMPANY.name} turns spoken operational knowledge into structured intelligence, across
             contact centers, meetings, and regulated workflows.
           </p>
         </motion.div>

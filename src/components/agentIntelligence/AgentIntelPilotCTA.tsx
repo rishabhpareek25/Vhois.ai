@@ -37,11 +37,11 @@ export default function AgentIntelPilotCTA() {
               Your calls already know where the business is leaking. Let Vhois show you.
             </h2>
             <p className="text-void-600 text-base sm:text-lg mb-8 leading-relaxed">
-              Share sample calls and get a free AI call audit report — revenue gaps, compliance
+              Share sample calls and get a free AI call audit report, revenue gaps, compliance
               risks, and agent coaching priorities included.
             </p>
             <Link to="/call-center-qa">
-              <Button variant="primary" size="lg">
+              <Button variant="primary" size="sm">
                 Analyze my sample calls
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>

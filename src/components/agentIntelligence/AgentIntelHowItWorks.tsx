@@ -21,7 +21,7 @@ export default function AgentIntelHowItWorks() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 relative">
-          {/* Connector line — desktop */}
+          {/* Connector line, desktop */}
           <div className="hidden md:block absolute top-[4.5rem] left-[16%] right-[16%] h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
           {HOW_IT_WORKS.map((step, i) => {

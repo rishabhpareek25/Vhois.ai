@@ -13,7 +13,7 @@ export default function AgentIntelBridge() {
           className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 rounded-xl border border-white/[0.08] bg-white/[0.02] px-5 py-4 sm:px-6 sm:py-5"
         >
           <p className="text-sm text-void-600 text-center sm:text-left">
-            <span className="text-platinum font-medium">Connected across Vhois</span> — see the live
+            <span className="text-platinum font-medium">Connected across Vhois</span>. See the live
             command console on our homepage or browse all industry use cases.
           </p>
           <div className="flex flex-col xs:flex-row gap-2 sm:gap-3 shrink-0">

@@ -160,7 +160,7 @@ export default function WaitlistExperience() {
             Join the waitlist
           </h1>
           <p className="text-void-600 text-base leading-relaxed">
-            Two quick steps. No frequency tuning required — we save the crazy stuff for the product.
+            Two quick steps. No frequency tuning required; we save the crazy stuff for the product.
           </p>
         </motion.div>
 

@@ -34,7 +34,13 @@
   /* Fonts */
   --font-mono: 'Space Mono', monospace;
   --font-sans: 'Inter', sans-serif;
+  --font-display: 'Syne', var(--font-sans);
   --font-code: 'Fira Code', monospace;
+
+  /* Readable text hierarchy on void background */
+  --text-primary: #f4f4f6;
+  --text-secondary: #c4c4cc;
+  --text-tertiary: #9494a0;
 }
 
 /* Base styles */
@@ -110,6 +116,77 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* Marketing typography — high contrast, not dull void-600 */
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .text-primary {
+    color: var(--text-primary);
+  }
+
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+
+  .text-tertiary {
+    color: var(--text-tertiary);
+  }
+
+  .text-ember {
+    background: linear-gradient(105deg, #ff5c45 0%, #ff8a65 35%, #ffd6c8 70%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-luminous {
+    color: var(--text-primary);
+    text-shadow: 0 0 48px rgba(255, 255, 255, 0.22), 0 0 12px rgba(255, 255, 255, 0.08);
+  }
+
+  .text-signal {
+    background: linear-gradient(90deg, #e8e8ec 0%, #ffffff 50%, #a8d4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .link-email {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    letter-spacing: 0.01em;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .link-email:hover {
+    color: var(--text-primary);
+  }
+
+  /* Split panels — subtle tint only, no clip (clip was cutting off labels) */
+  .split-panel-loss {
+    background: linear-gradient(145deg, rgba(255, 70, 50, 0.09) 0%, transparent 55%);
+  }
+
+  .split-panel-gain {
+    background: linear-gradient(215deg, rgba(255, 255, 255, 0.07) 0%, transparent 50%);
+  }
+
+  @media (max-width: 1023px) {
+    .split-panel-loss,
+    .split-panel-gain {
+      background: transparent;
+    }
+  }
+
+  /* Pipeline connector for how-it-works */
+  .pipeline-line {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    height: 1px;
   }
 
   /* Subtle glow effects */

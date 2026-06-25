@@ -19,7 +19,7 @@ const STACK = [
   {
     icon: Cloud,
     title: "AWS-native deployment",
-    description: "Amplify hosting, Lambda APIs, and DynamoDB — built for production from day one.",
+    description: "Amplify hosting, Lambda APIs, and DynamoDB, built for production from day one.",
   },
   {
     icon: Mic,
@@ -34,7 +34,7 @@ const STACK = [
   {
     icon: Webhook,
     title: "Integrations (roadmap)",
-    description: "CRM, dialer, and internal stack hooks — scoped per pilot and enterprise engagement.",
+    description: "CRM, dialer, and internal stack hooks, scoped per pilot and enterprise engagement.",
   },
 ];
 
@@ -48,7 +48,7 @@ const ROADMAP = [
 export default function Developers() {
   usePageMeta(
     "Developers",
-    `${COMPANY.name} API and integration roadmap — conversation intelligence on AWS.`
+    `${COMPANY.name} API and integration roadmap, conversation intelligence on AWS.`
   );
 
   return (
@@ -113,7 +113,7 @@ GET  /v1/conversations/{id}
 POST /v1/webhooks`}
             </pre>
             <p className="text-xs text-void-700 mt-4">
-              Endpoints and auth are provided during pilot onboarding — not public yet.
+              Endpoints and auth are provided during pilot onboarding, not public yet.
             </p>
           </motion.div>
 
@@ -149,7 +149,7 @@ POST /v1/webhooks`}
             <div>
               <h2 className="font-semibold text-platinum mb-1">Security-first by design</h2>
               <p className="text-sm text-void-600 leading-relaxed max-w-xl">
-                Encryption in transit and at rest, access controls, and audit logging — aligned with
+                Encryption in transit and at rest, access controls, and audit logging, aligned with
                 enterprise conversation data requirements.
               </p>
             </div>

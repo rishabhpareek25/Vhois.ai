@@ -17,7 +17,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 
 const VERTICALS = [
   { icon: Headphones, title: "Call intelligence", desc: "Agent quality, revenue signals, compliance on every call." },
-  { icon: Users, title: "Agent quality audit", desc: "100% coverage — not random samples." },
+  { icon: Users, title: "Agent quality audit", desc: "100% coverage, not random samples." },
   { icon: Building2, title: "Meeting intelligence", desc: "Decisions, actions, and accountability from spoken meetings." },
   { icon: Landmark, title: "Governance & public", desc: "Auditable records from policy and public discussions." },
   { icon: Scale, title: "Legal & courtroom", desc: "Timestamped, searchable speech with evidence trails." },
@@ -27,7 +27,7 @@ const VERTICALS = [
 export default function About() {
   usePageMeta(
     "About Us",
-    "Vhois AI builds conversation intelligence infrastructure — making spoken knowledge searchable, auditable, and actionable."
+    "Vhois AI builds conversation intelligence infrastructure, making spoken knowledge searchable, auditable, and actionable."
   );
 
   return (
@@ -42,7 +42,7 @@ export default function About() {
               <span className="text-void-600">for human conversations.</span>
             </>
           }
-          description="We transform speech into structured intelligence — who spoke, what was said, what matters, and what should happen next. Not transcription alone. Infrastructure for real-world spoken knowledge."
+          description="We transform speech into structured intelligence: who spoke, what was said, what matters, and what should happen next. Not transcription alone. Infrastructure for real-world spoken knowledge."
         >
           <Link to="/agent-intelligence">
             <Button variant="primary" size="md">
@@ -70,7 +70,7 @@ export default function About() {
           </h2>
           <p className="text-void-600 text-base sm:text-lg leading-relaxed max-w-3xl">
             Businesses archive websites, PDFs, and databases with care. Yet the richest source of
-            operational truth — customer calls, team meetings, field conversations, public hearings —
+            operational truth: customer calls, team meetings, field conversations, public hearings,
             often vanishes when the conversation ends. Recordings exist. Understanding does not.
           </p>
         </motion.section>
@@ -86,7 +86,7 @@ export default function About() {
             <Target className="w-6 h-6 text-platinum mb-4" strokeWidth={1.5} />
             <h2 className="font-sans font-semibold text-2xl text-platinum mb-4">Our mission</h2>
             <p className="text-void-600 leading-relaxed">
-              Make conversations searchable, understandable, and actionable — across languages,
+              Make conversations searchable, understandable, and actionable across languages,
               accents, and noisy real-world audio. We believe spoken knowledge deserves the same
               permanence and utility as written knowledge.
             </p>
@@ -104,7 +104,7 @@ export default function About() {
               extract signals, and deliver evidence-backed insights teams can act on.
             </p>
             <ul className="space-y-2 text-sm text-void-600">
-              {["Who spoke and when", "What was said — across languages", "What matters for your business", "What action should follow"].map((item) => (
+              {["Who spoke and when", "What was said, across languages", "What matters for your business", "What action should follow"].map((item) => (
                 <li key={item} className="flex items-center gap-2">
                   <span className="w-1 h-1 rounded-full bg-platinum/60" />
                   {item}
@@ -152,7 +152,7 @@ export default function About() {
             A future where spoken knowledge is as accessible as written knowledge.
           </h2>
           <p className="text-void-600 max-w-2xl mx-auto mb-8 leading-relaxed">
-            That is the world we are building toward — one conversation at a time, with rigor,
+            That is the world we are building toward, one conversation at a time, with rigor,
             evidence, and respect for how people actually speak in India and beyond.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">

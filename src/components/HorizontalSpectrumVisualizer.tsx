@@ -259,7 +259,7 @@ export default function HorizontalSpectrumVisualizer() {
         <div className="mb-3 sm:mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div className="min-w-0">
             <h3 className="text-xs sm:text-sm font-mono text-platinum opacity-70">AUDIO SPECTRUM</h3>
-            <p className="text-[11px] sm:text-xs text-void-600 mt-0.5 leading-snug">
+            <p className="text-[11px] sm:text-xs text-secondary mt-0.5 leading-snug">
               Real-time voice frequency and speaker diarization
             </p>
           </div>
@@ -269,7 +269,7 @@ export default function HorizontalSpectrumVisualizer() {
           {["speaker_labels=true", "overlap_detection=on", "confidence=enabled", "tracks=4"].map((item) => (
             <span
               key={item}
-              className="text-[9px] sm:text-[10px] font-mono px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md border border-void-300 text-void-600 whitespace-nowrap"
+              className="text-[9px] sm:text-[10px] font-mono px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md border border-white/10 text-tertiary whitespace-nowrap"
             >
               {item}
             </span>
@@ -327,7 +327,7 @@ export default function HorizontalSpectrumVisualizer() {
             ] as const
           ).map((metric) => (
             <div key={metric.label} className="glass rounded-lg p-3 sm:p-4 text-center min-w-0">
-              <div className="text-[9px] sm:text-xs text-void-600 font-mono mb-1 sm:mb-2 leading-tight">
+              <div className="text-[9px] sm:text-xs text-tertiary font-mono mb-1 sm:mb-2 leading-tight">
                 <span className="sm:hidden">{metric.short}</span>
                 <span className="hidden sm:inline">{metric.label}</span>
               </div>

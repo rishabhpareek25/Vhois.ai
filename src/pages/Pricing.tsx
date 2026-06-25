@@ -24,7 +24,7 @@ const PILOT_TIERS = [
   {
     icon: Scale,
     name: "Regulated workflows",
-    description: "Legal, governance, and public-meeting intelligence — scoped per engagement.",
+    description: "Legal, governance, and public-meeting intelligence, scoped per engagement.",
     features: ["Timestamped speech records", "Evidence-backed search", "Custom retention policies"],
     highlight: false,
   },
@@ -33,7 +33,7 @@ const PILOT_TIERS = [
 export default function Pricing() {
   usePageMeta(
     "Pricing",
-    "Early-access pilots for Vhois AI conversation intelligence — contact us for scoped pricing."
+    "Early-access pilots for Vhois AI conversation intelligence, contact us for scoped pricing."
   );
 
   return (
@@ -48,7 +48,7 @@ export default function Pricing() {
               <span className="text-void-600">your conversations.</span>
             </>
           }
-          description={`${COMPANY.name} is in early access. We scope pilots with contact centers, enterprises, and partners — pricing depends on volume, languages, and deployment model.`}
+          description={`${COMPANY.name} is in early access. We scope pilots with contact centers, enterprises, and partners, pricing depends on volume, languages, and deployment model.`}
         >
           <Link to="/contact">
             <Button variant="primary" size="md">
@@ -109,7 +109,7 @@ export default function Pricing() {
           </h2>
           <p className="text-void-600 max-w-2xl mx-auto mb-8 leading-relaxed">
             We don&apos;t publish list pricing during early access. Every pilot starts with your audio,
-            languages, and success criteria — then we propose a clear scope and timeline.
+            languages, and success criteria, then we propose a clear scope and timeline.
           </p>
           <p className="text-xs font-mono text-void-700">
             {COMPANY.email} · {COMPANY.domain}

@@ -43,7 +43,7 @@ export default function AgentIntelHero({ onIntegrationsClick }: Props) {
               className="text-base sm:text-lg text-void-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0"
             >
               Vhois AI audits 100% of agent calls and reveals revenue leaks, script violations,
-              customer intent, and agent performance risks — your AI Quality Manager for every
+              customer intent, and agent performance risks, your AI Quality Manager for every
               conversation.
             </motion.p>
 
@@ -54,12 +54,12 @@ export default function AgentIntelHero({ onIntegrationsClick }: Props) {
               className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3"
             >
               <Link to="/call-center-qa">
-                <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                <Button variant="primary" size="sm" className="w-full sm:w-auto">
                   Try free call audit
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
-              <Button variant="outline" size="lg" className="w-full sm:w-auto" onClick={onIntegrationsClick}>
+              <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={onIntegrationsClick}>
                 View integration options
               </Button>
             </motion.div>

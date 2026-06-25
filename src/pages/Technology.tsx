@@ -30,7 +30,7 @@ const architectureLayers = [
 export default function Technology() {
   usePageMeta(
     "Technology",
-    `${COMPANY.name} engineering — AWS-native speech pipelines built for reliability and scale.`
+    `${COMPANY.name} engineering, AWS-native speech pipelines built for reliability and scale.`
   );
 
   return (
@@ -219,7 +219,7 @@ export default function Technology() {
             API documentation is available during pilot onboarding
           </p>
           <Link to="/developers">
-            <Button variant="primary" size="lg">
+            <Button variant="primary" size="sm">
               <Code2 className="w-5 h-5 mr-2" />
               Developer platform
             </Button>

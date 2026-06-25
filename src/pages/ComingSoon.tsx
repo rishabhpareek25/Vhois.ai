@@ -180,7 +180,7 @@ export default function ComingSoon() {
           className="mt-6 text-center text-void-600 max-w-lg text-sm md:text-base"
         >
           You found a door that doesn&apos;t open yet. Good taste. We&apos;re building something
-          nobody&apos;s seen — and you&apos;re on the list before it exists.
+          nobody&apos;s seen, and you&apos;re on the list before it exists.
         </motion.p>
 
         <canvas
@@ -233,14 +233,14 @@ export default function ComingSoon() {
 
         <div className="flex flex-col sm:flex-row gap-4 relative z-20">
           <Link to="/waitlist">
-            <Button variant="primary" size="lg" asSpan>
+            <Button variant="primary" size="sm" asSpan>
               <Sparkles className="w-5 h-5 mr-2" />
               Join The Waitlist
               <Zap className="w-5 h-5 ml-2" />
             </Button>
           </Link>
           <Link to="/">
-            <Button variant="outline" size="lg" asSpan>
+            <Button variant="outline" size="sm" asSpan>
               Return Home
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>

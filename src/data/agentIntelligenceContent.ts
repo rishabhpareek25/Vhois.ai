@@ -31,19 +31,19 @@ export const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Upload or connect calls",
-    description: "Dialer, CRM, API, cloud storage, or batch upload — online and offline.",
+    description: "Dialer, CRM, API, cloud storage, or batch upload, online and offline.",
     icon: Upload,
   },
   {
     step: "02",
     title: "Vhois analyzes every word",
-    description: "Intent, compliance, sentiment, revenue signals, and agent behavior — at scale.",
+    description: "Intent, compliance, sentiment, revenue signals, and agent behavior, at scale.",
     icon: Headphones,
   },
   {
     step: "03",
     title: "Managers get a command view",
-    description: "Scores, risks, hot leads, and proof-backed findings — not random samples.",
+    description: "Scores, risks, hot leads, and proof-backed findings, not random samples.",
     icon: Building2,
   },
 ] as const;
@@ -129,7 +129,7 @@ export type IntegrationCard = {
 export const INTEGRATIONS: IntegrationCard[] = [
   { title: "Manual Upload", description: "Drag-drop recordings for instant audit.", icon: Upload },
   { title: "CSV Batch", description: "Bulk metadata + audio paths at scale.", icon: FileSpreadsheet },
-  { title: "Cloud Storage", description: "S3, GCS, Azure — sync folders automatically.", icon: Cloud },
+  { title: "Cloud Storage", description: "S3, GCS, Azure, sync folders automatically.", icon: Cloud },
   { title: "Dialer / CRM", description: "Ozonetel, Exotel, Zoho, Salesforce & more.", icon: Phone },
   { title: "API / Webhook", description: "Push calls as they complete. Get findings back.", icon: Webhook },
   { title: "Client Storage", description: "Audio stays on your infra. We analyze in place.", icon: HardDrive },

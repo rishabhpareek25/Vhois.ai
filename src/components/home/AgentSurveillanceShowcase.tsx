@@ -27,16 +27,16 @@ const AGENTS = [
 const TRANSCRIPT_LINES = [
   { speaker: "CUSTOMER", text: "Haan main interested hoon, kal call karna...", lang: "Hinglish", flag: false },
   { speaker: "AGENT #47", text: "Theek hai sir, main note kar leta hoon.", lang: "Hindi", flag: false },
-  { speaker: "SYSTEM", text: "⚠ Customer agreed — no CRM follow-up logged", lang: "AI", flag: true },
+  { speaker: "SYSTEM", text: "⚠ Customer agreed: no CRM follow-up logged", lang: "AI", flag: true },
   { speaker: "AGENT #12", text: "Aapko baar baar batana padega kya?", lang: "Hinglish", flag: true },
   { speaker: "SYSTEM", text: "⚠ Misbehavior probability: 0.89", lang: "AI", flag: true },
 ];
 
 const ALERTS = [
   "AGENT #47 skipped mandatory compliance line",
-  "Interested customer — zero follow-up in CRM",
+  "Interested customer: zero follow-up in CRM",
   "Hinglish escalation detected on Call #8821",
-  "Agent marked 'not interested' — customer said yes",
+  "Agent marked 'not interested': customer said yes",
 ];
 
 export default function AgentSurveillanceShowcase() {
@@ -66,7 +66,7 @@ export default function AgentSurveillanceShowcase() {
   };
 
   return (
-    <section id="agent-surveillance" className="relative py-16 sm:py-24 md:py-28 overflow-hidden scroll-mt-24">
+    <section id="agent-surveillance" className="relative py-10 sm:py-12 overflow-hidden scroll-mt-24">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,60,60,0.06),transparent_60%)] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(255,255,255,0.03),transparent_70%)] pointer-events-none" />
 
@@ -76,7 +76,7 @@ export default function AgentSurveillanceShowcase() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center mb-8 sm:mb-10"
         >
           <motion.div
             animate={{ boxShadow: ["0 0 0px rgba(255,255,255,0)", "0 0 30px rgba(255,255,255,0.15)", "0 0 0px rgba(255,255,255,0)"] }}
@@ -84,16 +84,15 @@ export default function AgentSurveillanceShowcase() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-500/30 bg-red-500/10 text-red-300 text-xs font-mono mb-6"
           >
             <Eye className="w-3.5 h-3.5" />
-            PMF VALIDATION · PILOT STAGE
+            Flagship product · Contact centers
           </motion.div>
-          <h2 className="font-mono font-bold text-4xl md:text-6xl lg:text-7xl mb-4 leading-tight">
-            <span className="text-gradient">Agent</span>{" "}
-            <span className="text-platinum">Surveillance</span>
+          <h2 className="font-sans font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 leading-tight tracking-tight">
+            <span className="text-platinum">Agent Intelligence</span>
+            <span className="text-void-600">, live on your calls</span>
           </h2>
-          <p className="text-void-600 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-            Audit <strong className="text-platinum font-semibold">100% of call center conversations</strong> across
-            Hindi, English, Hinglish & regional languages. Catch misbehavior, missed revenue, and compliance
-            violations your QA team will never see.
+          <p className="text-secondary text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            See the product in action: 100% call coverage, agent scoring, compliance flags, and
+            missed-revenue alerts, built for Hindi, Hinglish, and regional speech.
           </p>
         </motion.div>
 
@@ -264,7 +263,7 @@ export default function AgentSurveillanceShowcase() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-2">
             <Link to="/agent-intelligence">
-              <Button variant="primary" size="lg" className="group relative overflow-hidden">
+              <Button variant="primary" size="sm" className="group relative overflow-hidden">
                 <motion.span
                   className="absolute inset-0 bg-gradient-to-r from-red-500/20 via-white/10 to-red-500/20"
                   animate={{ x: ["-100%", "100%"] }}
@@ -278,8 +277,8 @@ export default function AgentSurveillanceShowcase() {
               </Button>
             </Link>
             <Link to="/call-center-qa">
-              <Button variant="outline" size="lg">
-                Free call audit — 2 min
+              <Button variant="outline" size="sm">
+                Free call audit (2 min)
               </Button>
             </Link>
           </div>

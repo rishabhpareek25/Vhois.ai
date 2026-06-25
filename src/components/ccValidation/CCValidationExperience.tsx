@@ -27,7 +27,7 @@ import { useWaitlistAudio } from "../../hooks/useWaitlistAudio";
 import { submitCCValidation, type CCValidationPayload } from "../../lib/ccValidationApi";
 
 const BOOT_LINES = [
-  "VHois QA PULSE v2.0 — CALL CENTER INTELLIGENCE",
+  "VHois QA PULSE v2.0 | CALL CENTER INTELLIGENCE",
   "Loading Hindi / Hinglish / regional acoustic models...",
   "Simulating 100% call audit pipeline...",
   "Agent misbehavior classifiers: ARMED",
@@ -309,7 +309,7 @@ export default function CCValidationExperience() {
             className="text-center text-[10px] sm:text-xs font-mono text-red-300/80 px-4"
           >
             <AlertTriangle className="inline w-3 h-3 mr-2 -mt-0.5" />
-            LIVE SIM — {TICKER_ALERTS[tickerIdx]}
+            LIVE SIM · {TICKER_ALERTS[tickerIdx]}
           </motion.p>
         </div>
       </div>
@@ -348,7 +348,7 @@ export default function CCValidationExperience() {
                 </h1>
                 <p className="text-ash max-w-xl mx-auto mb-3 leading-relaxed">
                   We&apos;re building AI that audits every customer call across Hindi, English,
-                  Hinglish, and regional languages — surfacing agent misbehavior, missed revenue,
+                  Hinglish, and regional languages, surfacing agent misbehavior, missed revenue,
                   and compliance violations your QA team will never catch manually.
                 </p>
                 <p className="text-sm text-ash/50 font-mono mb-10">~2 minutes · 20 scans · zero boredom</p>

@@ -18,7 +18,7 @@ const PATHS = [
     icon: Headphones,
     eyebrow: "For contact centers",
     title: "Agent Intelligence",
-    description: "100% call audit — see the full product story.",
+    description: "100% call audit, see the full product story.",
     accent: "from-red-500/[0.12] via-transparent to-transparent",
     ring: "group-hover:ring-red-400/30",
     iconWrap: "bg-red-500/10 text-red-300",
@@ -48,7 +48,7 @@ export default function HeroActionDock() {
         Choose your entry point
       </p>
 
-      {/* Stack until xl — 3 cols only when there's room */}
+      {/* Stack until xl, 3 cols only when there's room */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-px rounded-xl sm:rounded-2xl overflow-hidden border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm">
         {PATHS.map((path, i) => {
           const Icon = path.icon;

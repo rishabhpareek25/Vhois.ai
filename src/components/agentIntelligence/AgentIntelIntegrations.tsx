@@ -18,7 +18,7 @@ export default function AgentIntelIntegrations() {
             Connect your stack in days, not months
           </h2>
           <p className="text-void-600 text-base">
-            From a single CSV to enterprise dialer pipelines — start wherever you are.
+            From a single CSV to enterprise dialer pipelines, start wherever you are.
           </p>
         </motion.div>
 

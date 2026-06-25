@@ -9,7 +9,7 @@ const LAST_UPDATED = "June 24, 2025";
 export default function Privacy() {
   usePageMeta(
     "Privacy Policy",
-    "How Vhois AI collects, uses, and protects your information — including audio, conversation data, and platform usage."
+    "How Vhois AI collects, uses, and protects your information, including audio, conversation data, and platform usage."
   );
 
   return (
@@ -47,21 +47,21 @@ export default function Privacy() {
                   <p>We may collect the following categories of information:</p>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>
-                      <strong className="text-platinum/90">Account and profile data</strong> — name,
+                      <strong className="text-platinum/90">Account and profile data</strong>, name,
                       email, company, role, and credentials you provide when registering or
                       contacting us.
                     </li>
                     <li>
-                      <strong className="text-platinum/90">Usage data</strong> — pages viewed,
+                      <strong className="text-platinum/90">Usage data</strong>, pages viewed,
                       features used, timestamps, device type, browser, IP address, and diagnostic
                       logs.
                     </li>
                     <li>
-                      <strong className="text-platinum/90">Communications</strong> — messages you
+                      <strong className="text-platinum/90">Communications</strong>, messages you
                       send via contact forms, email, or support channels.
                     </li>
                     <li>
-                      <strong className="text-platinum/90">Pilot and evaluation data</strong> —
+                      <strong className="text-platinum/90">Pilot and evaluation data</strong>,
                       information shared during demos, waitlists, or early-access programs.
                     </li>
                   </ul>
@@ -239,7 +239,7 @@ export default function Privacy() {
                   </p>
                   <p>
                     If you are an end user of an enterprise customer, please contact your
-                    organization&apos;s administrator first — they control how your data is
+                    organization&apos;s administrator first, they control how your data is
                     processed through their Vhois deployment.
                   </p>
                 </>

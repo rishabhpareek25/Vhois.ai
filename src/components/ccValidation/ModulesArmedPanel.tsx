@@ -123,7 +123,7 @@ export default function ModulesArmedPanel({
           transition={{ duration: 2.5, repeat: Infinity }}
           className="relative mt-4 text-[10px] font-mono text-center text-platinum/80 uppercase tracking-widest"
         >
-          ◆ All classifiers primed — awaiting your signal ◆
+          ◆ All classifiers primed : awaiting your signal ◆
         </motion.p>
       )}
     </motion.div>

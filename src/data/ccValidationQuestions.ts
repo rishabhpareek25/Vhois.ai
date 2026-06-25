@@ -401,16 +401,16 @@ export const CC_QUESTIONS: CCQuestion[] = [
 ];
 
 export const TICKER_ALERTS = [
-  "AGENT #47 — compliance script skipped at 02:14",
-  "CALL #8821 — customer agreed, no follow-up logged",
-  "HINDI/HINGLISH mix — sentiment drop detected",
-  "AGENT #12 — rude tone flag at 04:33",
-  "MISSED REVENUE — interested lead marked 'not interested'",
-  "SCRIPT VIOLATION — mandatory disclosure missing",
-  "ESCALATION — customer anger score 0.91",
-  "QA COVERAGE — only 4.2% of calls reviewed manually",
-  "BEST CALL — objection handled, deal closed",
-  "REGIONAL — Marathi code-switch detected, audit OK",
+  "AGENT #47: compliance script skipped at 02:14",
+  "CALL #8821: customer agreed, no follow-up logged",
+  "HINDI/HINGLISH mix: sentiment drop detected",
+  "AGENT #12: rude tone flag at 04:33",
+  "MISSED REVENUE: interested lead marked 'not interested'",
+  "SCRIPT VIOLATION: mandatory disclosure missing",
+  "ESCALATION: customer anger score 0.91",
+  "QA COVERAGE: only 4.2% of calls reviewed manually",
+  "BEST CALL: objection handled, deal closed",
+  "REGIONAL: Marathi code-switch detected, audit OK",
 ];
 
 export function coverageFromQ6(id: string | undefined): number {

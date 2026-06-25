@@ -16,7 +16,7 @@ const TOPICS = [
 export default function Blog() {
   usePageMeta(
     "Insights",
-    `Product notes and engineering insights from ${COMPANY.name} — conversation intelligence for real-world speech.`
+    `Product notes and engineering insights from ${COMPANY.name}, conversation intelligence for real-world speech.`
   );
 
   return (
@@ -42,13 +42,13 @@ export default function Blog() {
           <PenLine className="w-6 h-6 text-platinum mb-4" strokeWidth={1.5} />
           <h2 className="font-sans font-semibold text-xl text-platinum mb-3">Coming soon</h2>
           <p className="text-void-600 leading-relaxed mb-6">
-            No placeholder articles — when we publish, it will be real work from the {COMPANY.name}{" "}
+            No placeholder articles, when we publish, it will be real work from the {COMPANY.name}{" "}
             team on speech intelligence, India-scale audio, and production QA systems.
           </p>
           <ul className="space-y-2 mb-8">
             {TOPICS.map((topic) => (
               <li key={topic} className="flex gap-2 text-sm text-void-600">
-                <span className="text-platinum/40 font-mono">—</span>
+                <span className="text-platinum/40">·</span>
                 {topic}
               </li>
             ))}

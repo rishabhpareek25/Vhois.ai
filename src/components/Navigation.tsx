@@ -145,7 +145,7 @@ export default function Navigation() {
                 </motion.div>
               ))}
               <Link to="/waitlist" onClick={() => setMobileMenuOpen(false)}>
-                <span className="inline-block px-8 py-3 bg-platinum text-void font-semibold rounded-lg text-lg mt-4">
+                <span className="inline-block px-4 py-2 bg-platinum text-void font-medium rounded-md text-sm mt-4">
                   Join Waitlist
                 </span>
               </Link>

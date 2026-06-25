@@ -40,7 +40,7 @@ export default function FrequencyTuner({
         />
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <span className="text-[10px] font-mono text-void-600">
-            {locked ? "Signal locked — proceed" : "Drag to lock your wavelength"}
+            {locked ? "Signal locked. Proceed" : "Drag to lock your wavelength"}
           </span>
         </div>
         {Array.from({ length: 12 }).map((_, i) => (

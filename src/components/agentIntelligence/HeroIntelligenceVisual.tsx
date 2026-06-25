@@ -104,7 +104,7 @@ export default function HeroIntelligenceVisual() {
         const colX = colW * i + colW / 2;
         const streamPhase = (frame * 0.02 + i * 0.4) % 1;
 
-        // Vertical analysis beam (fades toward bottom — sits behind KPI HTML)
+        // Vertical analysis beam (fades toward bottom, sits behind KPI HTML)
         const beamGrad = ctx.createLinearGradient(colX, coreY + 20, colX, h);
         beamGrad.addColorStop(0, "rgba(255,255,255,0.12)");
         beamGrad.addColorStop(0.5, "rgba(255,255,255,0.04)");
@@ -134,7 +134,7 @@ export default function HeroIntelligenceVisual() {
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Bottom fade — wave dissolves behind KPI strip
+      // Bottom fade, wave dissolves behind KPI strip
       const fade = ctx.createLinearGradient(0, h * 0.55, 0, h);
       fade.addColorStop(0, "rgba(10,10,10,0)");
       fade.addColorStop(0.55, "rgba(10,10,10,0.55)");
@@ -179,7 +179,7 @@ export default function HeroIntelligenceVisual() {
         </div>
       </div>
 
-      {/* KPI strip — always on top */}
+      {/* KPI strip, always on top */}
       <div className="relative z-20 shrink-0 border-t border-white/[0.08] bg-void-50/95 backdrop-blur-md px-3 sm:px-4 py-3 sm:py-3.5">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-2.5">
           {HERO_DASHBOARD_CARDS.map((card, i) => (

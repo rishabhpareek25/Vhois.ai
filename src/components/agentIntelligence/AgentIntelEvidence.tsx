@@ -27,7 +27,7 @@ export default function AgentIntelEvidence() {
             </h2>
             <p className="text-void-600 text-base leading-relaxed mb-6">
               No black-box scores. Each insight links to a timestamp, transcript snippet, and audio
-              clip — so managers can coach with confidence, not guesswork.
+              clip, so managers can coach with confidence, not guesswork.
             </p>
             <div className="flex flex-wrap gap-3">
               {[
@@ -78,7 +78,7 @@ export default function AgentIntelEvidence() {
                   <p className="text-sm text-void-600">{pin.event}</p>
                   {pin.type === "critical" && (
                     <p className="mt-2 text-[11px] font-mono text-red-300/80 italic border-l-2 border-red-500/40 pl-3">
-                      &quot;Mandatory disclosure not read — compliance script skipped&quot;
+                      &quot;Mandatory disclosure not read, compliance script skipped&quot;
                     </p>
                   )}
                 </motion.div>

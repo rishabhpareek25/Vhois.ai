@@ -28,9 +28,9 @@ export default function CompanyLegalBlock({ className = "", compact = false }: C
             {COMPANY.domain}
           </a>
         </div>
-        <div className="flex items-start gap-2 text-void-600">
-          <Mail className="w-4 h-4 shrink-0 mt-0.5" strokeWidth={1.5} />
-          <a href={`mailto:${COMPANY.email}`} className="hover:text-platinum transition-colors font-mono text-sm">
+        <div className="flex items-start gap-2 text-secondary">
+          <Mail className="w-4 h-4 shrink-0 mt-0.5 text-tertiary" strokeWidth={1.5} />
+          <a href={`mailto:${COMPANY.email}`} className="link-email">
             {COMPANY.email}
           </a>
         </div>

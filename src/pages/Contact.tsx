@@ -33,13 +33,13 @@ const INQUIRY_CARDS = [
   {
     icon: Rocket,
     title: "Free pilot",
-    description: "Evaluate conversation intelligence on your real audio — calls, meetings, or workflows.",
+    description: "Evaluate conversation intelligence on your real audio, calls, meetings, or workflows.",
     cta: "Mention pilot in your message",
   },
   {
     icon: Plug,
     title: "Integration discussion",
-    description: "API, webhooks, CRM, dialer, or internal stack — let's map how Vhois fits.",
+    description: "API, webhooks, CRM, dialer, or internal stack, let's map how Vhois fits.",
     cta: "Select your use case below",
   },
   {
@@ -51,7 +51,7 @@ const INQUIRY_CARDS = [
   {
     icon: MessageCircle,
     title: "General inquiry",
-    description: "Product questions, media, or anything else — we'll route it to the right person.",
+    description: "Product questions, media, or anything else, we'll route it to the right person.",
     cta: "Send us a message",
   },
 ];
@@ -117,7 +117,7 @@ export default function Contact() {
               <span className="text-void-600">your business is missing.</span>
             </>
           }
-          description="Pilots, integrations, partnerships, or a first conversation about speech intelligence — tell us what you're building and we'll respond thoughtfully."
+          description="Pilots, integrations, partnerships, or a first conversation about speech intelligence, tell us what you're building and we'll respond thoughtfully."
         />
 
         {/* Inquiry cards */}
@@ -285,7 +285,7 @@ export default function Contact() {
                   </p>
                 </div>
 
-                <Button variant="primary" size="lg" className="w-full sm:w-auto" disabled={submitting} loading={submitting}>
+                <Button variant="primary" size="sm" className="w-full sm:w-auto" disabled={submitting} loading={submitting}>
                   <Send className="w-4 h-4 mr-2" />
                   Send Message
                 </Button>

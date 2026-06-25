@@ -22,7 +22,7 @@ export default function AgentIntelProblem() {
             </h2>
             <p className="text-void-600 text-base sm:text-lg leading-relaxed mb-6">
               Most teams audit 2–10% of conversations manually. The other 90%+ hides revenue leaks,
-              compliance failures, and customer churn — until it&apos;s too late.
+              compliance failures, and customer churn, until it&apos;s too late.
             </p>
 
             {/* Sampling vs full audit visual */}

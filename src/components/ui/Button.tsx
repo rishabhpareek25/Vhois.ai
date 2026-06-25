@@ -27,30 +27,31 @@ export default function Button({
   asSpan = false,
 }: ButtonProps) {
   const baseStyles =
-    "relative inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
+    "relative inline-flex items-center justify-center font-medium rounded-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variants: Record<string, string> = {
     primary:
-      "bg-platinum text-void hover:shadow-glow-white-lg active:scale-95 border border-platinum",
+      "bg-platinum text-void hover:shadow-glow-white active:scale-[0.98] border border-platinum",
     secondary:
       "bg-void-100 text-ash-light border border-void-300 hover:border-void-600 hover:text-platinum",
     ghost: "text-void-600 hover:text-platinum hover:bg-void-100",
-    outline: "bg-transparent border-2 border-void-400 text-ash-light hover:border-platinum hover:text-platinum hover:shadow-glow-white",
-    neon: "bg-transparent border-2 border-platinum text-platinum hover:bg-void-100 hover:shadow-glow-white",
+    outline:
+      "bg-transparent border border-void-400 text-ash-light hover:border-platinum hover:text-platinum hover:shadow-glow-white",
+    neon: "bg-transparent border border-platinum text-platinum hover:bg-void-100 hover:shadow-glow-white",
   };
 
   const sizes = {
-    sm: "px-4 py-2 text-sm",
-    md: "px-6 py-2.5 text-base",
-    lg: "px-8 py-3 text-lg",
+    sm: "px-3 py-1.5 text-xs gap-1.5",
+    md: "px-4 py-2 text-sm gap-2",
+    lg: "px-5 py-2 text-sm gap-2",
   };
 
   const Comp = asSpan ? motion.span : motion.button;
 
   return (
     <Comp
-      whileHover={{ scale: disabled ? 1 : 1.05 }}
-      whileTap={{ scale: disabled ? 1 : 0.95 }}
+      whileHover={{ scale: disabled ? 1 : 1.02 }}
+      whileTap={{ scale: disabled ? 1 : 0.98 }}
       className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
       onClick={onClick}
       {...(!asSpan && { disabled: disabled || loading })}
