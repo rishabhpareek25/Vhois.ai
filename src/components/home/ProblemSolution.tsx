@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { COMPANY } from "../../data/company";
 
 const LOSS = [
   "Recordings pile up. Nobody listens",
@@ -11,7 +10,7 @@ const LOSS = [
 const GAIN = [
   "100% of conversations processed",
   "Who spoke · what mattered · what next",
-  "Built for India's noisy, real audio",
+  "Built for noisy, real-world audio",
   "Search, audit, export on demand",
 ];
 
@@ -27,8 +26,8 @@ export default function ProblemSolution() {
           viewport={{ once: true }}
           className="mb-8 sm:mb-10 max-w-2xl"
         >
-          <p className="text-[10px] font-mono uppercase tracking-[0.28em] text-tertiary mb-3">
-            The gap
+          <p className="text-[10px] font-mono uppercase tracking-[0.12em] text-tertiary mb-3">
+            The problem: missed signals
           </p>
           <h2 className="font-display font-bold text-2xl sm:text-[1.75rem] md:text-3xl text-primary tracking-[-0.02em] leading-[1.15]">
             Documents get archived.
@@ -64,8 +63,8 @@ export default function ProblemSolution() {
           </div>
 
           <div className="split-panel-gain relative py-7 sm:py-8 px-4 sm:px-6 lg:pl-8 lg:pr-4">
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary mb-5">
-              With {COMPANY.name}
+            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-primary mb-5">
+              What Vhois delivers
             </p>
             <ul className="space-y-4 sm:space-y-5">
               {GAIN.map((line, i) => (

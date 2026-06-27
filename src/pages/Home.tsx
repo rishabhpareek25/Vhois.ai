@@ -28,11 +28,10 @@ export default function Home() {
       <section className="relative py-8 sm:py-10 border-y border-white/[0.06] bg-white/[0.01]">
         <div className="page-bleed mb-5 sm:mb-6 text-center max-w-2xl mx-auto">
           <p className="text-[11px] font-mono uppercase tracking-[0.28em] text-tertiary mb-2">
-            Engineered for India
+            Proof
           </p>
           <h2 className="font-display font-bold text-xl sm:text-2xl md:text-3xl text-primary tracking-tight">
-            Hindi, Hinglish, regional accents.{" "}
-            <span className="text-secondary font-sans font-normal">noisy real-world audio</span>
+            Built for India’s noisy, code-switched audio
           </h2>
         </div>
         <HorizontalSpectrumVisualizer />

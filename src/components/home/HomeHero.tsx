@@ -36,7 +36,7 @@ export default function HomeHero() {
               <br />
               <span className="text-primary">conversations.</span>
               <br />
-              <span className="text-ember">Most of that intelligence disappears.</span>
+              <span className="text-ember">Most of that knowledge disappears when the call ends.</span>
             </motion.h1>
 
             {/* Mobile: visual directly under headline so nothing floats at the bottom */}
@@ -55,8 +55,8 @@ export default function HomeHero() {
               transition={{ delay: 0.14 }}
               className="text-sm sm:text-[15px] md:text-base text-secondary leading-relaxed max-w-lg mx-auto lg:mx-0 mb-2"
             >
-              Contact centers record every call, but QA samples a fraction. Meetings end.
-              Decisions fade.
+              Contact centers record every call, but QA checks only a small fraction. Meetings end,
+              and decisions fade when the call is over.
             </motion.p>
 
             <motion.p
@@ -65,8 +65,8 @@ export default function HomeHero() {
               transition={{ delay: 0.2 }}
               className="text-sm sm:text-[15px] md:text-base text-luminous font-medium leading-relaxed max-w-lg mx-auto lg:mx-0 mb-4"
             >
-              {COMPANY.name} makes every conversation searchable, auditable, and actionable
-              across Hindi, Hinglish, and real-world Indian audio.
+              {COMPANY.name} captures every call and turns it into searchable, auditable insight
+              teams can act on.
             </motion.p>
 
             <motion.div
