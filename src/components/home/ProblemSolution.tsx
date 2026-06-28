@@ -246,7 +246,7 @@ export default function ProblemSolution() {
              </div>
 
              {/* Dynamic Content Container */}
-             <div className="relative w-full max-w-sm" style={{ height: "380px" }}>
+             <div className="relative w-full max-w-sm">
                 <AnimatePresence mode="wait">
                   {mobileView === 'without' ? (
                      <motion.div 
@@ -255,15 +255,20 @@ export default function ProblemSolution() {
                        animate={{ opacity: 1, scale: 1 }} 
                        exit={{ opacity: 0, scale: 0.95 }} 
                        transition={{ duration: 0.2 }}
-                       className="absolute inset-0"
                      >
-                        <div className="h-full relative rounded-3xl overflow-hidden">
+                        <div className="relative rounded-3xl overflow-hidden">
                           <div className="absolute inset-0 bg-gradient-to-br from-white to-red-50/80 border border-red-100 shadow-md backdrop-blur-xl" />
-                          <div className="relative p-6 flex flex-col h-full justify-center space-y-5">
+                          
+                          {/* Premium Watermark */}
+                          <div className="absolute -right-6 -bottom-6 opacity-[0.04] text-red-900 pointer-events-none transform -rotate-12">
+                            <Activity className="w-48 h-48" />
+                          </div>
+
+                          <div className="relative p-6 sm:p-7 flex flex-col space-y-4">
                             {PROBLEMS.map((prob, i) => (
                               <div key={`mob-prob-${i}`} className="flex items-start gap-4">
-                                <div className="w-1.5 h-1.5 mt-2.5 rounded-full bg-red-400 shadow-[0_0_8px_rgba(248,113,113,0.6)] shrink-0" />
-                                <p className="text-sm sm:text-base font-medium text-gray-700 leading-relaxed">
+                                <div className="w-1.5 h-1.5 mt-2 rounded-full bg-red-400 shadow-[0_0_8px_rgba(248,113,113,0.6)] shrink-0" />
+                                <p className="text-sm sm:text-base font-medium text-gray-700 leading-snug">
                                   {prob}
                                 </p>
                               </div>
@@ -278,15 +283,20 @@ export default function ProblemSolution() {
                        animate={{ opacity: 1, scale: 1 }} 
                        exit={{ opacity: 0, scale: 0.95 }} 
                        transition={{ duration: 0.2 }}
-                       className="absolute inset-0"
                      >
-                        <div className="h-full relative rounded-3xl overflow-hidden">
+                        <div className="relative rounded-3xl overflow-hidden">
                           <div className="absolute inset-0 bg-gradient-to-bl from-white to-primary-50/80 border border-primary-100 shadow-md backdrop-blur-xl" />
-                          <div className="relative p-6 flex flex-col h-full justify-center space-y-5">
+                          
+                          {/* Premium Watermark */}
+                          <div className="absolute -right-6 -bottom-6 opacity-[0.04] text-primary-900 pointer-events-none transform rotate-12">
+                            <Zap className="w-48 h-48" />
+                          </div>
+
+                          <div className="relative p-6 sm:p-7 flex flex-col space-y-4">
                             {SOLUTIONS.map((sol, i) => (
                               <div key={`mob-sol-${i}`} className="flex items-start gap-4">
-                                <div className="w-1.5 h-1.5 mt-2.5 rounded-full bg-primary-500 shadow-[0_0_8px_rgba(99,102,241,0.6)] shrink-0" />
-                                <p className="text-sm sm:text-base font-bold text-gray-900 leading-relaxed">
+                                <div className="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 shadow-[0_0_8px_rgba(99,102,241,0.6)] shrink-0" />
+                                <p className="text-sm sm:text-base font-bold text-gray-900 leading-snug">
                                   {sol}
                                 </p>
                               </div>
