@@ -7,6 +7,8 @@ import HomeClosingCta from "../components/home/HomeClosingCta";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { COMPANY } from "../data/company";
 
+import OmnichannelCapture from "../components/home/OmnichannelCapture";
+
 export default function Home() {
   usePageMeta(
     "Home",
@@ -23,6 +25,9 @@ export default function Home() {
 
       {/* 3. The Intelligence Gap */}
       <ProblemSolution />
+
+      {/* 4. Omnichannel Speaker Identification (Online & Offline) */}
+      <OmnichannelCapture />
 
       {/* 4. Flagship product dashboard */}
       <AgentSurveillanceShowcase />

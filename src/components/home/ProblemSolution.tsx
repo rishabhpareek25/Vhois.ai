@@ -317,10 +317,10 @@ export default function ProblemSolution() {
 import { Mic, Cpu, LineChart, LayoutDashboard, Network } from "lucide-react";
 
 const PIPELINE = [
-  { step: "01", icon: Mic, title: "Capture", desc: "Seamless ingestion from existing telephony.",
+  { step: "01", icon: Mic, title: "Capture", desc: "Seamless ingestion from cloud platforms and physical on-ground environments.",
     color: { ring1: "border-blue-300", ring2: "border-blue-200", core: "bg-blue-50", icon: "text-blue-500", badge: "bg-blue-500" } 
   },
-  { step: "02", icon: Cpu, title: "Process", desc: "AI speech & speaker recognition.",
+  { step: "02", icon: Cpu, title: "Process", desc: "Precision speaker diarization & noise-filtering AI.",
     color: { ring1: "border-indigo-300", ring2: "border-indigo-200", core: "bg-indigo-50", icon: "text-indigo-500", badge: "bg-indigo-500" } 
   },
   { step: "03", icon: LineChart, title: "Analyze", desc: "Extract commitments & customer intent.",
