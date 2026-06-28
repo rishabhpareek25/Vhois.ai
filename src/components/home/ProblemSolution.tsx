@@ -232,7 +232,14 @@ export function HowItWorksStrip() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           
-          {/* Vertical Mobile Track - Removed for new modern horizontal layout */}
+          {/* Vertical Mobile Track - Compact Timeline */}
+          <div className="lg:hidden absolute top-[2rem] bottom-[2rem] left-[3.5rem] sm:left-[4.5rem] w-[2px] bg-gray-100 z-0">
+            <motion.div 
+              className="absolute top-0 left-0 w-full h-[40%] bg-gradient-to-b from-transparent via-primary-500 to-transparent"
+              animate={{ top: ["-40%", "100%"] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            />
+          </div>
 
           {/* Horizontal Desktop Track */}
           <div className="hidden lg:block absolute top-[4rem] left-[10%] right-[10%] h-[2px] bg-gray-100 z-0">
@@ -247,7 +254,7 @@ export function HowItWorksStrip() {
             <div className="absolute top-1/2 left-3/4 w-1.5 h-1.5 rounded-full bg-primary-400 -translate-y-1/2 shadow-[0_0_10px_rgba(79,70,229,0.8)] animate-pulse" style={{ animationDelay: "2s" }} />
           </div>
 
-          <div className="flex lg:grid overflow-x-auto lg:overflow-visible snap-x snap-mandatory lg:snap-none lg:grid-cols-5 gap-6 lg:gap-4 relative z-10 pb-8 lg:pb-0 px-4 sm:px-8 -mx-4 sm:-mx-6 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-4 relative z-10 px-4 sm:px-8 lg:px-0">
             {PIPELINE.map((item, i) => {
               const Icon = item.icon;
               return (
@@ -257,13 +264,13 @@ export function HowItWorksStrip() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: i * 0.1, duration: 0.6, type: "spring" }}
-                  className="relative flex-shrink-0 w-[280px] lg:w-auto snap-center flex flex-col items-center text-center group"
+                  className="relative flex flex-row lg:flex-col items-center lg:items-center text-left lg:text-center group gap-5 lg:gap-0"
                 >
-                  {/* The Unbeatable Circular Node - Compacted */}
-                  <div className="relative mb-4 w-28 h-28 flex items-center justify-center">
+                  {/* The Unbeatable Circular Node - Compacted for mobile */}
+                  <div className="relative lg:mb-4 w-20 h-20 lg:w-28 lg:h-28 flex items-center justify-center shrink-0">
                     
                     {/* Hover Glow Behind */}
-                    <div className="absolute inset-0 bg-primary-400/20 rounded-full blur-[25px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                    <div className="absolute inset-0 bg-primary-400/20 rounded-full blur-[15px] lg:blur-[25px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                     {/* Outer Rotating Ring */}
                     <motion.div 
@@ -274,30 +281,32 @@ export function HowItWorksStrip() {
                     
                     {/* Inner Rotating Ring (Reverse) */}
                     <motion.div 
-                      className={`absolute inset-2 rounded-full border border-solid ${item.color.ring2} group-hover:border-primary-200 transition-colors duration-500`}
+                      className={`absolute inset-1.5 lg:inset-2 rounded-full border border-solid ${item.color.ring2} group-hover:border-primary-200 transition-colors duration-500`}
                       animate={{ rotate: -360 }}
                       transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                     />
 
                     {/* The Core Circle */}
-                    <div className={`relative w-20 h-20 rounded-full ${item.color.core} shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(79,70,229,0.2)] transition-all duration-500 z-10 overflow-hidden`}>
-                      <Icon className={`w-7 h-7 ${item.color.icon} group-hover:scale-110 transition-transform duration-500 relative z-10`} />
+                    <div className={`relative w-14 h-14 lg:w-20 lg:h-20 rounded-full ${item.color.core} shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(79,70,229,0.2)] transition-all duration-500 z-10 overflow-hidden`}>
+                      <Icon className={`w-5 h-5 lg:w-7 lg:h-7 ${item.color.icon} group-hover:scale-110 transition-transform duration-500 relative z-10`} />
                     </div>
 
                     {/* Step Number Badge */}
-                    <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full ${item.color.badge} border-[3px] border-white flex items-center justify-center shadow-md group-hover:scale-110 transition-all duration-500 z-20`}>
-                      <span className="font-display font-bold text-xs text-white">{item.step}</span>
+                    <div className={`absolute -top-1 -right-1 lg:-top-2 lg:-right-2 w-6 h-6 lg:w-8 lg:h-8 rounded-full ${item.color.badge} border-2 lg:border-[3px] border-white flex items-center justify-center shadow-md group-hover:scale-110 transition-all duration-500 z-20`}>
+                      <span className="font-display font-bold text-[9px] lg:text-xs text-white">{item.step}</span>
                     </div>
 
                   </div>
                   
                   {/* Floating Typography */}
-                  <h3 className="font-display font-bold text-xl text-gray-900 mb-2 group-hover:text-primary-600 transition-colors duration-300">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed font-medium max-w-[200px]">
-                    {item.desc}
-                  </p>
+                  <div>
+                    <h3 className="font-display font-bold text-lg lg:text-xl text-gray-900 mb-1 lg:mb-2 group-hover:text-primary-600 transition-colors duration-300">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-500 text-xs lg:text-sm leading-relaxed font-medium max-w-[200px] lg:mx-auto">
+                      {item.desc}
+                    </p>
+                  </div>
 
                 </motion.div>
               );
