@@ -46,7 +46,82 @@ export default function ProblemSolution() {
         {/* The Animated Data Engine */}
         <div className="relative w-full max-w-6xl mx-auto">
           
-          {/* Continuous Flow Track (Background) */}
+          {/* Mobile Continuous Flow Track (Elegant Thin Fiber Optics) */}
+          <div className="lg:hidden absolute top-[5%] bottom-[5%] left-0 right-0 z-0 pointer-events-none">
+            <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100" className="absolute inset-0">
+              <defs>
+                <linearGradient id="mobile-flow-gradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(248,113,113,0)" />
+                  <stop offset="25%" stopColor="rgba(248,113,113,0.8)" />
+                  <stop offset="50%" stopColor="rgba(167,139,250,0.8)" />
+                  <stop offset="75%" stopColor="rgba(99,102,241,0.8)" />
+                  <stop offset="100%" stopColor="rgba(99,102,241,0)" />
+                </linearGradient>
+              </defs>
+              {/* Main Core Thin Line */}
+              <motion.path 
+                d="M 50,0 L 50,100" 
+                fill="none" 
+                stroke="url(#mobile-flow-gradient)" 
+                strokeWidth="0.5"
+                opacity="0.8"
+              />
+              {/* Left Inner Thin Curve */}
+              <motion.path 
+                d="M 50,0 C 65,25 35,35 50,50 C 65,75 35,85 50,100" 
+                fill="none" 
+                stroke="url(#mobile-flow-gradient)" 
+                strokeWidth="0.5"
+                opacity="0.5"
+              />
+              {/* Right Inner Thin Curve */}
+              <motion.path 
+                d="M 50,0 C 35,25 65,35 50,50 C 35,75 65,85 50,100" 
+                fill="none" 
+                stroke="url(#mobile-flow-gradient)" 
+                strokeWidth="0.5"
+                opacity="0.5"
+              />
+              {/* Wide Left Thin Curve */}
+              <motion.path 
+                d="M 50,0 C 80,30 20,40 50,50 C 80,80 20,90 50,100" 
+                fill="none" 
+                stroke="url(#mobile-flow-gradient)" 
+                strokeWidth="0.25"
+                opacity="0.3"
+              />
+              {/* Wide Right Thin Curve */}
+              <motion.path 
+                d="M 50,0 C 20,30 80,40 50,50 C 20,80 80,90 50,100" 
+                fill="none" 
+                stroke="url(#mobile-flow-gradient)" 
+                strokeWidth="0.25"
+                opacity="0.3"
+              />
+              
+              {/* Traveling Energy Pulses */}
+              <motion.circle
+                cx="50"
+                cy="0"
+                r="1"
+                fill="#f87171"
+                style={{ filter: "drop-shadow(0 0 6px rgba(248,113,113,0.9))" }}
+                animate={{ cy: [0, 100] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              />
+              <motion.circle
+                cx="50"
+                cy="0"
+                r="1.5"
+                fill="#818cf8"
+                style={{ filter: "drop-shadow(0 0 6px rgba(129,140,248,0.9))" }}
+                animate={{ cy: [0, 100] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 1.5 }}
+              />
+            </svg>
+          </div>
+
+          {/* Continuous Flow Track (Desktop Background) */}
           <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 -translate-y-1/2 z-0">
             {/* Red Messy Data Flow */}
             <div className="absolute left-0 w-1/2 h-full bg-gradient-to-r from-transparent via-red-200 to-red-400 overflow-hidden">
