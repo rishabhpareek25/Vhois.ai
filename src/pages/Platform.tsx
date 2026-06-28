@@ -8,6 +8,7 @@ import {
   Globe,
   Cpu,
   Layers,
+  Smartphone,
   ArrowRight,
 } from "lucide-react";
 import Button from "../components/ui/Button";
@@ -18,8 +19,8 @@ const products = [
   {
     icon: Mic,
     title: "Speech ingestion",
-    description: "Ingest calls, meetings, and uploads, built for noisy Indian audio.",
-    specs: ["Multilingual", "Real-world audio", "Batch & streaming"],
+    description: "Ingest cloud telephony, virtual meetings, and on-ground physical recordings.",
+    specs: ["Multilingual", "Real-world audio", "Online & offline"],
   },
   {
     icon: FileText,
@@ -37,8 +38,8 @@ const products = [
 
 const capabilities = [
   { icon: Globe, value: "Indian", label: "Languages & accents" },
+  { icon: Smartphone, value: "Omnichannel", label: "Cloud & edge ingestion" },
   { icon: Cpu, value: "AWS", label: "Cloud-native stack" },
-  { icon: Layers, value: "Pilot", label: "Enterprise deployments" },
   { icon: Shield, value: "Secure", label: "Encryption & access control" },
 ];
 

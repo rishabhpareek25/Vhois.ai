@@ -17,9 +17,9 @@ import Button from "../ui/Button";
 
 const ALERTS = [
   "Sales: High-intent verbal agreement captured on Call #8892",
-  "Compliance: Agent #42 missed mandatory script disclaimer",
-  "Operations: 145 calls summarized and logged to CRM",
-  "QA: 100% of today's calls audited successfully",
+  "Compliance: Field Agent #42 missed mandatory script disclaimer",
+  "Operations: 145 calls and 32 field surveys logged to CRM",
+  "QA: 100% of today's calls and on-ground interactions audited successfully",
 ];
 
 const TRANSCRIPT_LINES = [
@@ -76,7 +76,7 @@ export default function AgentSurveillanceShowcase() {
             Measurable results across your <span className="text-gradient">entire organization</span>
           </h2>
           <p className="text-gray-500 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
-            See how 100% conversation coverage drives revenue, ensures compliance, automates quality assurance, and eliminates manual data entry.
+            See how 100% conversation coverage—across calls, meetings, and field surveys—drives revenue, ensures compliance, and automates QA.
           </p>
         </motion.div>
 

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Phone, Video, Building2, ArrowRight, CheckCircle2, Headphones } from "lucide-react";
+import { Phone, Video, Building2, Smartphone, ArrowRight, CheckCircle2, Headphones } from "lucide-react";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import { COMPANY } from "../data/company";
@@ -17,6 +17,15 @@ const useCases = [
     results: ["Full call coverage", "Misbehavior detection", "Revenue & compliance signals", "Searchable audit trail"],
     gradient: "from-red-500 to-orange-500",
     liveLink: "/agent-intelligence",
+  },
+  {
+    id: "field_surveys",
+    icon: Smartphone,
+    title: "Field surveys & sales",
+    challenge: "On-ground sales and field surveys lack auditable records and quality control",
+    solution: "Physical room diarization and speech intelligence from surveyor tablets and mobile devices",
+    results: ["Proof of visit", "Pitch compliance", "Offline sentiment tracking", "Speaker attribution"],
+    gradient: "from-purple-500 to-fuchsia-500",
   },
   {
     id: "support",
@@ -80,7 +89,7 @@ export default function UseCases() {
           </h1>
           <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
             {COMPANY.name} turns spoken operational knowledge into structured intelligence, across
-            contact centers, meetings, and regulated workflows.
+            contact centers, field sales, physical meetings, and regulated workflows.
           </p>
         </motion.div>
 
