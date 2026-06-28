@@ -1,123 +1,101 @@
 import { motion } from "framer-motion";
+import { CheckCircle2, TrendingUp, AlertCircle } from "lucide-react";
 
 const TRANSCRIPT = [
-  { speaker: "Customer", line: "Haan, loan ke liye interested hoon…", retain: 1 },
-  { speaker: "Agent", line: "Sir EMI kitni comfortable hogi?", retain: 0.85 },
-  { speaker: "Customer", line: "Compliance part skip ho gaya call mein", retain: 0.45 },
-  { speaker: "Agent", line: "Follow-up kal karte hain", retain: 0.15 },
+  { speaker: "Customer", line: "I'm interested in the new enterprise plan, but price is an issue.", type: "intent" },
+  { speaker: "Agent", line: "I can offer a 10% discount if we sign this quarter.", type: "commitment" },
+  { speaker: "Customer", line: "That sounds reasonable. Send me the details.", type: "next-step" },
 ];
 
 export default function HeroConversationVisual() {
   return (
-    <div className="relative w-full">
-      <div className="relative overflow-hidden rounded-xl border border-white/[0.1] bg-gradient-to-br from-void-50/90 to-void/90 shadow-[0_0_60px_rgba(255,70,50,0.06)]">
-        {/* Header, what this is */}
-        <div className="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-white/[0.08] bg-white/[0.02]">
-          <div className="flex items-center gap-2 min-w-0">
-            <span className="relative flex h-2 w-2 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400/70" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+    <div className="relative w-full shadow-soft-lg rounded-2xl bg-white border border-gray-100 overflow-hidden transform-gpu hover-lift">
+      {/* Header, what this is */}
+      <div className="flex items-center justify-between gap-3 px-5 py-3.5 border-b border-gray-100 bg-gray-50/50">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="relative flex h-2.5 w-2.5 shrink-0">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-60" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-500" />
+          </span>
+          <span className="font-semibold text-xs sm:text-sm text-gray-800 truncate">
+            Live Analysis: Sales Call #8892
+          </span>
+        </div>
+        <span className="font-mono text-[10px] font-medium uppercase tracking-wider text-primary-600 bg-primary-50 px-2 py-1 rounded-md shrink-0">
+          100% Processed
+        </span>
+      </div>
+
+      {/* Transcript, raw conversation */}
+      <div className="px-5 py-4 space-y-4">
+        {TRANSCRIPT.map((row, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15 + i * 0.4 }}
+            className="flex flex-col gap-1"
+          >
+            <span className="font-medium text-[11px] uppercase tracking-wider text-gray-500">
+              {row.speaker}
             </span>
-            <span className="font-mono text-[10px] sm:text-[11px] text-primary truncate">
-              Call recorded · 08:42 · Hindi/Hinglish
-            </span>
-          </div>
-          <span className="font-mono text-[9px] uppercase tracking-wider text-tertiary shrink-0">
-            100% captured
+            <p className="text-sm text-gray-900 leading-relaxed">
+              "{row.line}"
+            </p>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* The insight, Structured Data */}
+      <div className="px-5 py-4 bg-gray-50 border-t border-gray-100">
+        <div className="flex items-center gap-2 mb-3">
+          <TrendingUp className="w-4 h-4 text-primary-600" />
+          <span className="font-semibold text-xs uppercase tracking-widest text-gray-800">
+            Business Intelligence Extracted
           </span>
         </div>
 
-        {/* Transcript, fades as it goes down */}
-        <div className="px-4 py-3 space-y-2.5">
-          {TRANSCRIPT.map((row, i) => (
-            <motion.div
-              key={row.line}
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.15 + i * 0.12 }}
-              className="flex gap-2 sm:gap-3"
-              style={{ opacity: row.retain }}
-            >
-              <span className="font-mono text-[9px] sm:text-[10px] text-tertiary w-14 sm:w-16 shrink-0 pt-0.5">
-                {row.speaker}
-              </span>
-              <p
-                className="text-[11px] sm:text-xs text-secondary leading-snug"
-                style={{
-                  opacity: row.retain,
-                  filter: row.retain < 0.5 ? `blur(${(1 - row.retain) * 3}px)` : undefined,
-                  textDecoration: row.retain < 0.35 ? "line-through" : undefined,
-                  textDecorationColor: "rgba(248,113,113,0.5)",
-                }}
-              >
-                {row.line}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* The insight, QA funnel */}
-        <div className="px-4 py-3 border-t border-white/[0.08] bg-black/30">
-          <div className="flex items-center justify-between mb-2">
-            <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-tertiary">
-              What ops actually reviews
-            </span>
-            <motion.span
-              className="font-mono text-[10px] text-ember font-semibold"
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 2.2, repeat: Infinity }}
-            >
-              ~3% sampled
-            </motion.span>
-          </div>
-
-          {/* 100 dots, only 3 lit */}
-          <div className="flex flex-wrap gap-[3px] mb-3">
-            {Array.from({ length: 100 }).map((_, i) => (
-              <motion.span
-                key={i}
-                className={`h-1.5 w-1.5 rounded-full ${
-                  i < 3
-                    ? "bg-emerald-400/90 shadow-[0_0_6px_rgba(52,211,153,0.5)]"
-                    : "bg-white/[0.06]"
-                }`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: i < 3 ? 1 : [0.15, 0.35, 0.15] }}
-                transition={{
-                  delay: i * 0.008,
-                  duration: 3,
-                  repeat: i < 3 ? 0 : Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Loss bar */}
-          <div className="space-y-1.5">
-            <div className="flex justify-between font-mono text-[9px]">
-              <span className="text-emerald-400/90">Reviewed</span>
-              <span className="text-ember">Intelligence lost</span>
+        <div className="space-y-2.5">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.5 }}
+            className="flex items-center justify-between p-2.5 rounded-lg bg-green-50 border border-green-100"
+          >
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-green-600" />
+              <span className="text-xs font-medium text-green-800">High Purchase Intent</span>
             </div>
-            <div className="relative h-2 rounded-full overflow-hidden bg-white/[0.06]">
-              <motion.div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-500/80 to-emerald-400/40 rounded-full"
-                initial={{ width: "8%" }}
-                animate={{ width: ["8%", "5%", "8%"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <motion.div
-                className="absolute inset-y-0 right-0 bg-gradient-to-l from-red-500/70 via-orange-500/50 to-transparent rounded-full"
-                initial={{ width: "92%" }}
-                animate={{ width: ["92%", "95%", "92%"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              />
+            <span className="text-[10px] font-mono text-green-600 bg-green-100 px-1.5 py-0.5 rounded">Detected</span>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.8 }}
+            className="flex items-center justify-between p-2.5 rounded-lg bg-blue-50 border border-blue-100"
+          >
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-blue-600" />
+              <span className="text-xs font-medium text-blue-800">Objection: Pricing</span>
             </div>
-            <p className="text-[10px] sm:text-[11px] text-secondary leading-snug pt-0.5">
-              Decisions, compliance flags, and revenue signals{" "}
-              <span className="text-ember font-medium">gone when the call ends.</span>
-            </p>
-          </div>
+            <span className="text-[10px] font-mono text-blue-600 bg-blue-100 px-1.5 py-0.5 rounded">Logged</span>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.1 }}
+            className="flex items-center justify-between p-2.5 rounded-lg bg-amber-50 border border-amber-100"
+          >
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full border-2 border-amber-500 flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+              </div>
+              <span className="text-xs font-medium text-amber-800">Action: Send Proposal</span>
+            </div>
+            <span className="text-[10px] font-mono text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded">Added to CRM</span>
+          </motion.div>
         </div>
       </div>
     </div>

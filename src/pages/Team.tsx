@@ -22,7 +22,7 @@ function FounderAvatar({ name, initials, image }: { name: string; initials: stri
   }
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/10 to-white/[0.02] font-mono font-bold text-2xl text-platinum">
+    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-50 to-indigo-50 font-mono font-bold text-2xl text-primary-600">
       {initials}
     </div>
   );
@@ -35,7 +35,7 @@ export default function Team() {
   );
 
   return (
-    <div className="min-h-screen pt-28 sm:pt-32 pb-20">
+    <div className="min-h-screen pt-28 sm:pt-32 pb-20 bg-gray-50">
       <div className="page-bleed">
         <PageHero
           eyebrow="Our team"
@@ -43,7 +43,7 @@ export default function Team() {
             <>
               Founders building
               <br />
-              <span className="text-void-600">conversation intelligence.</span>
+              <span className="text-primary-600">conversation intelligence.</span>
             </>
           }
           description="We are a founder-led team obsessed with India's hard speech problem, multilingual, noisy, operationally critical conversations that deserve better than forgotten recordings."
@@ -57,10 +57,10 @@ export default function Team() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="rounded-2xl border border-white/[0.1] bg-void-50/40 overflow-hidden hover:border-white/20 transition-colors"
+              className="rounded-3xl border border-gray-200 bg-white shadow-xl shadow-gray-200/50 overflow-hidden hover:shadow-2xl hover:border-primary-200 transition-all duration-300"
             >
               <div className="flex flex-col sm:flex-row">
-                <div className="sm:w-44 shrink-0 aspect-square sm:aspect-auto sm:min-h-[220px] border-b sm:border-b-0 sm:border-r border-white/[0.08] overflow-hidden">
+                <div className="sm:w-48 shrink-0 aspect-square sm:aspect-auto sm:min-h-[220px] border-b sm:border-b-0 sm:border-r border-gray-100 overflow-hidden bg-gray-50">
                   <FounderAvatar
                     name={founder.name}
                     initials={founder.initials}
@@ -68,16 +68,16 @@ export default function Team() {
                   />
                 </div>
                 <div className="p-6 sm:p-8 flex flex-col flex-1">
-                  <p className="text-[10px] font-mono uppercase tracking-widest text-void-600 mb-1">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-primary-600 mb-2">
                     {founder.role}
                   </p>
-                  <h2 className="font-sans font-semibold text-2xl text-platinum mb-2">
+                  <h2 className="font-sans font-semibold text-2xl text-gray-900 mb-2">
                     {founder.name}
                   </h2>
-                  <p className="text-sm text-platinum/80 font-medium mb-3 leading-snug">
+                  <p className="text-sm text-gray-900 font-medium mb-4 leading-snug">
                     {founder.tagline}
                   </p>
-                  <p className="text-sm text-void-600 leading-relaxed mb-5 flex-1">{founder.bio}</p>
+                  <p className="text-sm text-gray-600 leading-relaxed mb-6 flex-1">{founder.bio}</p>
                   <a
                     href={founder.linkedin}
                     target="_blank"
@@ -92,14 +92,16 @@ export default function Team() {
                 </div>
               </div>
 
-              <div className="px-6 sm:px-8 pb-6 sm:pb-8 pt-0 border-t border-white/[0.06] sm:mx-6 sm:mb-6 sm:pb-6">
-                <p className="text-[10px] font-mono uppercase tracking-widest text-void-600 mb-4 pt-6">
+              <div className="px-6 sm:px-8 pb-6 sm:pb-8 pt-0 border-t border-gray-100 sm:mx-6 sm:mb-6 sm:pb-6 bg-gray-50/50 rounded-b-3xl sm:rounded-none">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-5 pt-6">
                   Founder journey
                 </p>
-                <ul className="space-y-3">
+                <ul className="space-y-4">
                   {founder.journey.map((point) => (
-                    <li key={point} className="flex gap-3 text-sm text-void-600 leading-relaxed">
-                      <span className="text-platinum/40 shrink-0">·</span>
+                    <li key={point} className="flex items-start gap-3 text-sm text-gray-700 leading-relaxed">
+                      <span className="text-primary-400 shrink-0 mt-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary-400" />
+                      </span>
                       {point}
                     </li>
                   ))}
@@ -113,12 +115,12 @@ export default function Team() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="rounded-2xl border border-white/[0.08] p-8 sm:p-12 bg-gradient-to-br from-red-500/[0.04] to-transparent"
+          className="rounded-3xl border border-primary-100 p-8 sm:p-12 bg-gradient-to-br from-primary-50 to-white shadow-sm"
         >
-          <h2 className="font-sans font-semibold text-2xl sm:text-3xl text-platinum mb-5">
+          <h2 className="font-sans font-semibold text-2xl sm:text-3xl text-gray-900 mb-5">
             Why we are building this
           </h2>
-          <div className="space-y-4 text-void-600 leading-relaxed max-w-3xl">
+          <div className="space-y-4 text-gray-600 leading-relaxed max-w-3xl text-lg">
             <p>
               India&apos;s real conversations are multilingual, emotional, code-switched, and often
               recorded in imperfect conditions. They happen in customer calls, team standups, field
@@ -136,7 +138,7 @@ export default function Team() {
           </div>
           <div className="mt-8">
             <Link to="/about">
-              <Button variant="ghost" size="md">
+              <Button variant="secondary" size="md">
                 Read our full story →
               </Button>
             </Link>

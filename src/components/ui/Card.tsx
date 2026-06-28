@@ -15,13 +15,13 @@ export default function Card({
   hover3D = true,
 }: CardProps) {
   const glowStyles: Record<string, string> = {
-    white: "hover:shadow-glow-white hover:border-ash-light/30",
-    grey: "hover:shadow-glow-grey hover:border-void-600/40",
-    silver: "hover:shadow-glow-smoke hover:border-silver/30",
-    cyan: "hover:shadow-glow-white hover:border-void-300",
-    purple: "hover:shadow-glow-grey hover:border-void-400",
-    green: "hover:shadow-glow-smoke hover:border-void-500",
-    none: "",
+    white: "hover:shadow-md hover:border-gray-300",
+    grey: "hover:shadow-md hover:border-gray-400",
+    silver: "hover:shadow-md hover:border-gray-400",
+    cyan: "hover:shadow-md hover:border-primary-300",
+    purple: "hover:shadow-md hover:border-purple-300",
+    green: "hover:shadow-md hover:border-emerald-300",
+    none: "hover:shadow-sm hover:border-gray-200",
   };
 
   return (
@@ -29,14 +29,14 @@ export default function Card({
       whileHover={
         hover3D
           ? {
-              rotateY: 5,
-              rotateX: -5,
-              scale: 1.02,
+              rotateY: 2,
+              rotateX: -2,
+              scale: 1.01,
               transition: { duration: 0.3 },
             }
           : {}
       }
-      className={`glass rounded-xl p-6 border border-void-300 ${glowStyles[glowColor]} transition-all duration-300 ${className}`}
+      className={`bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm ${glowStyles[glowColor]} transition-all duration-300 ${className}`}
     >
       {children}
     </motion.div>

@@ -1,103 +1,79 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import Button from "../ui/Button";
 import { COMPANY } from "../../data/company";
-import HeroConversationVisual from "./HeroConversationVisual";
 
 export default function HomeHero() {
   return (
-    <section className="relative overflow-hidden pt-20 sm:pt-24 pb-4 sm:pb-6">
-      <div className="absolute inset-0 animated-grid opacity-40" />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[min(140%,900px)] h-[320px] bg-[radial-gradient(ellipse_at_center,rgba(255,90,70,0.08),transparent_65%)] pointer-events-none" />
+    <section className="relative pt-20 sm:pt-24 pb-4 overflow-hidden flex flex-col items-center justify-center bg-white">
+      {/* Subtle Glow Behind Hero */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[300px] bg-primary-500/10 blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="relative z-10 page-bleed">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-start">
-          <div className="lg:col-span-7 text-center lg:text-left">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.24em] text-tertiary mb-3 lg:mb-4"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-60" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-400" />
-              </span>
-              {COMPANY.tagline}
-            </motion.p>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.06 }}
-              className="font-display font-bold text-[1.6rem] leading-[1.12] sm:text-[1.85rem] md:text-[2.15rem] lg:text-[2.35rem] tracking-[-0.02em] mb-3"
-            >
-              <span className="text-primary">Your business runs on</span>
-              <br />
-              <span className="text-primary">conversations.</span>
-              <br />
-              <span className="text-ember">Most of that knowledge disappears when the call ends.</span>
-            </motion.h1>
-
-            {/* Mobile: visual directly under headline so nothing floats at the bottom */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.12 }}
-              className="lg:hidden my-4 max-w-md mx-auto"
-            >
-              <HeroConversationVisual />
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.14 }}
-              className="text-sm sm:text-[15px] md:text-base text-secondary leading-relaxed max-w-lg mx-auto lg:mx-0 mb-2"
-            >
-              Contact centers record every call, but QA checks only a small fraction. Meetings end,
-              and decisions fade when the call is over.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-sm sm:text-[15px] md:text-base text-luminous font-medium leading-relaxed max-w-lg mx-auto lg:mx-0 mb-4"
-            >
-              {COMPANY.name} captures every call and turns it into searchable, auditable insight
-              teams can act on.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.28 }}
-              className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-2"
-            >
-              <Link to="/agent-intelligence">
-                <Button variant="primary" size="sm">
-                  See how it works
-                  <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                </Button>
-              </Link>
-              <Link to="/contact">
-                <Button variant="outline" size="sm">
-                  Request a pilot
-                </Button>
-              </Link>
-            </motion.div>
+      <div className="relative z-10 page-bleed flex flex-col items-center text-center">
+        {/* Premium Pill */}
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary-200 bg-white/60 backdrop-blur-md shadow-sm">
+            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary-100">
+              <Sparkles className="w-3 h-3 text-primary-600" />
+            </span>
+            <span className="text-sm font-medium text-primary-700 pr-2">
+              The Intelligence Layer for Voice
+            </span>
           </div>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="hidden lg:block lg:col-span-5 lg:sticky lg:top-24"
-          >
-            <HeroConversationVisual />
-          </motion.div>
-        </div>
+        {/* Massive Typography */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          className="font-display font-bold text-5xl sm:text-6xl md:text-[5.5rem] tracking-tighter leading-[1.05] text-gray-900 max-w-5xl mx-auto"
+        >
+          Turn conversations into{" "}
+          <span className="relative inline-block">
+            <span className="text-gradient">actionable data.</span>
+            <svg className="absolute -bottom-2 left-0 w-full h-3 text-primary-300/50" viewBox="0 0 100 10" preserveAspectRatio="none">
+              <path d="M0 5 Q 50 10 100 5" fill="none" stroke="currentColor" strokeWidth="3" />
+            </svg>
+          </span>
+        </motion.h1>
+
+        {/* Elegant Body Copy */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          className="mt-4 text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed"
+        >
+          {COMPANY.name} turns your real-world Indian contact-center audio into structured, auditable intelligence. Do not let 95% of your conversations disappear.
+        </motion.p>
+
+        {/* Premium CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          className="mt-6 flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
+        >
+          <Link to="/contact" className="w-full sm:w-auto group">
+            <button className="relative w-full sm:w-auto px-8 py-4 bg-primary-600 text-white text-base font-semibold rounded-xl shadow-glow-primary hover:bg-primary-700 hover:shadow-glow-primary-lg transition-all overflow-hidden flex items-center justify-center gap-2">
+              <span className="absolute inset-0 w-full h-full -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-wave-flow" />
+              Start your pilot
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </Link>
+          <a href="#how-it-works" className="w-full sm:w-auto group">
+            <button className="w-full sm:w-auto px-8 py-4 bg-white text-gray-700 text-base font-semibold rounded-xl border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+              See how it works
+            </button>
+          </a>
+        </motion.div>
       </div>
     </section>
   );

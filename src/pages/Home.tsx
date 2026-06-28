@@ -14,31 +14,33 @@ export default function Home() {
   );
 
   return (
-    <div className="relative">
+    <div className="relative bg-white selection:bg-primary-500/30 selection:text-primary-900">
       {/* 1. Who we are + the pain, instant clarity */}
       <HomeHero />
 
-      {/* 2. Problem vs solution, side by side */}
-      <ProblemSolution />
-
-      {/* 3. What we actually build */}
+      {/* 2. Pipeline animation immediately below the hero */}
       <HowItWorksStrip />
 
-      {/* 4. Proof of tech, Indian audio */}
-      <section className="relative py-8 sm:py-10 border-y border-white/[0.06] bg-white/[0.01]">
-        <div className="page-bleed mb-5 sm:mb-6 text-center max-w-2xl mx-auto">
-          <p className="text-[11px] font-mono uppercase tracking-[0.28em] text-tertiary mb-2">
+      {/* 3. The Intelligence Gap */}
+      <ProblemSolution />
+
+      {/* 4. Flagship product dashboard */}
+      <AgentSurveillanceShowcase />
+
+      {/* 5. Proof of tech, Indian audio */}
+      <section className="relative py-16 sm:py-20 bg-white">
+        {/* Subtle blur separator */}
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+        <div className="page-bleed mb-8 sm:mb-12 text-center max-w-2xl mx-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-gray-400 mb-4">
             Proof
           </p>
-          <h2 className="font-display font-bold text-xl sm:text-2xl md:text-3xl text-primary tracking-tight">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight">
             Built for India’s noisy, code-switched audio
           </h2>
         </div>
         <HorizontalSpectrumVisualizer />
       </section>
-
-      {/* 5. Flagship product, depth for buyers who scroll */}
-      <AgentSurveillanceShowcase />
 
       {/* 6. Verticals */}
       <HomeVerticals />

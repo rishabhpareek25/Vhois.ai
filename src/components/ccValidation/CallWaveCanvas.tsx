@@ -33,9 +33,9 @@ export default function CallWaveCanvas({
       ctx.clearRect(0, 0, w, h);
 
       const grad = ctx.createLinearGradient(0, 0, w, 0);
-      grad.addColorStop(0, "rgba(255,255,255,0.02)");
-      grad.addColorStop(0.5, flagged ? "rgba(255,80,80,0.08)" : "rgba(255,255,255,0.06)");
-      grad.addColorStop(1, "rgba(255,255,255,0.02)");
+      grad.addColorStop(0, "rgba(239, 246, 255, 0.2)"); // blue-50
+      grad.addColorStop(0.5, flagged ? "rgba(254, 226, 226, 0.4)" : "rgba(219, 234, 254, 0.4)"); // red-100 / blue-100
+      grad.addColorStop(1, "rgba(239, 246, 255, 0.2)");
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);
 
@@ -48,7 +48,7 @@ export default function CallWaveCanvas({
         const y = mid + Math.sin(t) * amp + Math.sin(t * 2.3) * amp * 0.3;
         ctx.lineTo(x, y);
       }
-      ctx.strokeStyle = flagged ? "rgba(255,100,100,0.55)" : "rgba(255,255,255,0.35)";
+      ctx.strokeStyle = flagged ? "rgba(239, 68, 68, 0.55)" : "rgba(37, 99, 235, 0.35)"; // red-500 / primary-600
       ctx.lineWidth = 1.5;
       ctx.stroke();
 
@@ -60,8 +60,8 @@ export default function CallWaveCanvas({
         const x = i * barW + barW * 0.2;
         ctx.fillStyle =
           flagged && i % 11 === 0
-            ? "rgba(255,90,90,0.5)"
-            : `rgba(255,255,255,${0.08 + intensity * 0.25})`;
+            ? "rgba(239, 68, 68, 0.5)" // red-500
+            : `rgba(59, 130, 246, ${0.1 + intensity * 0.25})`; // blue-500
         ctx.fillRect(x, h - bh - 8, barW * 0.6, bh);
       }
 
@@ -79,7 +79,7 @@ export default function CallWaveCanvas({
   return (
     <canvas
       ref={canvasRef}
-      className="w-full h-full rounded-lg border border-white/5 bg-void-50/80"
+      className="w-full h-full rounded-lg border border-gray-100 bg-white shadow-sm"
       aria-hidden
     />
   );
