@@ -51,7 +51,7 @@ export default function HomeHero() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           className="mt-4 text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed"
         >
-          Vhois AI seamlessly ingests audio from both <strong>cloud meetings</strong> and <strong>physical on-ground environments</strong>, turning chaotic speech into structured, auditable intelligence.
+          Vhois AI captures your conversations everywhere, from <strong>online calls</strong> to <strong>in-person meetings</strong>, and turns every spoken word into clear, useful insights.
         </motion.p>
 
         {/* Premium CTA Buttons */}
