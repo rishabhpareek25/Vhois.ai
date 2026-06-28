@@ -56,9 +56,9 @@ export default function AgentSurveillanceShowcase() {
 
   return (
     <section id="business-impact" className="relative pt-4 sm:pt-8 pb-6 sm:pb-20 bg-white overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary-100/30 blur-[100px] pointer-events-none rounded-full -translate-y-1/2 translate-x-1/3" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-100/30 blur-[100px] pointer-events-none rounded-full translate-y-1/3 -translate-x-1/3" />
+      {/* Background ambient lighting - Hidden on mobile for GPU performance */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary-100/30 blur-[100px] pointer-events-none rounded-full -translate-y-1/2 translate-x-1/3 hidden md:block" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-100/30 blur-[100px] pointer-events-none rounded-full translate-y-1/3 -translate-x-1/3 hidden md:block" />
       
       <div className="page-bleed relative z-10">
         {/* Header */}

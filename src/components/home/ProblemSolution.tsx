@@ -232,14 +232,7 @@ export function HowItWorksStrip() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           
-          {/* Vertical Mobile Track */}
-          <div className="lg:hidden absolute top-[4rem] bottom-[4rem] left-1/2 w-[2px] bg-gray-100 z-0 -translate-x-1/2">
-            <motion.div 
-              className="absolute top-0 left-0 w-full h-[40%] bg-gradient-to-b from-transparent via-primary-500 to-transparent"
-              animate={{ top: ["-40%", "100%"] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            />
-          </div>
+          {/* Vertical Mobile Track - Removed for new modern horizontal layout */}
 
           {/* Horizontal Desktop Track */}
           <div className="hidden lg:block absolute top-[4rem] left-[10%] right-[10%] h-[2px] bg-gray-100 z-0">
@@ -254,7 +247,7 @@ export function HowItWorksStrip() {
             <div className="absolute top-1/2 left-3/4 w-1.5 h-1.5 rounded-full bg-primary-400 -translate-y-1/2 shadow-[0_0_10px_rgba(79,70,229,0.8)] animate-pulse" style={{ animationDelay: "2s" }} />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-4 relative z-10">
+          <div className="flex lg:grid overflow-x-auto lg:overflow-visible snap-x snap-mandatory lg:snap-none lg:grid-cols-5 gap-6 lg:gap-4 relative z-10 pb-8 lg:pb-0 px-4 sm:px-8 -mx-4 sm:-mx-6 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {PIPELINE.map((item, i) => {
               const Icon = item.icon;
               return (
@@ -264,7 +257,7 @@ export function HowItWorksStrip() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: i * 0.1, duration: 0.6, type: "spring" }}
-                  className="relative flex flex-col items-center text-center group"
+                  className="relative flex-shrink-0 w-[280px] lg:w-auto snap-center flex flex-col items-center text-center group"
                 >
                   {/* The Unbeatable Circular Node - Compacted */}
                   <div className="relative mb-4 w-28 h-28 flex items-center justify-center">

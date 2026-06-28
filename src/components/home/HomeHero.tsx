@@ -7,8 +7,8 @@ import { COMPANY } from "../../data/company";
 export default function HomeHero() {
   return (
     <section className="relative pt-20 sm:pt-24 pb-4 overflow-hidden flex flex-col items-center justify-center bg-white">
-      {/* Subtle Glow Behind Hero */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[300px] bg-primary-500/10 blur-[100px] rounded-full pointer-events-none" />
+      {/* Subtle Glow Behind Hero - Hidden on mobile for GPU performance */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[300px] bg-primary-500/10 blur-[100px] rounded-full pointer-events-none hidden md:block" />
 
       <div className="relative z-10 page-bleed flex flex-col items-center text-center">
         {/* Premium Pill */}

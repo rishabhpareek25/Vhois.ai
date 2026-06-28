@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 export default function AnimatedBackground() {
   return (
     <>
-      {/* Animated grid background */}
-      <div className="fixed inset-0 animated-grid pointer-events-none z-0 opacity-40" />
+      {/* Animated grid background - Hardware accelerated */}
+      <div className="fixed inset-0 animated-grid pointer-events-none z-0 opacity-40" style={{ willChange: "background-position" }} />
 
-      {/* Premium Ambient Mesh Gradients */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      {/* Premium Ambient Mesh Gradients - Hidden on mobile to save GPU fill rate and prevent lag */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden md:block">
         {/* Top Left Orb - Indigo */}
         <motion.div
           animate={{
@@ -20,7 +20,8 @@ export default function AnimatedBackground() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] rounded-full mix-blend-multiply filter blur-[100px] opacity-[0.15] bg-primary-300"
+          style={{ willChange: "transform" }}
+          className="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] rounded-full filter blur-[100px] opacity-[0.15] bg-primary-300"
         />
 
         {/* Bottom Right Orb - Blue */}
@@ -36,7 +37,8 @@ export default function AnimatedBackground() {
             ease: "easeInOut",
             delay: 2,
           }}
-          className="absolute -bottom-[20%] -right-[10%] w-[60vw] h-[60vw] max-w-[900px] max-h-[900px] rounded-full mix-blend-multiply filter blur-[120px] opacity-[0.12] bg-blue-300"
+          style={{ willChange: "transform" }}
+          className="absolute -bottom-[20%] -right-[10%] w-[60vw] h-[60vw] max-w-[900px] max-h-[900px] rounded-full filter blur-[120px] opacity-[0.12] bg-blue-300"
         />
 
         {/* Center Accent Orb - Subtle Violet */}
@@ -51,9 +53,13 @@ export default function AnimatedBackground() {
             ease: "easeInOut",
             delay: 4,
           }}
-          className="absolute top-[30%] left-[30%] w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] rounded-full mix-blend-multiply filter blur-[90px] opacity-[0.08] bg-indigo-400"
+          style={{ willChange: "transform" }}
+          className="absolute top-[30%] left-[30%] w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] rounded-full filter blur-[90px] opacity-[0.08] bg-indigo-400"
         />
-        
+      </div>
+
+      {/* Lightweight Fades - Kept on all screens because they are cheap to render */}
+      <div className="fixed inset-0 pointer-events-none z-0">
         {/* Soft white fade at the top so navbar is readable */}
         <div
           className="absolute top-0 inset-x-0 h-48"
@@ -71,8 +77,8 @@ export default function AnimatedBackground() {
         />
       </div>
 
-      {/* Global Noise Overlay for Texture */}
-      <div className="fixed inset-0 bg-noise z-0 pointer-events-none" />
+      {/* Global Noise Overlay for Texture - Hidden on mobile because SVG feTurbulence kills mobile battery & FPS */}
+      <div className="fixed inset-0 bg-noise z-0 pointer-events-none hidden md:block" />
     </>
   );
 }
