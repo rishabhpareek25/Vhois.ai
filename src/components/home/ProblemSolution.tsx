@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ArrowRight, Activity, Zap } from "lucide-react";
 
 const PROBLEMS = [
@@ -18,6 +19,8 @@ const SOLUTIONS = [
 ];
 
 export default function ProblemSolution() {
+  const [mobileView, setMobileView] = useState<'without' | 'with'>('without');
+
   return (
     <section className="relative pt-8 sm:pt-12 pb-16 sm:pb-24 bg-white overflow-hidden">
       {/* Subtle Premium Background */}
@@ -46,80 +49,7 @@ export default function ProblemSolution() {
         {/* The Animated Data Engine */}
         <div className="relative w-full max-w-6xl mx-auto">
           
-          {/* Mobile Continuous Flow Track (Elegant Thin Fiber Optics) */}
-          <div className="lg:hidden absolute top-[5%] bottom-[5%] left-0 right-0 z-0 pointer-events-none">
-            <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100" className="absolute inset-0">
-              <defs>
-                <linearGradient id="mobile-flow-gradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="rgba(248,113,113,0)" />
-                  <stop offset="25%" stopColor="rgba(248,113,113,0.8)" />
-                  <stop offset="50%" stopColor="rgba(167,139,250,0.8)" />
-                  <stop offset="75%" stopColor="rgba(99,102,241,0.8)" />
-                  <stop offset="100%" stopColor="rgba(99,102,241,0)" />
-                </linearGradient>
-              </defs>
-              {/* Main Core Thin Line */}
-              <motion.path 
-                d="M 50,0 L 50,100" 
-                fill="none" 
-                stroke="url(#mobile-flow-gradient)" 
-                strokeWidth="0.5"
-                opacity="0.8"
-              />
-              {/* Left Inner Thin Curve */}
-              <motion.path 
-                d="M 50,0 C 65,25 35,35 50,50 C 65,75 35,85 50,100" 
-                fill="none" 
-                stroke="url(#mobile-flow-gradient)" 
-                strokeWidth="0.5"
-                opacity="0.5"
-              />
-              {/* Right Inner Thin Curve */}
-              <motion.path 
-                d="M 50,0 C 35,25 65,35 50,50 C 35,75 65,85 50,100" 
-                fill="none" 
-                stroke="url(#mobile-flow-gradient)" 
-                strokeWidth="0.5"
-                opacity="0.5"
-              />
-              {/* Wide Left Thin Curve */}
-              <motion.path 
-                d="M 50,0 C 80,30 20,40 50,50 C 80,80 20,90 50,100" 
-                fill="none" 
-                stroke="url(#mobile-flow-gradient)" 
-                strokeWidth="0.25"
-                opacity="0.3"
-              />
-              {/* Wide Right Thin Curve */}
-              <motion.path 
-                d="M 50,0 C 20,30 80,40 50,50 C 20,80 80,90 50,100" 
-                fill="none" 
-                stroke="url(#mobile-flow-gradient)" 
-                strokeWidth="0.25"
-                opacity="0.3"
-              />
-              
-              {/* Traveling Energy Pulses */}
-              <motion.circle
-                cx="50"
-                cy="0"
-                r="1"
-                fill="#f87171"
-                style={{ filter: "drop-shadow(0 0 6px rgba(248,113,113,0.9))" }}
-                animate={{ cy: [0, 100] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              />
-              <motion.circle
-                cx="50"
-                cy="0"
-                r="1.5"
-                fill="#818cf8"
-                style={{ filter: "drop-shadow(0 0 6px rgba(129,140,248,0.9))" }}
-                animate={{ cy: [0, 100] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 1.5 }}
-              />
-            </svg>
-          </div>
+          {/* Mobile Continuous Flow Track (Removed, as we are shifting to a compact toggle layout) */}
 
           {/* Continuous Flow Track (Desktop Background) */}
           <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 -translate-y-1/2 z-0">
@@ -156,7 +86,8 @@ export default function ProblemSolution() {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row items-stretch justify-center gap-8 lg:gap-4 relative z-10 px-4 sm:px-0">
+          {/* DESKTOP LAYOUT (Unchanged) */}
+          <div className="hidden lg:flex flex-row items-stretch justify-center gap-4 relative z-10 px-0">
             
             {/* Left Side: The Mess (Red Glass Pane) */}
             <div className="flex-1 relative">
@@ -255,6 +186,117 @@ export default function ProblemSolution() {
               </div>
             </div>
             
+          </div>
+
+          {/* MOBILE LAYOUT (Interactive Toggle) */}
+          <div className="flex flex-col lg:hidden relative z-10 px-4 sm:px-6 items-center">
+             
+             {/* Central AI Engine Node (Scaled down for mobile header) */}
+             <div className="shrink-0 relative w-32 h-32 mb-6 flex items-center justify-center z-20">
+                <motion.div 
+                  className="absolute inset-0 rounded-full bg-primary-400/20 blur-[20px]"
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-2 rounded-full border-2 border-dashed border-primary-300/60"
+                />
+                <motion.div 
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-4 rounded-full border border-gray-300/50 bg-white/30 backdrop-blur-sm"
+                />
+                <div className="absolute inset-6 rounded-full bg-white shadow-[0_0_20px_rgba(79,70,229,0.3)] border border-primary-200 flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-100/50 to-white" />
+                  <motion.div 
+                    className="absolute left-0 right-0 h-1 bg-primary-400 blur-[1px]"
+                    animate={{ top: ["0%", "100%", "0%"] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  />
+                  <div className="relative z-10 flex flex-col items-center mt-1">
+                    <Activity className="w-6 h-6 text-primary-600 mb-1 drop-shadow-md" />
+                    <span className="font-display font-bold text-[10px] text-gray-900 tracking-wider">VHOIS AI</span>
+                  </div>
+                </div>
+             </div>
+
+             {/* Modern Segmented Control Toggle */}
+             <div className="flex w-full max-w-sm bg-gray-100/80 backdrop-blur-md p-1.5 rounded-2xl shadow-inner border border-gray-200 mb-6 relative">
+                 {/* Sliding Background */}
+                 <motion.div 
+                   className="absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] rounded-xl bg-white shadow-sm border border-gray-200/50 z-0"
+                   initial={false}
+                   animate={{ left: mobileView === 'without' ? '6px' : 'calc(50% + 0px)' }}
+                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                 />
+                 <button 
+                   onClick={() => setMobileView('without')} 
+                   className={`flex-1 py-3 rounded-xl text-[13px] font-bold transition-colors z-10 ${mobileView === 'without' ? 'text-red-600' : 'text-gray-500 hover:text-gray-700'}`}
+                 >
+                   Without VHOIS AI
+                 </button>
+                 <button 
+                   onClick={() => setMobileView('with')} 
+                   className={`flex-1 py-3 rounded-xl text-[13px] font-bold transition-colors z-10 ${mobileView === 'with' ? 'text-primary-600' : 'text-gray-500 hover:text-gray-700'}`}
+                 >
+                   With VHOIS AI
+                 </button>
+             </div>
+
+             {/* Dynamic Content Container */}
+             <div className="relative w-full max-w-sm" style={{ height: "380px" }}>
+                <AnimatePresence mode="wait">
+                  {mobileView === 'without' ? (
+                     <motion.div 
+                       key="without" 
+                       initial={{ opacity: 0, scale: 0.95 }} 
+                       animate={{ opacity: 1, scale: 1 }} 
+                       exit={{ opacity: 0, scale: 0.95 }} 
+                       transition={{ duration: 0.2 }}
+                       className="absolute inset-0"
+                     >
+                        <div className="h-full relative rounded-3xl overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-br from-white to-red-50/80 border border-red-100 shadow-md backdrop-blur-xl" />
+                          <div className="relative p-6 flex flex-col h-full justify-center space-y-5">
+                            {PROBLEMS.map((prob, i) => (
+                              <div key={`mob-prob-${i}`} className="flex items-start gap-4">
+                                <div className="w-1.5 h-1.5 mt-2.5 rounded-full bg-red-400 shadow-[0_0_8px_rgba(248,113,113,0.6)] shrink-0" />
+                                <p className="text-sm sm:text-base font-medium text-gray-700 leading-relaxed">
+                                  {prob}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                     </motion.div>
+                  ) : (
+                     <motion.div 
+                       key="with" 
+                       initial={{ opacity: 0, scale: 0.95 }} 
+                       animate={{ opacity: 1, scale: 1 }} 
+                       exit={{ opacity: 0, scale: 0.95 }} 
+                       transition={{ duration: 0.2 }}
+                       className="absolute inset-0"
+                     >
+                        <div className="h-full relative rounded-3xl overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-bl from-white to-primary-50/80 border border-primary-100 shadow-md backdrop-blur-xl" />
+                          <div className="relative p-6 flex flex-col h-full justify-center space-y-5">
+                            {SOLUTIONS.map((sol, i) => (
+                              <div key={`mob-sol-${i}`} className="flex items-start gap-4">
+                                <div className="w-1.5 h-1.5 mt-2.5 rounded-full bg-primary-500 shadow-[0_0_8px_rgba(99,102,241,0.6)] shrink-0" />
+                                <p className="text-sm sm:text-base font-bold text-gray-900 leading-relaxed">
+                                  {sol}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                     </motion.div>
+                  )}
+                </AnimatePresence>
+             </div>
           </div>
         </div>
       </div>
