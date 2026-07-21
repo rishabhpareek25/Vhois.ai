@@ -8,6 +8,7 @@ import {
   Globe,
   Cpu,
   Layers,
+  Smartphone,
   ArrowRight,
 } from "lucide-react";
 import Button from "../components/ui/Button";
@@ -18,8 +19,8 @@ const products = [
   {
     icon: Mic,
     title: "Speech ingestion",
-    description: "Ingest calls, meetings, and uploads, built for noisy Indian audio.",
-    specs: ["Multilingual", "Real-world audio", "Batch & streaming"],
+    description: "Ingest cloud telephony, virtual meetings, and on-ground physical recordings.",
+    specs: ["Multilingual", "Real-world audio", "Online & offline"],
   },
   {
     icon: FileText,
@@ -37,8 +38,8 @@ const products = [
 
 const capabilities = [
   { icon: Globe, value: "Indian", label: "Languages & accents" },
+  { icon: Smartphone, value: "Omnichannel", label: "Cloud & edge ingestion" },
   { icon: Cpu, value: "AWS", label: "Cloud-native stack" },
-  { icon: Layers, value: "Pilot", label: "Enterprise deployments" },
   { icon: Shield, value: "Secure", label: "Encryption & access control" },
 ];
 
@@ -51,20 +52,20 @@ export default function Platform() {
   );
 
   return (
-    <div className="min-h-screen pt-28 sm:pt-32 pb-20">
+    <div className="min-h-screen pt-28 sm:pt-32 pb-20 bg-gray-50">
       <div className="page-bleed">
         <motion.header
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16 sm:mb-20 max-w-4xl mx-auto"
         >
-          <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-void-600 mb-4">Platform</p>
-          <h1 className="font-sans font-semibold text-3xl sm:text-5xl md:text-6xl text-platinum tracking-tight mb-5">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-4">Platform</p>
+          <h1 className="font-sans font-semibold text-3xl sm:text-5xl md:text-6xl text-gray-900 tracking-tight mb-5">
             Conversation intelligence
             <br />
-            <span className="text-void-600">infrastructure.</span>
+            <span className="text-primary-600">infrastructure.</span>
           </h1>
-          <p className="text-void-600 text-lg leading-relaxed">{COMPANY.description}</p>
+          <p className="text-gray-600 text-lg leading-relaxed">{COMPANY.description}</p>
         </motion.header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-20">
@@ -75,18 +76,18 @@ export default function Platform() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
-              className="rounded-2xl border border-white/[0.08] bg-void-50/40 p-7 flex flex-col"
+              className="rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow p-7 flex flex-col"
             >
-              <div className="p-3 rounded-lg bg-white/[0.04] w-fit mb-5">
-                <product.icon className="w-7 h-7 text-platinum" strokeWidth={1.5} />
+              <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 w-fit mb-5">
+                <product.icon className="w-7 h-7 text-primary-600" strokeWidth={1.5} />
               </div>
-              <h3 className="font-semibold text-xl text-platinum mb-2">{product.title}</h3>
-              <p className="text-sm text-void-600 leading-relaxed mb-5 flex-1">{product.description}</p>
+              <h3 className="font-semibold text-xl text-gray-900 mb-2">{product.title}</h3>
+              <p className="text-sm text-gray-500 leading-relaxed mb-5 flex-1">{product.description}</p>
               <div className="flex flex-wrap gap-2">
                 {product.specs.map((spec) => (
                   <span
                     key={spec}
-                    className="text-[10px] font-mono px-2.5 py-1 rounded-full border border-white/[0.08] text-void-600"
+                    className="text-[10px] font-bold px-2.5 py-1 rounded-full border border-gray-200 text-gray-500 bg-gray-50"
                   >
                     {spec}
                   </span>
@@ -102,18 +103,18 @@ export default function Platform() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <h2 className="font-sans font-semibold text-2xl text-platinum text-center mb-10">
+          <h2 className="font-sans font-semibold text-2xl text-gray-900 text-center mb-10 tracking-tight">
             Built for production workloads
           </h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {capabilities.map((spec) => (
               <div
                 key={spec.label}
-                className="rounded-xl border border-white/[0.08] p-6 text-center bg-white/[0.02]"
+                className="rounded-2xl border border-gray-200 p-6 text-center bg-white shadow-sm"
               >
-                <spec.icon className="w-6 h-6 text-platinum mx-auto mb-3" strokeWidth={1.5} />
-                <div className="font-mono font-bold text-xl text-platinum mb-1">{spec.value}</div>
-                <div className="text-xs text-void-600">{spec.label}</div>
+                <spec.icon className="w-6 h-6 text-primary-600 mx-auto mb-3" strokeWidth={1.5} />
+                <div className="font-sans font-bold text-xl text-gray-900 mb-1">{spec.value}</div>
+                <div className="text-xs text-gray-500 font-medium">{spec.label}</div>
               </div>
             ))}
           </div>
@@ -123,17 +124,17 @@ export default function Platform() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="rounded-2xl border border-white/[0.08] p-8 sm:p-12 text-center mb-16"
+          className="rounded-3xl border border-gray-200 bg-white shadow-xl p-8 sm:p-12 text-center mb-16"
         >
-          <h2 className="font-sans font-semibold text-2xl text-platinum mb-4">Integrations</h2>
-          <p className="text-void-600 mb-8 max-w-xl mx-auto">
+          <h2 className="font-sans font-semibold text-2xl text-gray-900 mb-4 tracking-tight">Integrations</h2>
+          <p className="text-gray-500 mb-8 max-w-xl mx-auto leading-relaxed">
             Deploy on AWS today. CRM, dialer, and webhook integrations scoped per pilot.
           </p>
           <div className="flex flex-wrap justify-center gap-3 mb-10">
             {integrations.map((name) => (
               <span
                 key={name}
-                className="px-4 py-2 rounded-lg border border-white/[0.08] font-mono text-sm text-void-600"
+                className="px-4 py-2 rounded-xl border border-gray-200 font-bold text-sm text-gray-600 bg-gray-50 shadow-sm"
               >
                 {name}
               </span>

@@ -5,14 +5,12 @@ export const COMPANY = {
   domain: "vhoisai.in",
   website: "https://vhoisai.in",
   email: "info@vhoisai.in",
-  phone: "+91 82331 72503",
-  portal: "https://portal.vhoisai.in",
-  tagline: "Conversation insights for business",
+  tagline: "Conversation intelligence infrastructure",
   description:
-    "Vhois AI turns sales calls and meetings into actionable business intelligence — speaker recognition, intent, follow-ups, quality scores, and dashboards.",
+    "Vhois AI builds conversation intelligence infrastructure for real-world speech, making calls, meetings, and spoken workflows searchable, auditable, and actionable across Indian languages.",
   jurisdiction: "India",
   productSummary:
-    "AI-powered call analysis for contact centers and sales teams. Transcription, speaker ID, QA monitoring, and leadership dashboards on AWS.",
+    "Speech ingestion, transcription, speaker intelligence, and QA analytics for contact centers, meetings, and enterprise workflows. Deployed on AWS.",
 } as const;
 
 export const SOCIAL_LINKS = {

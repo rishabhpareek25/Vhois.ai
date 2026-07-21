@@ -68,9 +68,9 @@ export const AGENT_TYPES = [
     accent: "from-amber-500/10 border-amber-500/20",
   },
   {
-    title: "HR & recruitment",
-    tag: "Talent intelligence",
-    items: ["Candidate interest", "Salary expectations", "Culture fit signals", "Follow-up needs"],
+    title: "Field agents & surveyors",
+    tag: "On-ground intelligence",
+    items: ["Proof of visit", "Pitch compliance", "Sentiment signals", "Speaker attribution"],
     accent: "from-violet-500/10 border-violet-500/20",
   },
   {
@@ -95,10 +95,9 @@ export const ONLINE_CHANNELS = [
 ] as const;
 
 export const OFFLINE_CHANNELS = [
-  "Mobile & field recordings",
-  "WhatsApp voice notes",
-  "Batch MP3/WAV uploads",
-  "Client-side storage mode",
+  "Field sales recorders & tablets",
+  "Retail kiosks & physical rooms",
+  "WhatsApp voice notes & batch uploads",
 ] as const;
 
 export const DASHBOARD_METRICS = [

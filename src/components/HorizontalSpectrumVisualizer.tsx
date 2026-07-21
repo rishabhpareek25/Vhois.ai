@@ -51,9 +51,9 @@ export default function HorizontalSpectrumVisualizer() {
       const centerY = canvas.height / 2;
 
       const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      bgGradient.addColorStop(0, "rgba(255, 255, 255, 0.02)");
-      bgGradient.addColorStop(0.5, "rgba(120, 120, 120, 0.01)");
-      bgGradient.addColorStop(1, "rgba(255, 255, 255, 0.02)");
+      bgGradient.addColorStop(0, "rgba(249, 250, 251, 0.8)"); // gray-50
+      bgGradient.addColorStop(0.5, "rgba(255, 255, 255, 0.4)");
+      bgGradient.addColorStop(1, "rgba(249, 250, 251, 0.8)");
       ctx.fillStyle = bgGradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -62,7 +62,7 @@ export default function HorizontalSpectrumVisualizer() {
       for (let i = 0; i < speakerCount; i++) {
         const y = laneHeight * (i + 1);
         const isActive = i === activeSpeaker;
-        ctx.strokeStyle = isActive ? "rgba(255, 255, 255, 0.25)" : "rgba(255, 255, 255, 0.1)";
+        ctx.strokeStyle = isActive ? "rgba(37, 99, 235, 0.25)" : "rgba(156, 163, 175, 0.2)";
         ctx.lineWidth = isActive ? 1.2 : 0.8;
         ctx.setLineDash([4, 6]);
         ctx.beginPath();
@@ -72,7 +72,7 @@ export default function HorizontalSpectrumVisualizer() {
 
         // Speaker labels on the left edge
         ctx.font = "10px Space Mono";
-        ctx.fillStyle = isActive ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.35)";
+        ctx.fillStyle = isActive ? "rgba(31, 41, 55, 0.9)" : "rgba(107, 114, 128, 0.6)";
         ctx.textAlign = "left";
         ctx.textBaseline = "middle";
         const label = `SPEAKER_${String.fromCharCode(65 + i)}`;
@@ -81,7 +81,7 @@ export default function HorizontalSpectrumVisualizer() {
       ctx.setLineDash([]);
 
       // Main centerline
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.16)";
+      ctx.strokeStyle = "rgba(156, 163, 175, 0.3)";
       ctx.lineWidth = 0.6;
       ctx.beginPath();
       ctx.moveTo(0, centerY);
@@ -109,24 +109,24 @@ export default function HorizontalSpectrumVisualizer() {
         const bottomY = centerY + barHeight;
 
         const barGradient = ctx.createLinearGradient(x, topY, x, centerY);
-        barGradient.addColorStop(0, "rgba(255, 255, 255, 0.82)");
-        barGradient.addColorStop(0.5, "rgba(180, 180, 180, 0.48)");
-        barGradient.addColorStop(1, "rgba(95, 95, 95, 0.18)");
+        barGradient.addColorStop(0, "rgba(59, 130, 246, 0.82)");
+        barGradient.addColorStop(0.5, "rgba(147, 197, 253, 0.48)");
+        barGradient.addColorStop(1, "rgba(219, 234, 254, 0.18)");
 
         ctx.fillStyle = barGradient;
         ctx.fillRect(x, topY, barGap - 1, barHeight);
 
         const bottomGradient = ctx.createLinearGradient(x, centerY, x, bottomY);
-        bottomGradient.addColorStop(0, "rgba(95, 95, 95, 0.18)");
-        bottomGradient.addColorStop(0.5, "rgba(180, 180, 180, 0.48)");
-        bottomGradient.addColorStop(1, "rgba(255, 255, 255, 0.82)");
+        bottomGradient.addColorStop(0, "rgba(219, 234, 254, 0.18)");
+        bottomGradient.addColorStop(0.5, "rgba(147, 197, 253, 0.48)");
+        bottomGradient.addColorStop(1, "rgba(59, 130, 246, 0.82)");
 
         ctx.fillStyle = bottomGradient;
         ctx.fillRect(x, centerY, barGap - 1, barHeight);
 
         if (normalizedAmplitude > 0.72) {
           ctx.shadowBlur = 12;
-          ctx.shadowColor = "rgba(255, 255, 255, 0.28)";
+          ctx.shadowColor = "rgba(59, 130, 246, 0.28)";
           ctx.fillRect(x, topY, barGap - 1, barHeight);
           ctx.fillRect(x, centerY, barGap - 1, barHeight);
           ctx.shadowBlur = 0;
@@ -143,10 +143,10 @@ export default function HorizontalSpectrumVisualizer() {
           const pulse = Math.sin(time * (isActive ? 3.1 : 1.6) + phase + speakerSeeds[speaker]) * 0.5 + 0.5;
           const x = (canvas.width / (beadCount + 1)) * (i + 1);
           const radius = isActive ? 2 + pulse * 2.2 : 1.5 + pulse * 1.1;
-          const alpha = isActive ? 0.22 + pulse * 0.35 : 0.1 + pulse * 0.12;
+          const alpha = isActive ? 0.35 + pulse * 0.45 : 0.1 + pulse * 0.15;
           ctx.beginPath();
           ctx.arc(x, laneY, radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+          ctx.fillStyle = isActive ? `rgba(37, 99, 235, ${alpha})` : `rgba(156, 163, 175, ${alpha})`;
           ctx.fill();
         }
       }
@@ -156,21 +156,21 @@ export default function HorizontalSpectrumVisualizer() {
       const indicatorY = laneHeight * (activeSpeaker + 1);
       ctx.beginPath();
       ctx.arc(indicatorX, indicatorY, 6.5, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.65)";
+      ctx.strokeStyle = "rgba(37, 99, 235, 0.65)";
       ctx.lineWidth = 1.5;
       ctx.stroke();
       ctx.beginPath();
       ctx.arc(indicatorX, indicatorY, 2.8, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+      ctx.fillStyle = "rgba(37, 99, 235, 0.9)";
       ctx.fill();
 
       // Overlap zone ribbon (center energy where cross-talk appears)
       const overlapIntensity = Math.sin(time * 1.7) * 0.5 + 0.5;
       const overlapHeight = 8 + overlapIntensity * 12;
       const overlapGradient = ctx.createLinearGradient(0, centerY - overlapHeight, 0, centerY + overlapHeight);
-      overlapGradient.addColorStop(0, "rgba(255, 255, 255, 0)");
-      overlapGradient.addColorStop(0.5, `rgba(255, 255, 255, ${0.04 + overlapIntensity * 0.12})`);
-      overlapGradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+      overlapGradient.addColorStop(0, "rgba(254, 226, 226, 0)");
+      overlapGradient.addColorStop(0.5, `rgba(239, 68, 68, ${0.02 + overlapIntensity * 0.08})`);
+      overlapGradient.addColorStop(1, "rgba(254, 226, 226, 0)");
       ctx.fillStyle = overlapGradient;
       ctx.fillRect(0, centerY - overlapHeight, canvas.width, overlapHeight * 2);
 
@@ -184,23 +184,23 @@ export default function HorizontalSpectrumVisualizer() {
         const bottomY = centerY + barHeight;
         ctx.beginPath();
         ctx.arc(x, topY, 2.3 + wave * 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.5 + wave * 0.35})`;
+        ctx.fillStyle = `rgba(59, 130, 246, ${0.5 + wave * 0.35})`;
         ctx.fill();
         ctx.beginPath();
         ctx.arc(x, bottomY, 2.3 + wave * 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.5 + wave * 0.35})`;
+        ctx.fillStyle = `rgba(59, 130, 246, ${0.5 + wave * 0.35})`;
         ctx.fill();
       }
 
       const edgeGradient = ctx.createLinearGradient(0, 0, 100, 0);
-      edgeGradient.addColorStop(0, "rgba(0, 0, 0, 0.3)");
-      edgeGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+      edgeGradient.addColorStop(0, "rgba(255, 255, 255, 0.9)");
+      edgeGradient.addColorStop(1, "rgba(255, 255, 255, 0)");
       ctx.fillStyle = edgeGradient;
       ctx.fillRect(0, 0, 100, canvas.height);
 
       const rightEdgeGradient = ctx.createLinearGradient(canvas.width - 100, 0, canvas.width, 0);
-      rightEdgeGradient.addColorStop(0, "rgba(0, 0, 0, 0)");
-      rightEdgeGradient.addColorStop(1, "rgba(0, 0, 0, 0.3)");
+      rightEdgeGradient.addColorStop(0, "rgba(255, 255, 255, 0)");
+      rightEdgeGradient.addColorStop(1, "rgba(255, 255, 255, 0.9)");
       ctx.fillStyle = rightEdgeGradient;
       ctx.fillRect(canvas.width - 100, 0, 100, canvas.height);
 
@@ -256,20 +256,20 @@ export default function HorizontalSpectrumVisualizer() {
       className="w-full min-w-0"
     >
       <div className="page-bleed min-w-0">
-        <div className="mb-3 sm:mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-4 sm:mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div className="min-w-0">
-            <h3 className="text-xs sm:text-sm font-mono text-platinum opacity-70">AUDIO SPECTRUM</h3>
-            <p className="text-[11px] sm:text-xs text-secondary mt-0.5 leading-snug">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-widest">Live Audio Analysis</h3>
+            <p className="text-sm text-gray-700 mt-1 leading-snug font-medium">
               Real-time voice frequency and speaker diarization
             </p>
           </div>
         </div>
 
-        <div className="mb-3 flex flex-wrap items-center gap-1.5 sm:gap-2">
+        <div className="mb-4 flex flex-wrap items-center gap-2">
           {["speaker_labels=true", "overlap_detection=on", "confidence=enabled", "tracks=4"].map((item) => (
             <span
               key={item}
-              className="text-[9px] sm:text-[10px] font-mono px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md border border-white/10 text-tertiary whitespace-nowrap"
+              className="text-[10px] font-mono px-2 py-1 rounded-md border border-gray-200 bg-gray-50 text-gray-600 whitespace-nowrap"
             >
               {item}
             </span>
@@ -279,7 +279,7 @@ export default function HorizontalSpectrumVisualizer() {
         <motion.div
           ref={containerRef}
           whileHover={{ scale: 1.005 }}
-          className="relative border border-void-300 rounded-lg sm:rounded-xl overflow-hidden backdrop-blur-sm min-w-0"
+          className="relative border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm min-w-0"
         >
           <canvas
             ref={canvasRef}
@@ -292,7 +292,7 @@ export default function HorizontalSpectrumVisualizer() {
             className="absolute inset-0 pointer-events-none"
             style={{
               backgroundImage:
-                "linear-gradient(90deg, transparent 49%, rgba(255,255,255,0.03) 49%, rgba(255,255,255,0.03) 51%, transparent 51%)",
+                "linear-gradient(90deg, transparent 49%, rgba(0,0,0,0.02) 49%, rgba(0,0,0,0.02) 51%, transparent 51%)",
               backgroundSize: "4% 100%",
             }}
           />
@@ -302,7 +302,7 @@ export default function HorizontalSpectrumVisualizer() {
             className="absolute inset-0 pointer-events-none"
             style={{
               backgroundImage:
-                "linear-gradient(0deg, transparent 19%, rgba(255,255,255,0.02) 19%, rgba(255,255,255,0.02) 21%, transparent 21%, transparent 49%, rgba(255,255,255,0.02) 49%, rgba(255,255,255,0.02) 51%, transparent 51%, transparent 79%, rgba(255,255,255,0.02) 79%, rgba(255,255,255,0.02) 81%, transparent 81%)",
+                "linear-gradient(0deg, transparent 19%, rgba(0,0,0,0.02) 19%, rgba(0,0,0,0.02) 21%, transparent 21%, transparent 49%, rgba(0,0,0,0.02) 49%, rgba(0,0,0,0.02) 51%, transparent 51%, transparent 79%, rgba(0,0,0,0.02) 79%, rgba(0,0,0,0.02) 81%, transparent 81%)",
               backgroundSize: "100% 5%",
             }}
           />
@@ -312,7 +312,7 @@ export default function HorizontalSpectrumVisualizer() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className="mt-4 sm:mt-6 grid grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4 min-w-0"
+          className="mt-6 grid grid-cols-2 xl:grid-cols-4 gap-3 md:gap-4 min-w-0"
         >
           {(
             [
@@ -326,12 +326,12 @@ export default function HorizontalSpectrumVisualizer() {
               { label: "TURN DURATION", short: "TURN", value: `${liveMetrics.turnDuration.toFixed(1)}s` },
             ] as const
           ).map((metric) => (
-            <div key={metric.label} className="glass rounded-lg p-3 sm:p-4 text-center min-w-0">
-              <div className="text-[9px] sm:text-xs text-tertiary font-mono mb-1 sm:mb-2 leading-tight">
+            <div key={metric.label} className="bg-white border border-gray-100 shadow-sm rounded-xl p-4 text-center min-w-0">
+              <div className="text-[10px] text-gray-500 font-semibold mb-2 leading-tight uppercase tracking-wider">
                 <span className="sm:hidden">{metric.short}</span>
                 <span className="hidden sm:inline">{metric.label}</span>
               </div>
-              <div className="text-base sm:text-lg md:text-xl font-bold text-platinum truncate">
+              <div className="text-lg md:text-xl font-bold text-gray-900 truncate font-mono">
                 {metric.value}
               </div>
             </div>

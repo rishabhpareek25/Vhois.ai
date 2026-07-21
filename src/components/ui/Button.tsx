@@ -31,13 +31,13 @@ export default function Button({
 
   const variants: Record<string, string> = {
     primary:
-      "bg-platinum text-void hover:shadow-glow-white active:scale-[0.98] border border-platinum",
+      "bg-primary-600 text-white hover:bg-primary-700 active:scale-[0.98] border border-transparent shadow-sm",
     secondary:
-      "bg-void-100 text-ash-light border border-void-300 hover:border-void-600 hover:text-platinum",
-    ghost: "text-void-600 hover:text-platinum hover:bg-void-100",
+      "bg-gray-100 text-gray-900 border border-transparent hover:bg-gray-200",
+    ghost: "text-gray-600 hover:text-gray-900 hover:bg-gray-100",
     outline:
-      "bg-transparent border border-void-400 text-ash-light hover:border-platinum hover:text-platinum hover:shadow-glow-white",
-    neon: "bg-transparent border border-platinum text-platinum hover:bg-void-100 hover:shadow-glow-white",
+      "bg-white border border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50 shadow-sm",
+    neon: "bg-white border border-primary-200 text-primary-700 hover:bg-primary-50 hover:border-primary-300 shadow-sm",
   };
 
   const sizes = {
