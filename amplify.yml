@@ -7,11 +7,26 @@ frontend:
         - |
           API_URL="${WAITLIST_API_URL:-$VITE_API_BASE_URL}"
           API_URL="${API_URL%/}"
+          : > .env.production
           if [ -n "$API_URL" ]; then
-            echo "VITE_API_BASE_URL=$API_URL" > .env.production
+            echo "VITE_API_BASE_URL=$API_URL" >> .env.production
             echo "Waitlist API (direct): $API_URL"
           else
             echo "WARNING: Set WAITLIST_API_URL in Amplify env vars (docs/DEPLOY_API.md)"
+          fi
+          if [ -n "$VITE_LIVE_TRANSCRIPTION_WS_URL" ]; then
+            echo "VITE_LIVE_TRANSCRIPTION_WS_URL=$VITE_LIVE_TRANSCRIPTION_WS_URL" >> .env.production
+            echo "Live transcription WS configured"
+          else
+            echo "WARNING: Set VITE_LIVE_TRANSCRIPTION_WS_URL in Amplify for live demo"
+          fi
+          if [ -n "$VITE_LIVE_TRANSCRIPTION_API_KEY" ]; then
+            echo "VITE_LIVE_TRANSCRIPTION_API_KEY=$VITE_LIVE_TRANSCRIPTION_API_KEY" >> .env.production
+          else
+            echo "WARNING: Set VITE_LIVE_TRANSCRIPTION_API_KEY in Amplify for live demo"
+          fi
+          if [ -n "$VITE_LIVE_TRANSCRIPTION_LANGUAGE" ]; then
+            echo "VITE_LIVE_TRANSCRIPTION_LANGUAGE=$VITE_LIVE_TRANSCRIPTION_LANGUAGE" >> .env.production
           fi
           printf '/*\t/index.html\t200\n' > public/_redirects
     build:

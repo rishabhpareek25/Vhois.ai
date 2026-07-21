@@ -22,7 +22,7 @@ export default function ProblemSolution() {
   const [mobileView, setMobileView] = useState<'without' | 'with'>('without');
 
   return (
-    <section className="relative pt-8 sm:pt-12 pb-16 sm:pb-24 bg-white overflow-hidden">
+    <section className="relative pt-6 sm:pt-8 pb-16 sm:pb-24 bg-white overflow-hidden">
       {/* Subtle Premium Background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(79,70,229,0.04),transparent_80%)] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1000px] h-[600px] bg-gradient-to-r from-red-50/50 via-primary-50/50 to-indigo-50/50 blur-[100px] rounded-full pointer-events-none opacity-70" />
