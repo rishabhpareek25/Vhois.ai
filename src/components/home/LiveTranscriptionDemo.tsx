@@ -197,7 +197,7 @@ export default function LiveTranscriptionDemo() {
             <span className="text-gradient">speaker diarization</span>
           </h2>
           <p className="text-sm sm:text-base text-gray-500 leading-relaxed max-w-xl mx-auto">
-            Speak naturally — Hindi, English, or mixed. Each voice gets its own lane, streamed in real time.
+            Speak naturally in Hindi, English, or mixed. Each voice gets its own lane, streamed in real time.
           </p>
         </motion.div>
 
