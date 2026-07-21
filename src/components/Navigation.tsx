@@ -36,7 +36,7 @@ export default function Navigation() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100" : "bg-transparent"
+          isScrolled ? "glass shadow-2xl" : "bg-transparent"
         }`}
       >
         <div className="page-bleed py-2.5">
@@ -44,10 +44,10 @@ export default function Navigation() {
             <Link to="/" className="flex items-center gap-2 group shrink-0">
               <AudioWaveformLogo />
               <div className="flex flex-col leading-none">
-                <span className="font-mono font-bold text-base sm:text-lg text-gray-900 tracking-wide">
+                <span className="font-mono font-bold text-base sm:text-lg text-platinum tracking-wide">
                   {COMPANY.name}
                 </span>
-                <span className="text-[9px] sm:text-[10px] text-gray-500 font-mono mt-0.5 hidden xs:block">
+                <span className="text-[9px] sm:text-[10px] text-void-600 font-mono mt-0.5 hidden xs:block">
                   {COMPANY.domain}
                 </span>
               </div>
@@ -57,7 +57,7 @@ export default function Navigation() {
               <Link
                 to="/"
                 className={`text-sm font-medium whitespace-nowrap transition-colors shrink-0 ${
-                  location.pathname === "/" ? "text-primary-600" : "text-gray-600 hover:text-primary-600"
+                  location.pathname === "/" ? "text-platinum" : "text-void-600 hover:text-platinum"
                 }`}
               >
                 Home
@@ -67,15 +67,15 @@ export default function Navigation() {
                   <span
                     className={`relative text-sm font-medium whitespace-nowrap transition-colors ${
                       location.pathname === item.path
-                        ? "text-primary-600"
-                        : "text-gray-600 hover:text-primary-600"
+                        ? "text-platinum"
+                        : "text-void-600 hover:text-platinum"
                     }`}
                   >
                     {item.name}
                     {location.pathname === item.path && (
                       <motion.div
                         layoutId="activeTab"
-                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary-600"
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-platinum"
                       />
                     )}
                   </span>
@@ -88,15 +88,15 @@ export default function Navigation() {
                 <motion.span
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-block px-4 py-1.5 bg-primary-600 text-white text-sm font-semibold rounded-md border border-primary-500 shadow-sm hover:bg-primary-700 hover:border-primary-600 transition-colors cursor-pointer"
+                  className="inline-block px-4 py-1.5 bg-platinum text-void text-sm font-semibold rounded-md border border-platinum cursor-pointer"
                 >
-                  Request Demo
+                  Join Waitlist
                 </motion.span>
               </Link>
             </div>
 
             <button
-              className="lg:hidden p-1.5 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
+              className="lg:hidden p-1.5 text-platinum glass rounded-lg"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -115,13 +115,13 @@ export default function Navigation() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 lg:hidden"
           >
-            <div className="absolute inset-0 bg-white/95 backdrop-blur-xl" />
+            <div className="absolute inset-0 bg-void/95 backdrop-blur-xl" />
             <div className="relative h-full flex flex-col items-center justify-center gap-6 px-6">
               <Link
                 to="/"
                 onClick={() => setMobileMenuOpen(false)}
                 className={`text-2xl font-mono font-bold ${
-                  location.pathname === "/" ? "text-primary-600" : "text-gray-700"
+                  location.pathname === "/" ? "text-platinum" : "text-void-600"
                 }`}
               >
                 Home
@@ -137,7 +137,7 @@ export default function Navigation() {
                     to={item.path}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`text-2xl font-mono font-bold ${
-                      location.pathname === item.path ? "text-primary-600" : "text-gray-700"
+                      location.pathname === item.path ? "text-platinum" : "text-void-600"
                     }`}
                   >
                     {item.name}
@@ -145,8 +145,8 @@ export default function Navigation() {
                 </motion.div>
               ))}
               <Link to="/waitlist" onClick={() => setMobileMenuOpen(false)}>
-                <span className="inline-block px-6 py-3 bg-primary-600 text-white font-medium rounded-md text-base mt-4 shadow-sm">
-                  Request Demo
+                <span className="inline-block px-4 py-2 bg-platinum text-void font-medium rounded-md text-sm mt-4">
+                  Join Waitlist
                 </span>
               </Link>
             </div>

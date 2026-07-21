@@ -2,347 +2,283 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
+  AlertTriangle,
+  Shield,
+  TrendingDown,
   TrendingUp,
-  ShieldAlert,
-  Award,
-  Zap,
+  Radio,
   ArrowRight,
-  Activity,
-  CheckCircle2,
-  PhoneCall,
-  BrainCircuit,
-  BarChart3
+  Scan,
+  Zap,
 } from "lucide-react";
 import Button from "../ui/Button";
+import CallWaveCanvas from "../ccValidation/CallWaveCanvas";
 
-const ALERTS = [
-  "Sales: High-intent verbal agreement captured on Call #8892",
-  "Compliance: Field Agent #42 missed mandatory script disclaimer",
-  "Operations: 145 calls and 32 field surveys logged to CRM",
-  "QA: 100% of today's calls and on-ground interactions audited successfully",
+const AGENTS = [
+  { id: "A-07", name: "Priya S.", score: 94, risk: "low", flag: null },
+  { id: "A-12", name: "Rahul M.", score: 41, risk: "critical", flag: "Rude tone @ 04:33" },
+  { id: "A-23", name: "Anita K.", score: 78, risk: "medium", flag: "Script skip @ 02:14" },
+  { id: "A-47", name: "Vikram P.", score: 31, risk: "critical", flag: "Compliance breach" },
+  { id: "A-51", name: "Sneha R.", score: 88, risk: "low", flag: null },
+  { id: "A-63", name: "Arjun D.", score: 62, risk: "high", flag: "Missed follow-up" },
 ];
 
 const TRANSCRIPT_LINES = [
-  { id: 1, speaker: "CUSTOMER", text: "I'm interested, but the price seems a bit high for our team.", type: "neutral" },
-  { id: 2, speaker: "AGENT", text: "I understand. If we can do a 10% discount, would you be ready to move forward today?", type: "neutral" },
-  { id: 3, speaker: "VHOIS AI", text: "Intent: High | Objection: Pricing | Action: Discount Offered", type: "insight" },
-  { id: 4, speaker: "CUSTOMER", text: "Yes, send over the agreement.", type: "neutral" },
-  { id: 5, speaker: "VHOIS AI", text: "Verbal Agreement Captured | CRM Updated Automatically", type: "success" },
-  { id: 6, speaker: "AGENT", text: "Perfect, it should be in your inbox now.", type: "neutral" },
+  { speaker: "CUSTOMER", text: "Haan main interested hoon, kal call karna...", lang: "Hinglish", flag: false },
+  { speaker: "AGENT #47", text: "Theek hai sir, main note kar leta hoon.", lang: "Hindi", flag: false },
+  { speaker: "SYSTEM", text: "⚠ Customer agreed: no CRM follow-up logged", lang: "AI", flag: true },
+  { speaker: "AGENT #12", text: "Aapko baar baar batana padega kya?", lang: "Hinglish", flag: true },
+  { speaker: "SYSTEM", text: "⚠ Misbehavior probability: 0.89", lang: "AI", flag: true },
+];
+
+const ALERTS = [
+  "AGENT #47 skipped mandatory compliance line",
+  "Interested customer: zero follow-up in CRM",
+  "Hinglish escalation detected on Call #8821",
+  "Agent marked 'not interested': customer said yes",
 ];
 
 export default function AgentSurveillanceShowcase() {
+  const [coverage, setCoverage] = useState(4);
   const [alertIdx, setAlertIdx] = useState(0);
-  const [visibleLines, setVisibleLines] = useState<number[]>([0]);
+  const [lineIdx, setLineIdx] = useState(0);
+  const [hoveredAgent, setHoveredAgent] = useState<string | null>(null);
 
   useEffect(() => {
-    const alertTimer = setInterval(() => setAlertIdx((i) => (i + 1) % ALERTS.length), 3500);
-    
-    let currentIdx = 0;
-    const lineTimer = setInterval(() => {
-      currentIdx = (currentIdx + 1) % TRANSCRIPT_LINES.length;
-      setVisibleLines(prev => {
-        const next = [...prev, currentIdx];
-        if (next.length > 3) next.shift(); // Keep only last 3 messages
-        return next;
-      });
-    }, 2800);
-
+    const cov = setInterval(() => {
+      setCoverage((c) => (c >= 100 ? 4 : c + 1));
+    }, 80);
+    const alert = setInterval(() => setAlertIdx((i) => (i + 1) % ALERTS.length), 2800);
+    const line = setInterval(() => setLineIdx((i) => (i + 1) % TRANSCRIPT_LINES.length), 2200);
     return () => {
-      clearInterval(alertTimer);
-      clearInterval(lineTimer);
+      clearInterval(cov);
+      clearInterval(alert);
+      clearInterval(line);
     };
   }, []);
 
+  const riskColor = (risk: string) => {
+    if (risk === "critical") return "text-red-400 border-red-500/40 bg-red-500/10";
+    if (risk === "high") return "text-amber-300 border-amber-500/30 bg-amber-500/10";
+    if (risk === "medium") return "text-ash border-white/20 bg-white/5";
+    return "text-emerald-300/90 border-emerald-500/25 bg-emerald-500/8";
+  };
+
   return (
-    <section id="business-impact" className="relative pt-4 sm:pt-8 pb-6 sm:pb-20 bg-white overflow-hidden">
-      {/* Background ambient lighting - Hidden on mobile for GPU performance */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary-100/30 blur-[100px] pointer-events-none rounded-full -translate-y-1/2 translate-x-1/3 hidden md:block" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-100/30 blur-[100px] pointer-events-none rounded-full translate-y-1/3 -translate-x-1/3 hidden md:block" />
-      
-      <div className="page-bleed relative z-10">
+    <section id="agent-surveillance" className="relative py-10 sm:py-12 overflow-hidden scroll-mt-24">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,60,60,0.06),transparent_60%)] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(255,255,255,0.03),transparent_70%)] pointer-events-none" />
+
+      <div className="page-bleed relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-8 sm:mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-white shadow-sm mb-6">
-            <TrendingUp className="w-4 h-4 text-primary-600" />
-            <span className="text-xs font-bold uppercase tracking-widest text-gray-700">Business Impact</span>
-          </div>
-          <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-gray-900 mb-6 tracking-tight leading-[1.1] max-w-4xl mx-auto">
-            Measurable results across your <span className="text-gradient">entire organization</span>
+          <p className="text-sm font-semibold uppercase tracking-[0.1em] text-ember mb-4">
+            See it in action
+          </p>
+          <h2 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-primary mb-4 leading-tight tracking-[-0.02em]">
+            Sales call intelligence dashboard
           </h2>
-          <p className="text-gray-500 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
-            See how 100% conversation coverage—across calls, meetings, and field surveys—drives revenue, ensures compliance, and automates QA.
+          <p className="text-secondary text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Live view of call coverage, agent scores, compliance flags, and missed follow-ups,
+            so managers see what matters without listening to every recording.
           </p>
         </motion.div>
 
-        {/* Bento Box Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 max-w-[1300px] mx-auto px-4 sm:px-6 items-stretch">
-          
-          {/* Main Transcript Bento (Dashboard Feel) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="lg:col-span-7 bg-white rounded-[1.5rem] p-6 shadow-soft-xl border border-gray-100 flex flex-col relative overflow-hidden h-full"
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 pb-4 border-b border-gray-100 relative z-10 gap-4">
-              <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <BrainCircuit className="w-5 h-5 text-primary-600" />
-                Live Call Analysis
-              </h3>
-              <div className="flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider border border-green-200 shadow-sm">
-                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                Call #8892
-              </div>
+        {/* Main console */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="relative rounded-3xl border border-white/15 bg-gradient-to-br from-void-50/90 via-void-100/80 to-void overflow-hidden shadow-[0_0_80px_rgba(255,255,255,0.06)]"
+        >
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-400/50 to-transparent" />
+
+          {/* Console HUD */}
+          <div className="flex flex-wrap items-center justify-between gap-3 px-5 sm:px-8 py-4 border-b border-white/10 bg-void/60">
+            <div className="flex items-center gap-3">
+              <motion.div
+                animate={{ opacity: [1, 0.4, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.8)]"
+              />
+              <span className="font-mono text-xs text-platinum font-bold tracking-wider">
+                VHois QA Pulse · Call Center Intelligence
+              </span>
             </div>
-            
-            <div className="flex-1 grid grid-cols-1 md:grid-cols-5 gap-6 relative z-10">
-              
-              {/* Left Column: Live Feed */}
-              <div className="md:col-span-3 flex flex-col justify-end relative h-full min-h-[280px]">
-                {/* Fade out top for older messages */}
-                <div className="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none" />
-                
-                <div className="flex flex-col justify-end h-full w-full relative overflow-hidden">
-                  <AnimatePresence initial={false}>
-                    {visibleLines.map((lineIdx) => (
-                      <motion.div
-                        key={TRANSCRIPT_LINES[lineIdx].id}
-                        layout
-                        initial={{ opacity: 0, x: -20, scale: 0.95 }}
-                        animate={{ opacity: 1, x: 0, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9, filter: "blur(4px)", transition: { duration: 0.2 } }}
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                        className={`p-3 rounded-xl mb-2 border shadow-sm shrink-0 ${
-                          TRANSCRIPT_LINES[lineIdx].type === 'insight' 
-                            ? "bg-primary-50/50 border-primary-200 ml-4" 
-                            : TRANSCRIPT_LINES[lineIdx].type === 'success'
-                              ? "bg-green-50/50 border-green-200 ml-4"
-                              : TRANSCRIPT_LINES[lineIdx].speaker === 'AGENT'
-                                ? "bg-white border-gray-200 ml-4"
-                                : "bg-gray-50 border-gray-200 mr-4"
-                        }`}
-                      >
-                        <div className="flex items-center gap-1.5 mb-1">
-                          {TRANSCRIPT_LINES[lineIdx].type === 'insight' || TRANSCRIPT_LINES[lineIdx].type === 'success' ? (
-                            <Zap className="w-3 h-3 text-primary-600 fill-primary-600" />
-                          ) : (
-                            <div className="w-1.5 h-1.5 rounded-full bg-gray-400" />
-                          )}
-                          <span className={`text-[9px] font-bold uppercase tracking-widest ${
-                            TRANSCRIPT_LINES[lineIdx].type === 'insight' ? "text-primary-600" 
-                            : TRANSCRIPT_LINES[lineIdx].type === 'success' ? "text-green-600"
-                            : "text-gray-500"
-                          }`}>
-                            {TRANSCRIPT_LINES[lineIdx].speaker}
-                          </span>
-                        </div>
-                        <p className={`text-xs sm:text-sm font-medium leading-snug ${
-                          TRANSCRIPT_LINES[lineIdx].type === 'neutral' ? "text-gray-700" : "text-gray-900"
-                        }`}>
-                          {TRANSCRIPT_LINES[lineIdx].text}
-                        </p>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                </div>
-              </div>
-
-              {/* Right Column: Live Metrics */}
-              <div className="md:col-span-2 hidden md:flex flex-col p-4 bg-gradient-to-b from-gray-50 to-white rounded-xl border border-gray-100 shadow-inner h-full min-h-[280px]">
-                
-                {/* Sentiment Block */}
-                <div className="mb-auto">
-                  <div className="flex items-center justify-between mb-3">
-                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Sentiment Shift</p>
-                    <div className="flex items-center gap-1">
-                      <div className="w-1 h-1 rounded-full bg-green-500 animate-pulse" />
-                      <span className="text-[9px] font-bold text-green-600 uppercase">Positive</span>
-                    </div>
-                  </div>
-                  
-                  {/* Sleek Audio-Spectrum Sentiment Chart */}
-                  <div className="flex items-end justify-between h-12 w-full gap-0.5 border-b border-gray-200 pb-1.5 relative">
-                    {/* Trend Line Overlay */}
-                    <div className="absolute bottom-1.5 left-0 w-full h-[1px] bg-gray-300/50" />
-                    {[...Array(16)].map((_, i) => (
-                      <motion.div 
-                        key={i}
-                        animate={{ 
-                          height: [
-                            `${20 + Math.random() * 30}%`, 
-                            `${40 + Math.random() * 50}%`, 
-                            `${30 + Math.random() * 40}%`
-                          ] 
-                        }} 
-                        transition={{ duration: 1.5 + Math.random(), repeat: Infinity, ease: "easeInOut" }} 
-                        className={`w-full rounded-t-[1px] ${
-                          i < 4 ? 'bg-red-300' : i < 8 ? 'bg-amber-300' : i < 12 ? 'bg-green-300' : 'bg-green-500'
-                        }`} 
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Confidence Bars */}
-                <div className="space-y-3 pt-4">
-                  <div>
-                    <div className="flex justify-between text-[9px] font-bold text-gray-500 mb-1 tracking-wider">
-                      <span>CONFIDENCE</span>
-                      <span className="text-primary-600">98%</span>
-                    </div>
-                    <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
-                      <motion.div initial={{ width: "80%" }} animate={{ width: "98%" }} transition={{ duration: 1 }} className="h-full bg-primary-500 rounded-full" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-[9px] font-bold text-gray-500 mb-1 tracking-wider">
-                      <span>SCRIPT ADHERENCE</span>
-                      <span className="text-green-600">100%</span>
-                    </div>
-                    <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
-                      <motion.div initial={{ width: "60%" }} animate={{ width: "100%" }} transition={{ duration: 1.5 }} className="h-full bg-green-500 rounded-full" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+            <div className="flex flex-wrap items-center gap-4 sm:gap-8 font-mono text-xs">
+              <span className="text-void-600">
+                Manual QA: <span className="text-red-400 font-bold">{Math.max(4, 100 - coverage)}%</span>
+              </span>
+              <span>
+                AI Audit:{" "}
+                <motion.span
+                  key={coverage}
+                  initial={{ scale: 1.2 }}
+                  animate={{ scale: 1 }}
+                  className="text-platinum font-bold"
+                >
+                  {coverage}%
+                </motion.span>
+              </span>
+              <span className="hidden sm:inline text-emerald-400/80">● REC</span>
             </div>
-          </motion.div>
-
-          {/* KPI Strips - Ultra Compact */}
-          <div className="lg:col-span-5 flex flex-col gap-3 h-full">
-            
-            {/* KPI 1: QA */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between group hover:shadow-md transition-all flex-1"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                  <Award className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">QA Audits</h4>
-                  <p className="text-xs text-gray-400 font-medium">Daily calls audited instantly</p>
-                </div>
-              </div>
-              <p className="text-2xl font-display font-bold text-gray-900 tracking-tight">100%</p>
-            </motion.div>
-
-            {/* KPI 2: Sales & Rev */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between group hover:shadow-md transition-all flex-1"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-green-50 text-green-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                  <TrendingUp className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Sales & Rev</h4>
-                  <p className="text-xs text-gray-400 font-medium">Hidden pipeline recovered</p>
-                </div>
-              </div>
-              <p className="text-2xl font-display font-bold text-gray-900 tracking-tight">+18%</p>
-            </motion.div>
-
-            {/* KPI 3: Efficiency */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between group hover:shadow-md transition-all flex-1"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                  <BarChart3 className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Efficiency</h4>
-                  <p className="text-xs text-gray-400 font-medium">After-call work reduced</p>
-                </div>
-              </div>
-              <p className="text-2xl font-display font-bold text-gray-900 tracking-tight">-40%</p>
-            </motion.div>
-
-            {/* KPI 4: Alert Stream */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="bg-gray-900 rounded-2xl p-4 shadow-md border border-gray-800 flex items-center gap-4 relative overflow-hidden flex-1 min-h-[72px]"
-            >
-              <div className="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center shrink-0">
-                <ShieldAlert className="w-5 h-5" />
-              </div>
-              <div className="flex-1 overflow-hidden">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                  <span className="text-[9px] font-bold text-red-400 uppercase tracking-widest">Live Alert Stream</span>
-                </div>
-                <div className="relative h-[18px] flex items-center">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={alertIdx}
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -5 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute inset-0 text-xs font-medium text-gray-300 truncate"
-                    >
-                      {ALERTS[alertIdx]}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* CTA & Trust Badges */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
-              className="mt-1 bg-gradient-to-r from-gray-50 to-white rounded-2xl p-5 border border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 group hover:border-primary-200 transition-colors shadow-sm shrink-0"
-            >
-              <div className="flex flex-col gap-2.5 w-full sm:w-auto">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-primary-500" />
-                  <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">100% Coverage</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-primary-500" />
-                  <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">Multi-lingual Support</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-primary-500" />
-                  <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">Enterprise Security</span>
-                </div>
-              </div>
-              <Link to="/contact" className="w-full sm:w-auto px-5 py-3 bg-gray-900 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-primary-600 transition-colors shadow-md flex items-center justify-center gap-2">
-                Request Demo
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </motion.div>
-
           </div>
-        </div>
 
+          <div className="grid lg:grid-cols-12 gap-0">
+            {/* Agent grid */}
+            <div className="lg:col-span-5 p-5 sm:p-6 border-b lg:border-b-0 lg:border-r border-white/10">
+              <p className="text-[10px] font-mono text-ash/60 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <Scan className="w-3 h-3" />
+                Agent risk matrix
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                {AGENTS.map((agent, i) => (
+                  <motion.div
+                    key={agent.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.06 }}
+                    onMouseEnter={() => setHoveredAgent(agent.id)}
+                    onMouseLeave={() => setHoveredAgent(null)}
+                    className={`relative rounded-xl border p-3 cursor-default transition-all ${
+                      riskColor(agent.risk)
+                    } ${hoveredAgent === agent.id ? "scale-105 shadow-glow-white z-10" : ""}`}
+                  >
+                    {agent.risk === "critical" && (
+                      <motion.div
+                        className="absolute inset-0 rounded-xl border border-red-500/50"
+                        animate={{ opacity: [0.3, 0.8, 0.3] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      />
+                    )}
+                    <p className="text-[10px] font-mono opacity-60">{agent.id}</p>
+                    <p className="text-sm font-semibold text-platinum truncate">{agent.name}</p>
+                    <p className="font-mono text-2xl font-bold mt-1">{agent.score}</p>
+                    <p className="text-[9px] font-mono uppercase opacity-70">{agent.risk}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="mt-4 h-24 hidden sm:block">
+                <CallWaveCanvas intensity={coverage / 100} flagged={coverage > 50} />
+              </div>
+            </div>
+
+            {/* Live transcript + alerts */}
+            <div className="lg:col-span-7 p-5 sm:p-6 flex flex-col">
+              <div className="flex-1 rounded-xl border border-white/10 bg-void/80 p-4 sm:p-5 mb-4 min-h-[200px] relative overflow-hidden">
+                <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.4)_50%)] bg-[length:100%_4px] opacity-20 pointer-events-none" />
+                <p className="text-[10px] font-mono text-ash/50 uppercase tracking-widest mb-3">
+                  Live call intercept · simulated
+                </p>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={lineIdx}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className={`font-mono text-sm sm:text-base ${TRANSCRIPT_LINES[lineIdx].flag ? "text-red-300" : "text-ash"}`}
+                  >
+                    <span className="text-platinum/70 text-xs block mb-1">
+                      [{TRANSCRIPT_LINES[lineIdx].speaker}] · {TRANSCRIPT_LINES[lineIdx].lang}
+                    </span>
+                    {TRANSCRIPT_LINES[lineIdx].text}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              <motion.div
+                key={alertIdx}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-red-500/10 border border-red-500/25 text-red-300 text-xs font-mono mb-4"
+              >
+                <AlertTriangle className="w-4 h-4 shrink-0" />
+                {ALERTS[alertIdx]}
+              </motion.div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { icon: Shield, label: "Compliance", val: "AUTO" },
+                  { icon: TrendingUp, label: "Agreements", val: "TRACKED" },
+                  { icon: TrendingDown, label: "Bad calls", val: "FLAGGED" },
+                  { icon: Radio, label: "Languages", val: "11+" },
+                ].map(({ icon: Icon, label, val }) => (
+                  <div
+                    key={label}
+                    className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2.5 text-center"
+                  >
+                    <Icon className="w-4 h-4 text-platinum/60 mx-auto mb-1" />
+                    <p className="text-[9px] font-mono text-ash/50 uppercase">{label}</p>
+                    <p className="text-xs font-mono font-bold text-platinum">{val}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Insight chips + CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-10 flex flex-col items-center"
+        >
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {[
+              "Agent misbehavior detection",
+              "Customer agreement tracking",
+              "Script violation alerts",
+              "Missed follow-up ID",
+              "Supervisor coaching insights",
+              "Search all calls",
+            ].map((chip, i) => (
+              <motion.span
+                key={chip}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="text-xs font-mono px-3 py-1.5 rounded-full border border-white/15 bg-white/5 text-ash hover:text-platinum hover:border-white/30 transition-colors"
+              >
+                {chip}
+              </motion.span>
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-2">
+            <Link to="/agent-intelligence">
+              <Button variant="primary" size="sm" className="group relative overflow-hidden">
+                <motion.span
+                  className="absolute inset-0 bg-gradient-to-r from-red-500/20 via-white/10 to-red-500/20"
+                  animate={{ x: ["-100%", "100%"] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                />
+                <span className="relative flex items-center gap-2">
+                  <Zap className="w-5 h-5" />
+                  Explore Agent Intelligence
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </Button>
+            </Link>
+            <Link to="/call-center-qa">
+              <Button variant="outline" size="sm">
+                Free call audit (2 min)
+              </Button>
+            </Link>
+          </div>
+          <p className="text-[10px] font-mono text-void-700 mt-4">
+            For Indian call centers · Pilot-ready · Share with your QA team
+          </p>
+        </motion.div>
       </div>
     </section>
   );

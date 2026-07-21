@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import AnimatedBackground from "./components/AnimatedBackground";
+import CursorTrail from "./components/CursorTrail";
 import PageRouter from "./router/PageRouter";
 import { usePathname } from "./hooks/usePathname";
 
@@ -26,7 +27,7 @@ function ScrollToTop() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 right-8 z-50 p-4 bg-white text-gray-900 rounded-full shadow-soft-lg hover:shadow-glow-primary transition-shadow border border-gray-100"
+          className="fixed bottom-8 right-8 z-50 p-4 bg-platinum text-void rounded-full shadow-glow-white-lg hover:shadow-glow-white transition-shadow"
           aria-label="Scroll to top"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,11 +86,10 @@ function AppContent() {
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="relative min-h-screen bg-white text-gray-900 overflow-x-hidden">
+      <div className="relative min-h-screen bg-void text-platinum overflow-x-hidden">
         <AnimatedBackground />
-        <div className="relative z-10 flex flex-col min-h-screen">
-          <AppContent />
-        </div>
+        <CursorTrail />
+        <AppContent />
       </div>
     </BrowserRouter>
   );

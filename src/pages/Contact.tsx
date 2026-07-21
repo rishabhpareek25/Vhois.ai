@@ -57,7 +57,7 @@ const INQUIRY_CARDS = [
 ];
 
 const inputClass =
-  "w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all text-sm";
+  "w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.08] text-platinum placeholder:text-void-700 focus:outline-none focus:border-white/25 transition-colors text-sm";
 
 export default function Contact() {
   usePageMeta(
@@ -101,10 +101,11 @@ export default function Contact() {
   };
 
   return (
-    <div className="relative min-h-screen pt-28 sm:pt-32 pb-20 bg-gray-50 overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <WaitlistParticleField intensity={0.2} />
+    <div className="relative min-h-screen pt-28 sm:pt-32 pb-20 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none opacity-60">
+        <WaitlistParticleField intensity={0.35} />
       </div>
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(255,255,255,0.06),transparent)]" />
 
       <div className="relative page-bleed">
         <PageHero
@@ -113,7 +114,7 @@ export default function Contact() {
             <>
               Let&apos;s talk about the conversations
               <br />
-              <span className="text-primary-600">your business is missing.</span>
+              <span className="text-void-600">your business is missing.</span>
             </>
           }
           description="Pilots, integrations, partnerships, or a first conversation about speech intelligence, tell us what you're building and we'll respond thoughtfully."
@@ -128,12 +129,12 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="rounded-2xl border border-gray-200 bg-white shadow-sm p-6 hover:shadow-md hover:border-primary-200 transition-all group"
+              className="rounded-xl border border-white/[0.08] bg-void-50/40 backdrop-blur-sm p-5 hover:border-white/15 transition-colors"
             >
-              <card.icon className="w-6 h-6 text-primary-600 mb-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-              <h3 className="font-semibold text-gray-900 text-sm mb-2">{card.title}</h3>
-              <p className="text-xs text-gray-500 leading-relaxed mb-4">{card.description}</p>
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+              <card.icon className="w-5 h-5 text-platinum mb-3" strokeWidth={1.5} />
+              <h3 className="font-semibold text-platinum text-sm mb-2">{card.title}</h3>
+              <p className="text-xs text-void-600 leading-relaxed mb-3">{card.description}</p>
+              <p className="text-[10px] font-mono text-void-700 uppercase tracking-wider">
                 {card.cta}
               </p>
             </motion.div>
@@ -146,15 +147,15 @@ export default function Contact() {
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.15 }}
-            className="lg:col-span-3 rounded-3xl border border-gray-200 bg-white shadow-xl p-6 sm:p-10"
+            className="lg:col-span-3 rounded-2xl border border-white/[0.1] bg-void-50/50 backdrop-blur-md p-6 sm:p-8"
           >
             {submitted ? (
               <div className="flex flex-col items-center justify-center min-h-[420px] text-center py-8">
-                <CheckCircle className="w-16 h-16 text-emerald-500 mb-6" strokeWidth={1.5} />
-                <h2 className="font-sans font-semibold text-3xl text-gray-900 mb-3">
+                <CheckCircle className="w-14 h-14 text-platinum mb-5" strokeWidth={1.5} />
+                <h2 className="font-sans font-semibold text-2xl text-platinum mb-3">
                   Message received
                 </h2>
-                <p className="text-gray-500 max-w-md mb-8 leading-relaxed">
+                <p className="text-void-600 max-w-md mb-8 leading-relaxed">
                   Thank you for reaching out. We review every inquiry and will get back to you as
                   soon as we can.
                 </p>
@@ -163,10 +164,10 @@ export default function Contact() {
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="contact-name" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+                    <label htmlFor="contact-name" className="block text-xs font-mono text-void-600 mb-2">
                       Name *
                     </label>
                     <input
@@ -181,7 +182,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="contact-company" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+                    <label htmlFor="contact-company" className="block text-xs font-mono text-void-600 mb-2">
                       Company
                     </label>
                     <input
@@ -198,7 +199,7 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="contact-email" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+                    <label htmlFor="contact-email" className="block text-xs font-mono text-void-600 mb-2">
                       Email *
                     </label>
                     <input
@@ -213,7 +214,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="contact-phone" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+                    <label htmlFor="contact-phone" className="block text-xs font-mono text-void-600 mb-2">
                       Phone
                     </label>
                     <input
@@ -230,7 +231,7 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="contact-role" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+                    <label htmlFor="contact-role" className="block text-xs font-mono text-void-600 mb-2">
                       Role
                     </label>
                     <input
@@ -243,7 +244,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="contact-usecase" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+                    <label htmlFor="contact-usecase" className="block text-xs font-mono text-void-600 mb-2">
                       Use case *
                     </label>
                     <select
@@ -253,11 +254,11 @@ export default function Contact() {
                       onChange={(e) => setFormData({ ...formData, useCase: e.target.value })}
                       className={`${inputClass} appearance-none cursor-pointer`}
                     >
-                      <option value="" disabled className="bg-white text-gray-500">
+                      <option value="" disabled className="bg-void text-void-600">
                         Select use case
                       </option>
                       {USE_CASES.map((uc) => (
-                        <option key={uc} value={uc} className="bg-white text-gray-900">
+                        <option key={uc} value={uc} className="bg-void text-platinum">
                           {uc}
                         </option>
                       ))}
@@ -266,7 +267,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="contact-message" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+                  <label htmlFor="contact-message" className="block text-xs font-mono text-void-600 mb-2">
                     Message *
                   </label>
                   <textarea
@@ -279,7 +280,7 @@ export default function Contact() {
                     className={`${inputClass} resize-none`}
                     placeholder="Tell us about your conversations, volume, languages, and what success looks like..."
                   />
-                  <p className="text-[10px] font-mono text-gray-400 mt-1.5">
+                  <p className="text-[10px] font-mono text-void-700 mt-1.5">
                     {formData.message.length} / 2000
                   </p>
                 </div>
@@ -289,7 +290,7 @@ export default function Contact() {
                   Send Message
                 </Button>
                 {error && (
-                  <p className="text-sm text-red-500 font-mono mt-2" role="alert">
+                  <p className="text-sm text-red-400/90 font-mono mt-2" role="alert">
                     {error}
                   </p>
                 )}
@@ -306,8 +307,8 @@ export default function Contact() {
           >
             <CompanyLegalBlock className="mb-6" compact />
 
-            <div className="rounded-2xl border border-gray-200 p-6 bg-white shadow-sm">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">
+            <div className="rounded-2xl border border-white/[0.08] p-6 bg-white/[0.02]">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-void-600 mb-4">
                 Follow Vhois AI
               </p>
               <div className="flex gap-3">
@@ -316,7 +317,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Vhois AI on LinkedIn"
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:text-primary-600 hover:border-primary-200 transition-colors text-sm font-medium"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/[0.08] text-void-600 hover:text-platinum hover:border-white/20 transition-colors text-sm"
                 >
                   <Linkedin className="w-4 h-4" />
                   LinkedIn
@@ -326,7 +327,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Vhois AI on Instagram"
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:text-primary-600 hover:border-primary-200 transition-colors text-sm font-medium"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/[0.08] text-void-600 hover:text-platinum hover:border-white/20 transition-colors text-sm"
                 >
                   <Instagram className="w-4 h-4" />
                   Instagram
@@ -334,27 +335,27 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-gray-200 p-6 bg-white shadow-sm">
-              <h3 className="font-semibold text-gray-900 mb-2">Explore first</h3>
-              <p className="text-sm text-gray-500 mb-4 leading-relaxed">
+            <div className="rounded-2xl border border-white/[0.08] p-6 bg-gradient-to-br from-white/[0.04] to-transparent">
+              <h3 className="font-semibold text-platinum mb-2">Explore first</h3>
+              <p className="text-sm text-void-600 mb-4 leading-relaxed">
                 Not ready to talk? Learn how we turn speech into structured intelligence.
               </p>
               <div className="flex flex-col gap-2">
                 <Link
                   to="/about"
-                  className="text-sm text-primary-600 hover:underline font-medium"
+                  className="text-sm text-platinum hover:underline"
                 >
                   About Vhois AI →
                 </Link>
                 <Link
                   to="/agent-intelligence"
-                  className="text-sm text-primary-600 hover:underline font-medium"
+                  className="text-sm text-platinum hover:underline"
                 >
                   Agent intelligence →
                 </Link>
                 <Link
                   to="/team"
-                  className="text-sm text-primary-600 hover:underline font-medium"
+                  className="text-sm text-platinum hover:underline"
                 >
                   Meet the founders →
                 </Link>

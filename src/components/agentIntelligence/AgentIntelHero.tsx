@@ -20,7 +20,7 @@ export default function AgentIntelHero({ onIntegrationsClick }: Props) {
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-4"
+              className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] text-void-600 mb-4"
             >
               Agent Intelligence · Call Audit · Quality Intelligence
             </motion.p>
@@ -29,18 +29,18 @@ export default function AgentIntelHero({ onIntegrationsClick }: Props) {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="font-sans font-semibold text-[1.75rem] leading-[1.12] sm:text-4xl md:text-5xl xl:text-[3.25rem] text-gray-900 tracking-tight mb-5"
+              className="font-sans font-semibold text-[1.75rem] leading-[1.12] sm:text-4xl md:text-5xl xl:text-[3.25rem] text-platinum tracking-tight mb-5"
             >
               Stop sampling calls.
               <br />
-              <span className="text-primary-600">Start understanding every conversation.</span>
+              <span className="text-void-600">Start understanding every conversation.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-base sm:text-lg text-gray-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0"
+              className="text-base sm:text-lg text-void-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0"
             >
               Vhois AI audits 100% of agent calls and reveals revenue leaks, script violations,
               customer intent, and agent performance risks, your AI Quality Manager for every
@@ -59,7 +59,7 @@ export default function AgentIntelHero({ onIntegrationsClick }: Props) {
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
-              <Button variant="outline" size="sm" className="w-full sm:w-auto bg-white" onClick={onIntegrationsClick}>
+              <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={onIntegrationsClick}>
                 View integration options
               </Button>
             </motion.div>
@@ -68,9 +68,9 @@ export default function AgentIntelHero({ onIntegrationsClick }: Props) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="mt-6 text-xs font-bold text-gray-500 flex items-center justify-center lg:justify-start gap-2"
+              className="mt-6 text-xs font-mono text-void-700 flex items-center justify-center lg:justify-start gap-2"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Hindi · Hinglish · all Indian languages
             </motion.p>
           </div>
